@@ -8,6 +8,22 @@ OpenIM SDK for react-native
 npm install open-im-sdk-rn
 ```
 
+## Android
+- Add dependencies
+
+```
+// ./android/build.gradle
+...
+repositories{
+  ...
+  maven {
+            allowInsecureProtocol = true
+            url 'http://47.112.160.66:8081/repository/maven-releases'
+        }
+}
+
+```
+
 ## Usage
 
 ```js
