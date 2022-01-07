@@ -79,7 +79,7 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void getLoginStatus(Promise promise) {
         long status = Open_im_sdk.getLoginStatus();
-        promise.resolve(status);
+        promise.resolve((int)status);
     }
 
     @ReactMethod

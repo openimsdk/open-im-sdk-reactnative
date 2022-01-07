@@ -48,6 +48,17 @@ export default function App() {
     console.log(data);
   }
 
+  const GetLoginStatus = async () => {
+    const data = await OpenIMSDKRN.getLoginStatus();
+    console.log(data);
+  }
+
+  const GetHistoryMsgSplit =  async () => {
+    const data = await OpenIMSDKRN.getConversationListSplit(0,1);
+    console.log(data);
+    
+  }
+
   const GetUsersInfo = async() => {
    const data = await OpenIMSDKRN.getUsersInfo(["17396220460"])
    console.log(data);
@@ -67,9 +78,11 @@ export default function App() {
     <View style={styles.container}>
            <Button onPress={Init} title="Init" />
            <Button onPress={Login} title="Login" />
+           <Button onPress={GetLoginStatus} title="getLoginStatus" />
            <Button onPress={GetUsersInfo} title="GetUsersInfo" />
            <Button onPress={CreateTextMsg} title="CreateTextMsg" />
            <Button onPress={SendMsg} title="SendMsg" />
+           <Button onPress={GetHistoryMsgSplit} title="getHistoryMsgSplit" />
     </View>
   );
 }
