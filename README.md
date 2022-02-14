@@ -18,7 +18,7 @@ repositories{
   ...
   maven {
             allowInsecureProtocol = true
-            url 'http://47.112.160.66:8081/repository/maven-releases'
+            url 'http://121.37.25.71:8081/repository/maven-releases'
         }
 }
 
