@@ -18,5 +18,5 @@ Pod::Spec.new do |s|
   # s.preserve_path = "ios/Frameworks/"
   
   s.dependency "React-Core"
-  s.dependency "OpenIMSDKiOS"
+  s.dependency "OpenIMSDKCore","1.0.0"
 end

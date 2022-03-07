@@ -1,8 +1,7 @@
 package com.openimsdkrn;
 
 import com.facebook.react.bridge.Promise;
-
-import open_im_sdk.Base;
+import open_im_sdk_callback.Base;
 
 public class BaseImpl implements Base {
     final private Promise promise;
@@ -12,7 +11,7 @@ public class BaseImpl implements Base {
     }
 
     @Override
-    public void onError(long l, String s) {
+    public void onError(int l, String s) {
         promise.reject(String.valueOf(l), s);
     }
 

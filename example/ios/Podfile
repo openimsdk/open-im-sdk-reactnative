@@ -18,4 +18,5 @@ target 'OpenImSdkRnExample' do
   # post_install do |installer|
   #   flipper_post_install(installer)
   # end
+  # use_flipper!()
 end

@@ -17,8 +17,8 @@
     return self;
 }
 
-- (void)onError:(long)errCode errMsg:(NSString * _Nullable)errMsg {
-    self.rejecter([NSString stringWithFormat:@"%ld",errCode],errMsg,nil);
+- (void)onError:(int32_t)errCode errMsg:(NSString * _Nullable)errMsg {
+    self.rejecter([NSString stringWithFormat:@"%d",errCode],errMsg,nil);
 }
 
 - (void)onSuccess:(NSString * _Nullable)data {

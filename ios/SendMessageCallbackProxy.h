@@ -12,7 +12,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface RNSendMessageCallbackProxy : NSObject <Open_im_sdkSendMsgCallBack>
+@interface RNSendMessageCallbackProxy : NSObject <Open_im_sdk_callbackSendMsgCallBack>
 
 - (id)initWithMessage:(NSString *)msg module:(OpenIMSDKRN *)module resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter;
 

@@ -11,7 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface RNCallbackProxy : NSObject <Open_im_sdkBase>
+@interface RNCallbackProxy : NSObject <Open_im_sdk_callbackBase>
 
 - (id)initWithCallback:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter;
 

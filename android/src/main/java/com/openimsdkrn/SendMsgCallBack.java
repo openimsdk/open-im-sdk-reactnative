@@ -7,7 +7,7 @@ import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.Promise;
 
-public class SendMsgCallBack extends Emitter implements open_im_sdk.SendMsgCallBack {
+public class SendMsgCallBack extends Emitter implements open_im_sdk_callback.SendMsgCallBack {
     final ReactApplicationContext ctx;
     final private Promise promise;
     final private String msg;
@@ -17,7 +17,7 @@ public class SendMsgCallBack extends Emitter implements open_im_sdk.SendMsgCallB
         this.msg = msg;
     }
     @Override
-    public void onError(long l, String s) {
+    public void onError(int l, String s) {
         promise.reject(String.valueOf(l),s);
     }
 

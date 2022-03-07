@@ -38,17 +38,19 @@ const Init = async () => {
  await RNFS.mkdir(RNFS.DocumentDirectoryPath + '/tmp')
   const options = {
     platform: 2,
-    ipApi:"http://47.112.160.66:10000",
-    ipWs:"ws://47.112.160.66:17778",
-    dbDir:RNFS.DocumentDirectoryPath + '/tmp'
+    api_addr: 'http://121.37.25.71:10000',
+    ws_addr: 'ws://121.37.25.71:17778',
+    data_dir: RNFS.DocumentDirectoryPath + '/tmp',
+    log_level: 6,
+    object_storage: 'cos',
   }
-  const data = await OpenIMSDKRN.initSDK(options)
+  const data = await OpenIMSDKRN.initSDK(options, uuid())
 }
 
 const Login = async() => {
 	const uid = "xxx"
   const token = "xxxxx"
-  const data = await OpenIMSDKRN.login(uid,token)
+  const data = await OpenIMSDKRN.login(uid,token,uuid())
 }
 ```
 

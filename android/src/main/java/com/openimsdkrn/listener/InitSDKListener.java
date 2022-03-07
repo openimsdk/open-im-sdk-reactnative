@@ -4,9 +4,9 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.WritableMap;
 
 import com.openimsdkrn.utils.Emitter;
-import open_im_sdk.IMSDKListener;
+import open_im_sdk_callback.OnConnListener;
 
-public class InitSDKListener extends Emitter implements IMSDKListener {
+public class InitSDKListener extends Emitter implements OnConnListener {
     private final ReactApplicationContext ctx;
 
     public InitSDKListener(ReactApplicationContext ctx) {
@@ -14,7 +14,7 @@ public class InitSDKListener extends Emitter implements IMSDKListener {
     }
 
     @Override
-    public void onConnectFailed(long l, String s) {
+    public void onConnectFailed(int l, String s) {
         send(ctx,"onConnectFailed",getParams(l,s,"connectFailed"));
     }
 
@@ -31,11 +31,6 @@ public class InitSDKListener extends Emitter implements IMSDKListener {
     @Override
     public void onKickedOffline() {
         send(ctx,"onKickedOffline",getParams(0,"","kickedOffline"));
-    }
-
-    @Override
-    public void onSelfInfoUpdated(String s) {
-        send(ctx,"onSelfInfoUpdated",getParams(0,"",s));
     }
 
     @Override

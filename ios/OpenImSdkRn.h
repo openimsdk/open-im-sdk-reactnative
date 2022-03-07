@@ -9,7 +9,7 @@
 #import <React/RCTEventEmitter.h>
 #endif
 
-@interface OpenIMSDKRN : RCTEventEmitter <RCTBridgeModule,Open_im_sdkIMSDKListener, Open_im_sdkOnAdvancedMsgListener, Open_im_sdkOnFriendshipListener, Open_im_sdkOnConversationListener, Open_im_sdkOnGroupListener>
+@interface OpenIMSDKRN : RCTEventEmitter <RCTBridgeModule,Open_im_sdk_callbackOnConnListener,Open_im_sdk_callbackOnUserListener, Open_im_sdk_callbackOnAdvancedMsgListener, Open_im_sdk_callbackOnFriendshipListener, Open_im_sdk_callbackOnConversationListener, Open_im_sdk_callbackOnGroupListener>
 
 - (void)pushEvent:(NSString *) eventName errCode:(NSNumber *) errCode errMsg:(NSString *) errMsg data:(NSString *) data;
 

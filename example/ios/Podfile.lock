@@ -19,10 +19,10 @@ PODS:
     - DoubleConversion
     - glog
   - glog (0.3.5)
-  - open-im-sdk-rn (0.1.0):
-    - OpenIMSDKiOS
+  - open-im-sdk-rn (0.2.5):
+    - OpenIMSDKCore (= 1.0.0)
     - React-Core
-  - OpenIMSDKiOS (1.0.22)
+  - OpenIMSDKCore (1.0.0)
   - RCTRequired (0.63.4)
   - RCTTypeSafety (0.63.4):
     - FBLazyVector (= 0.63.4)
@@ -288,7 +288,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - boost-for-react-native
-    - OpenIMSDKiOS
+    - OpenIMSDKCore
 
 EXTERNAL SOURCES:
   DoubleConversion:
@@ -355,8 +355,8 @@ SPEC CHECKSUMS:
   FBReactNativeSpec: f2c97f2529dd79c083355182cc158c9f98f4bd6e
   Folly: b73c3869541e86821df3c387eb0af5f65addfab4
   glog: 40a13f7840415b9a77023fbcae0f1e6f43192af3
-  open-im-sdk-rn: b287119bf17a63c858b4b54573fc21d676192f18
-  OpenIMSDKiOS: c80cf1854f42a9e33c54ad7278ccaadd7a0de410
+  open-im-sdk-rn: ee4c5f90a7a577413e65b5352148f885011d6ff9
+  OpenIMSDKCore: 6b1206100738610db8a7c75348f3d0d52be6ecca
   RCTRequired: 082f10cd3f905d6c124597fd1c14f6f2655ff65e
   RCTTypeSafety: 8c9c544ecbf20337d069e4ae7fd9a377aadf504b
   React: b0a957a2c44da4113b0c4c9853d8387f8e64e615
@@ -380,6 +380,6 @@ SPEC CHECKSUMS:
   RNFS: 3ab21fa6c56d65566d1fb26c2228e2b6132e5e32
   Yoga: 4bd86afe9883422a7c4028c00e34790f560923d6
 
-PODFILE CHECKSUM: e715d8f5d100c45f6b4f6719f6bd3bc15e06f22f
+PODFILE CHECKSUM: 097a267bdbe22ce7c7a3fe763f3d5742517da94a
 
-COCOAPODS: 1.10.1
+COCOAPODS: 1.11.2
