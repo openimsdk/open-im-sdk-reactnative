@@ -151,7 +151,7 @@ RCT_EXPORT_METHOD(getAllConversationList:(NSString *)opid resolver:(RCTPromiseRe
 RCT_EXPORT_METHOD(getConversationListSplit:(nonnull NSNumber *)offset count:(nonnull NSNumber *)count opid:(NSString *)opid resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter)
 {
     RNCallbackProxy * proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
-    Open_im_sdkGetConversationListSplit(proxy,opid, (long)offset, (long)count);
+    Open_im_sdkGetConversationListSplit(proxy,opid,[offset longValue], [count longValue]);
 }
 
 
@@ -194,19 +194,19 @@ RCT_EXPORT_METHOD(getMultipleConversation:(NSArray *)cveids opid:(NSString *)opi
 RCT_EXPORT_METHOD(getOneConversation:(NSString *)sourceId sessionType:(nonnull NSNumber *)sessionType opid:(NSString *)opid resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter)
 {
     RNCallbackProxy * proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
-    Open_im_sdkGetOneConversation(proxy,opid, (long)sessionType,sourceId);
+    Open_im_sdkGetOneConversation(proxy,opid, [sessionType longValue],sourceId);
 }
 
 RCT_EXPORT_METHOD(getConversationIDBySessionType:(NSString *)sourceId sessionType:(nonnull NSNumber *)sessionType resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter)
 {
-    NSString *str = Open_im_sdkGetConversationIDBySessionType(sourceId, (long)sessionType);
+    NSString *str = Open_im_sdkGetConversationIDBySessionType(sourceId,[sessionType longValue]);
     resolver(str);
 }
 
 RCT_EXPORT_METHOD(setConversationRecvMessageOpt:(NSArray *)cveids status:(nonnull NSNumber *)status opid:(NSString *)opid resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter)
 {
     RNCallbackProxy * proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
-    Open_im_sdkSetConversationRecvMessageOpt(proxy,opid, [cveids json], (long)status);
+    Open_im_sdkSetConversationRecvMessageOpt(proxy,opid, [cveids json], [status longValue]);
 }
 
 RCT_EXPORT_METHOD(getConversationRecvMessageOpt:(NSArray *)cveids opid:(NSString *)opid resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter)
@@ -404,6 +404,12 @@ RCT_EXPORT_METHOD(sendMessage:(NSString *)msg recid:(NSString *)recid gid:(NSStr
     Open_im_sdkSendMessage(proxy,opid, msg, recid, gid, [offlinePushInfo json]);
 }
 
+RCT_EXPORT_METHOD(sendMessageNotOss:(NSString *)msg recid:(NSString *)recid gid:(NSString *)gid offlinePushInfo:(NSDictionary *)offlinePushInfo opid:(NSString *)opid resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter)
+{
+    RNSendMessageCallbackProxy * proxy = [[RNSendMessageCallbackProxy alloc] initWithMessage:msg module:self resolver:resolver rejecter:rejecter];
+    Open_im_sdkSendMessageNotOss(proxy,opid, msg, recid, gid, [offlinePushInfo json]);
+}
+
 RCT_EXPORT_METHOD(getHistoryMessageList:(NSDictionary *)options opid:(NSString *)opid resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter)
 {
     RNCallbackProxy * proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
@@ -485,13 +491,13 @@ RCT_EXPORT_METHOD(createImageMessageByURL:(NSDictionary *)sourcePicture bigPictu
 
 RCT_EXPORT_METHOD(createSoundMessage:(NSString *)path duration:(nonnull NSNumber *)duration opid:(NSString *)opid resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter)
 {
-    NSString *msg = Open_im_sdkCreateSoundMessage(opid,path, (int64_t)duration);
+    NSString *msg = Open_im_sdkCreateSoundMessage(opid,path, [duration intValue]);
     resolver(msg);
 }
 
 RCT_EXPORT_METHOD(createSoundMessageFromFullPath:(NSString *)path duration:(nonnull NSNumber *)duration opid:(NSString *)opid resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter)
 {
-    NSString *msg = Open_im_sdkCreateSoundMessageFromFullPath(opid,path, (int64_t)duration);
+    NSString *msg = Open_im_sdkCreateSoundMessageFromFullPath(opid,path, [duration intValue]);
     resolver(msg);
 }
 
@@ -503,13 +509,13 @@ RCT_EXPORT_METHOD(createSoundMessageByURL:(NSDictionary *)soundBaseInfo opid:(NS
 
 RCT_EXPORT_METHOD(createVideoMessage:(NSString *)path type:(NSString *)type duration:(nonnull NSNumber *)duration snapshotPath:(NSString *)snapshotPath opid:(NSString *)opid resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter)
 {
-    NSString *msg = Open_im_sdkCreateVideoMessage(opid,path, type, (int64_t)duration, snapshotPath);
+    NSString *msg = Open_im_sdkCreateVideoMessage(opid,path, type, [duration intValue], snapshotPath);
     resolver(msg);
 }
 
 RCT_EXPORT_METHOD(createVideoMessageFromFullPath:(NSString *)path type:(NSString *)type duration:(nonnull NSNumber *)duration snapshotPath:(NSString *)snapshotPath opid:(NSString *)opid resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter)
 {
-    NSString *msg = Open_im_sdkCreateVideoMessageFromFullPath(opid,path, type, (int64_t)duration, snapshotPath);
+    NSString *msg = Open_im_sdkCreateVideoMessageFromFullPath(opid,path, type, [duration intValue], snapshotPath);
     resolver(msg);
 }
 
