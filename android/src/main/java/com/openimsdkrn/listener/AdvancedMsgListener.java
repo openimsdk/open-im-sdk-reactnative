@@ -18,6 +18,11 @@ public class AdvancedMsgListener extends Emitter implements OnAdvancedMsgListene
   }
 
   @Override
+  public void onRecvGroupReadReceipt(String s) {
+    send(ctx,"onRecvGroupReadReceipt",getParams(0,"",s));
+  }
+
+  @Override
   public void onRecvMessageRevoked(String s) {
     send(ctx,"onRecvMessageRevoked",getParams(0,"",s));
   }

@@ -3,7 +3,7 @@ buildscript {
         repositories {
             maven {
             allowInsecureProtocol = true
-            url 'http://121.37.25.71:8081/repository/maven-releases'
+            url 'http://121.37.25.71:8081/repository/maven2/'
         }
              google()
              mavenCentral()
@@ -49,7 +49,7 @@ android {
 repositories {
     maven {
             allowInsecureProtocol = true
-            url 'http://121.37.25.71:8081/repository/maven-releases'
+            url 'http://121.37.25.71:8081/repository/maven2/'
         }
     mavenLocal()
     maven {
@@ -66,6 +66,6 @@ dependencies {
     implementation "com.facebook.react:react-native:+"  // From node_modules
     implementation 'androidx.collection:collection:1.1.0'
     implementation 'com.alibaba:fastjson:1.1.72.android'
-    implementation 'io.openim:client-sdk:2.0.5@aar'
+    implementation 'io.openim:core-sdk:2.0.8.+@aar'
     // implementation fileTree(dir: 'libs', include: ['*.aar', '*.jar'], exclude: [])
 }
