@@ -490,33 +490,33 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void signalingInvite(String signalInviteReq,String operationID,Promise promise){
-    Open_im_sdk.signalingInvite(new BaseImpl(promise), operationID, signalInviteReq);
+  public void signalingInvite(ReadableMap signalInviteReq,String operationID,Promise promise){
+    Open_im_sdk.signalingInvite(new BaseImpl(promise), operationID, readableMap2string(signalInviteReq));
   }
 
 
   @ReactMethod
-  public void signalingInviteInGroup(String signalInviteInGroupReq,String operationID,Promise promise){
-    Open_im_sdk.signalingInviteInGroup(new BaseImpl(promise), operationID, signalInviteInGroupReq);
+  public void signalingInviteInGroup(ReadableMap signalInviteInGroupReq,String operationID,Promise promise){
+    Open_im_sdk.signalingInviteInGroup(new BaseImpl(promise), operationID, readableMap2string(signalInviteInGroupReq));
   }
 
   @ReactMethod
-  public void signalingAccept(String signalAcceptReq,String operationID,Promise promise){
-    Open_im_sdk.signalingAccept(new BaseImpl(promise), operationID, signalAcceptReq);
+  public void signalingAccept(ReadableMap signalAcceptReq,String operationID,Promise promise){
+    Open_im_sdk.signalingAccept(new BaseImpl(promise), operationID, readableMap2string(signalAcceptReq));
   }
 
   @ReactMethod
-  public void signalingReject(String signalRejectReq,String operationID,Promise promise){
-    Open_im_sdk.signalingReject(new BaseImpl(promise), operationID, signalRejectReq);
+  public void signalingReject(ReadableMap signalRejectReq,String operationID,Promise promise){
+    Open_im_sdk.signalingReject(new BaseImpl(promise), operationID, readableMap2string(signalRejectReq));
   }
 
   @ReactMethod
-  public void signalingCancel(String signalCancelReq,String operationID,Promise promise){
-    Open_im_sdk.signalingCancel(new BaseImpl(promise), operationID, signalCancelReq);
+  public void signalingCancel(ReadableMap signalCancelReq,String operationID,Promise promise){
+    Open_im_sdk.signalingCancel(new BaseImpl(promise), operationID, readableMap2string(signalCancelReq));
   }
 
   @ReactMethod
-  public void signalingHungUp(String signalHungUpReq,String operationID,Promise promise){
-    Open_im_sdk.signalingHungUp(new BaseImpl(promise), operationID, signalHungUpReq);
+  public void signalingHungUp(ReadableMap signalHungUpReq,String operationID,Promise promise){
+    Open_im_sdk.signalingHungUp(new BaseImpl(promise), operationID, readableMap2string(signalHungUpReq));
   }
 }
