@@ -83,6 +83,7 @@ RCT_EXPORT_METHOD(initSDK:(NSDictionary *)config opid:(NSString *)opid resolver:
      Open_im_sdkSetFriendListener(self);
      Open_im_sdkSetGroupListener(self);
      Open_im_sdkSetAdvancedMsgListener(self);
+     Open_im_sdkSetSignalingListener(self);
     if (flag) {
         resolve(@"init success");
     }else{
@@ -465,9 +466,9 @@ RCT_EXPORT_METHOD(createTextMessage:(NSString *)text opid:(NSString *)opid resol
     resolver(msg);
 }
 
-RCT_EXPORT_METHOD(createTextAtMessage:(NSString *)text ats:(NSArray *)ats opid:(NSString *)opid resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter)
+RCT_EXPORT_METHOD(createTextAtMessage:(NSString *)text atIDs:(NSArray *)atIDs atInfos:(NSArray *)atInfos quteMsg:(NSDictionary *)quteMsg opid:(NSString *)opid resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter)
 {
-    NSString *msg = Open_im_sdkCreateTextAtMessage(opid,text, [ats json]);
+    NSString *msg = Open_im_sdkCreateTextAtMessage(opid,text, [atIDs json], [atInfos json], [quteMsg json]);
     resolver(msg);
 }
 
@@ -592,6 +593,41 @@ RCT_EXPORT_METHOD(clearGroupHistoryMessage:(NSString *)gid opid:(NSString *)opid
     Open_im_sdkClearGroupHistoryMessage(proxy,opid, gid);
 }
 
+RCT_EXPORT_METHOD(signalingInvite:(NSDictionary *)signalInviteReq opid:(NSString *)opid resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter)
+{
+    RNCallbackProxy * proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
+    Open_im_sdkSignalingInvite(proxy, opid, [signalInviteReq json]);
+}
+
+RCT_EXPORT_METHOD(signalingInviteInGroup:(NSDictionary *)signalInviteInGroupReq opid:(NSString *)opid resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter)
+{
+    RNCallbackProxy * proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
+    Open_im_sdkSignalingInviteInGroup(proxy, opid, [signalInviteInGroupReq json]);
+}
+
+RCT_EXPORT_METHOD(signalingAccept:(NSDictionary *)signalAcceptReq opid:(NSString *)opid resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter)
+{
+    RNCallbackProxy * proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
+    Open_im_sdkSignalingAccept(proxy, opid, [signalAcceptReq json]);
+}
+
+RCT_EXPORT_METHOD(signalingCancel:(NSDictionary *)signalCancelReq opid:(NSString *)opid resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter)
+{
+    RNCallbackProxy * proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
+    Open_im_sdkSignalingCancel(proxy, opid, [signalCancelReq json]);
+}
+
+RCT_EXPORT_METHOD(signalingReject:(NSDictionary *)signalRejectReq opid:(NSString *)opid resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter)
+{
+    RNCallbackProxy * proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
+    Open_im_sdkSignalingReject(proxy, opid, [signalRejectReq json]);
+}
+
+RCT_EXPORT_METHOD(signalingHungUp:(NSDictionary *)signalHungUpReq opid:(NSString *)opid resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter)
+{
+    RNCallbackProxy * proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
+    Open_im_sdkSignalingHungUp(proxy, opid, [signalHungUpReq json]);
+}
 
 
 
@@ -753,6 +789,28 @@ RCT_EXPORT_METHOD(clearGroupHistoryMessage:(NSString *)gid opid:(NSString *)opid
     [self pushEvent:@"onJoinedGroupDeleted" errCode:@(0) errMsg:@"" data:groupInfo];
 }
 
+// MARK: - Open_im_sdk_callbackOnSignalingListener
 
+- (void)onInvitationCancelled:(NSString* _Nullable)invitationCancelledCallback{
+    [self pushEvent:@"onInvitationCancelled" errCode:@(0) errMsg:@"" data:invitationCancelledCallback];
+}
+- (void)onInvitationTimeout:(NSString* _Nullable)invitationTimeoutCallback{
+    [self pushEvent:@"onInvitationTimeout" errCode:@(0) errMsg:@"" data:invitationTimeoutCallback];
+}
+- (void)onInviteeAccepted:(NSString* _Nullable)inviteeAcceptedCallback{
+    [self pushEvent:@"onInviteeAccepted" errCode:@(0) errMsg:@"" data:inviteeAcceptedCallback];
+}
+- (void)onInviteeAcceptedByOtherDevice:(NSString* _Nullable)inviteeAcceptedCallback{
+    [self pushEvent:@"onInviteeAcceptedByOtherDevice" errCode:@(0) errMsg:@"" data:inviteeAcceptedCallback];
+}
+- (void)onInviteeRejected:(NSString* _Nullable)inviteeRejectedCallback{
+    [self pushEvent:@"onInviteeRejected" errCode:@(0) errMsg:@"" data:inviteeRejectedCallback];
+}
+- (void)onInviteeRejectedByOtherDevice:(NSString* _Nullable)inviteeRejectedCallback{
+    [self pushEvent:@"onInviteeRejectedByOtherDevice" errCode:@(0) errMsg:@"" data:inviteeRejectedCallback];
+}
+- (void)onReceiveNewInvitation:(NSString* _Nullable)receiveNewInvitationCallback{
+    [self pushEvent:@"onReceiveNewInvitation" errCode:@(0) errMsg:@"" data:receiveNewInvitationCallback];
+}
 
 @end

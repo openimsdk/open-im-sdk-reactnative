@@ -379,8 +379,8 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void createTextAtMessage(String text, ReadableArray ats,String operationID, Promise promise) {
-         promise.resolve(Open_im_sdk.createTextAtMessage(operationID, text,ats.toString()));
+    public void createTextAtMessage(String text, ReadableArray atIds,ReadableArray atInfos,ReadableMap quteMsg,String operationID, Promise promise) {
+         promise.resolve(Open_im_sdk.createTextAtMessage(operationID, text,atIds.toString(),atInfos.toString(),readableMap2string(quteMsg)));
     }
 
     @ReactMethod
