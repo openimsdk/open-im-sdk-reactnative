@@ -1,6 +1,6 @@
 {
   "name": "open-im-sdk-rn",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "OpenIM SDK for react-native",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",

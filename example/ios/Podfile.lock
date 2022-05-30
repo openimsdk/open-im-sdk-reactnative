@@ -22,7 +22,7 @@ PODS:
   - open-im-sdk-rn (2.0.9):
     - OpenIMSDKCore (= 2.0.9)
     - React-Core
-  - "OpenIMSDKCore (2.0.9+1)"
+  - "OpenIMSDKCore (2.0.9+5)"
   - RCTRequired (0.63.4)
   - RCTTypeSafety (0.63.4):
     - FBLazyVector (= 0.63.4)
