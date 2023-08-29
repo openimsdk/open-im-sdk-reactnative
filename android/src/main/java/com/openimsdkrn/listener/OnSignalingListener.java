@@ -51,4 +51,14 @@ public class OnSignalingListener extends Emitter implements open_im_sdk_callback
   public void onReceiveNewInvitation(String s) {
     send(ctx,"onReceiveNewInvitation",getParams(0,"",s));
   }
+
+  @Override
+  public void onRoomParticipantConnected(String s) {
+
+  }
+
+  @Override
+  public void onRoomParticipantDisconnected(String s) {
+
+  }
 }

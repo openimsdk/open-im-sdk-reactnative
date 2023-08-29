@@ -1,6 +1,6 @@
 import * as React from 'react';
 import OpenIMSDKRN, { OpenIMEmitter } from 'open-im-sdk-rn';
-import { StyleSheet, View, Button } from 'react-native';
+import { StyleSheet, View, Button, TurboModuleRegistry } from 'react-native';
 import { useEffect, useState } from 'react';
 import RNFS from 'react-native-fs';
 // const OpenIMEmitter = new NativeEventEmitter(OpenIMSDKRN);
@@ -16,6 +16,12 @@ export default function App() {
 
   const Listener = () => {
     OpenIMEmitter.addListener('onConnectSuccess', (v) => {
+      console.log(v);
+    });
+    OpenIMEmitter.addListener('onConnectFailed', (v) => {
+      console.log(v);
+    });
+    OpenIMEmitter.addListener('onNewConversation', (v) => {
       console.log(v);
     });
     OpenIMEmitter.addListener('onConversationChanged', (v) => {
@@ -34,62 +40,129 @@ export default function App() {
 
   const Init = async () => {
     await RNFS.mkdir(RNFS.DocumentDirectoryPath + '/tmp');
-    const options = {
-      platform: 2,
-      api_addr: 'http://121.37.25.71:10000',
-      ws_addr: 'ws://121.37.25.71:17778',
-      data_dir: RNFS.DocumentDirectoryPath + '/tmp',
-      log_level: 6,
-      object_storage: 'cos',
+    const config = {
+      platformID: 5,
+      apiAddr: 'https://web.rentsoft.cn/api',
+      wsAddr: 'wss://web.rentsoft.cn/msg_gateway',
+      dataDir: RNFS.DocumentDirectoryPath + '/tmp',
+      logLevel: 6,
+      isLogStandardOutput: true,
     };
-    const data = await OpenIMSDKRN.initSDK(options, uuid());
-    console.log(data);
+    try {
+      const opid = uuid();
+      const result = await OpenIMSDKRN.initSDK(config, opid);
+      console.log(result); // Success message
+
+    } catch (error) {
+      console.error('Error initializing SDK:', error); // Log the error
+    }
   };
 
   const Login = async () => {
     const tk =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVSUQiOiJ0ZXN0YWRkIiwiUGxhdGZvcm0iOiJXZWIiLCJleHAiOjE5NjE5OTc1MjYsIm5iZiI6MTY0NjYzNzUyNiwiaWF0IjoxNjQ2NjM3NTI2fQ.iei3xRbbpGHHOnb_Cslio6ZBgniLOn3H2UFW8tk5BTY';
-    const data = await OpenIMSDKRN.login('testadd', tk, uuid());
-    console.log(data);
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiI2OTYwNTYyODA1IiwiUGxhdGZvcm1JRCI6NSwiZXhwIjoxNzAxMDY5OTM0LCJuYmYiOjE2OTMyOTM2MzQsImlhdCI6MTY5MzI5MzkzNH0.n9HvwQDA99eoCfkivB20m8byubN-_dcllBdsC9raOYs'
+      const options = {
+      userID: '6960562805',
+      token: tk,
+    };
+    try {
+      const data = await OpenIMSDKRN.login(options, uuid());
+      console.log(data);
+    }
+    catch (error) {
+      console.error('Error login:', error); // Log the error
+    }
   };
 
   const GetLoginStatus = async () => {
-    const data = await OpenIMSDKRN.getLoginStatus();
+    const data = await OpenIMSDKRN.getLoginStatus(null);
     console.log(data);
   };
 
   const GetCveSplit = async () => {
-    const data = await OpenIMSDKRN.getConversationListSplit(0, 1, uuid());
+    const options = {
+      offset:0,
+      count:1,
+    }
+    const data = await OpenIMSDKRN.getConversationListSplit(options, uuid());
     console.log(data);
   };
 
   const GetUsersInfo = async () => {
-    const data = await OpenIMSDKRN.getUsersInfo(['17396220460'], uuid());
-    console.log(data);
+    try {
+      const data = await OpenIMSDKRN.getUsersInfo(['6960562805'], uuid());
+      console.log(data);
+    }catch (error) {
+      console.error('Error GetUsersInfo:', error); // Log the error
+    }
   };
 
   const CreateTextMsg = async () => {
-    const msg = await OpenIMSDKRN.createTextMessage('rn text msg', uuid());
-    console.log(msg);
-    setText(msg);
+    try {
+      const data = await OpenIMSDKRN.createTextMessage('rn text msg', uuid());
+      console.log(data);
+      setText(data);
+    }catch (error) {
+      console.error('Error CreateTextMsg:', error); // Log the error
+    }
+    
   };
-
+  const CreateSoundMessageByURL = async () => {
+    const soundinfo = {
+      soundPath: '',
+      duration: 6,
+      uuid: 'uuid',
+      sourceUrl: '',
+      dataSize: 1024,
+      soundType: 'mp3',
+    }
+    try {
+      const data = await OpenIMSDKRN.createSoundMessageByURL(soundinfo, uuid());
+      console.log(data);
+    }catch (error) {
+      console.error('Error CreateSoundMessageByURL:', error); // Log the error
+    }
+  }
+  const getGroupMemberListByJoinTimeFilter = async () =>{
+    const options = {
+      groupID: '',
+      offset: 0,
+      count: 20,
+      joinTimeBegin: 0,
+      joinTimeEnd: 0,
+      filterUserIDList: ['userID'],
+    }
+    try {
+      const data = await OpenIMSDKRN.getGroupMemberListByJoinTimeFilter(options, uuid());
+      console.log(data);
+    }catch (error) {
+      console.error('Error getGroupMemberListByJoinTimeFilter:', error); // Log the error
+    }
+  }
   const SendMsg = async () => {
     const offlinePushInfo = {
-      title: '你有一条新消息',
-      desc: '',
+      title: 'you have a new message',
+      desc: 'new message',
       ex: '',
       iOSPushSound: '+1',
       iOSBadgeCount: true,
-    };
-    const data = await OpenIMSDKRN.sendMessage(
-      text,
-      '17396220460',
-      '',
-      offlinePushInfo,
-      uuid()
-    );
-    console.log('send msg promise data::::', data);
+    }
+    const options = {
+      message:text,
+      recvID:'7440671006',
+      groupID:'',
+      offlinePushInfo
+    }
+    try {
+      const data = await OpenIMSDKRN.sendMessage(
+        options,
+        uuid()
+      );
+      console.log(data);
+      setText(data);
+    }catch (error) {
+      console.error('Error SendMsg:', error); // Log the error
+    }
   };
   return (
     <View style={styles.container}>
@@ -100,6 +173,8 @@ export default function App() {
       <Button onPress={CreateTextMsg} title="CreateTextMsg" />
       <Button onPress={SendMsg} title="SendMsg" />
       <Button onPress={GetCveSplit} title="getCveSplit" />
+      <Button onPress={CreateSoundMessageByURL} title="createSoundMessageByURL" />
+      <Button onPress={getGroupMemberListByJoinTimeFilter} title="getGroupMemberListByJoinTimeFilter" />
     </View>
   );
 }

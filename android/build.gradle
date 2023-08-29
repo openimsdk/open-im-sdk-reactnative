@@ -3,7 +3,7 @@ buildscript {
         repositories {
             maven {
             allowInsecureProtocol = true
-            url 'http://121.37.25.71:8081/repository/maven2/'
+            url 'https://open-im-online.rentsoft.cn:51000/repository/maven2/'
         }
              google()
              mavenCentral()
@@ -11,7 +11,7 @@ buildscript {
         }
 
         dependencies {
-            classpath 'com.android.tools.build:gradle:3.5.3'
+            classpath 'com.android.tools.build:gradle:4.2.0'
         }
     // }
 }
@@ -23,10 +23,10 @@ def safeExtGet(prop, fallback) {
 }
 
 android {
-    compileSdkVersion safeExtGet('OpenImSdkRn_compileSdkVersion', 29)
+    compileSdkVersion safeExtGet('OpenImSdkRn_compileSdkVersion', 33)
     defaultConfig {
         minSdkVersion safeExtGet('OpenImSdkRn_minSdkVersion', 16)
-        targetSdkVersion safeExtGet('OpenImSdkRn_targetSdkVersion', 29)
+        targetSdkVersion safeExtGet('OpenImSdkRn_targetSdkVersion', 33)
         versionCode 1
         versionName "1.0"
 
@@ -49,7 +49,7 @@ android {
 repositories {
     maven {
             allowInsecureProtocol = true
-            url 'http://121.37.25.71:8081/repository/maven2/'
+            url 'https://open-im-online.rentsoft.cn:51000/repository/maven2/'
         }
     mavenLocal()
     maven {
@@ -66,6 +66,6 @@ dependencies {
     implementation "com.facebook.react:react-native:+"  // From node_modules
     implementation 'androidx.collection:collection:1.1.0'
     implementation 'com.alibaba:fastjson:1.1.72.android'
-    implementation 'io.openim:core-sdk:2.0.9.8@aar'
+    implementation 'io.openim:core-sdk:3.2.0@aar'
     // implementation fileTree(dir: 'libs', include: ['*.aar', '*.jar'], exclude: [])
 }

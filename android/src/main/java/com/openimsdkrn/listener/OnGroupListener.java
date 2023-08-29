@@ -41,6 +41,11 @@ public class OnGroupListener extends Emitter implements open_im_sdk_callback.OnG
   }
 
   @Override
+  public void onGroupDismissed(String s) {
+    send(ctx,"onGroupDismissed",getParams(0,"",s));
+  }
+
+  @Override
   public void onGroupInfoChanged(String s) {
     send(ctx,"onGroupInfoChanged",getParams(0,"",s));
   }

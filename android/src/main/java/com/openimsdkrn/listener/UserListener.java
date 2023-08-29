@@ -16,4 +16,9 @@ public class UserListener extends Emitter implements OnUserListener {
   public void onSelfInfoUpdated(String s) {
     send(ctx,"onSelfInfoUpdated",getParams(0,"",s));
   }
+
+  @Override
+  public void onUserStatusChanged(String s) {
+
+  }
 }

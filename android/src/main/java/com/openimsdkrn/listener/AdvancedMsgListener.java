@@ -13,6 +13,16 @@ public class AdvancedMsgListener extends Emitter implements OnAdvancedMsgListene
 
 
   @Override
+  public void onMsgDeleted(String s) {
+
+  }
+
+  @Override
+  public void onNewRecvMessageRevoked(String s) {
+
+  }
+
+  @Override
   public void onRecvC2CReadReceipt(String s) {
     send(ctx,"onRecvC2CReadReceipt",getParams(0,"",s));
   }
@@ -23,12 +33,32 @@ public class AdvancedMsgListener extends Emitter implements OnAdvancedMsgListene
   }
 
   @Override
-  public void onRecvMessageRevoked(String s) {
-    send(ctx,"onRecvMessageRevoked",getParams(0,"",s));
+  public void onRecvMessageExtensionsAdded(String s, String s1) {
+
   }
+
+  @Override
+  public void onRecvMessageExtensionsChanged(String s, String s1) {
+
+  }
+
+  @Override
+  public void onRecvMessageExtensionsDeleted(String s, String s1) {
+
+  }
+
+//  @Override
+//  public void onRecvMessageRevoked(String s) {
+//    send(ctx,"onRecvMessageRevoked",getParams(0,"",s));
+//  }
 
   @Override
   public void onRecvNewMessage(String s) {
     send(ctx,"onRecvNewMessage",getParams(0,"",s));
+  }
+
+  @Override
+  public void onRecvOfflineNewMessage(String s) {
+
   }
 }
