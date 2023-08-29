@@ -11,11 +11,11 @@ npm install open-im-sdk-rn
 ## Usage
 
 ```js
-import { multiply } from 'open-im-sdk-rn';
+yarn
 
-// ...
+yarn example ios
 
-const result = await multiply(3, 7);
+yarn example android
 ```
 
 ## Contributing
