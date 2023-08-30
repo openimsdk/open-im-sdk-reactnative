@@ -18,13 +18,6 @@ import com.openimsdkrn.listener.OnGroupListener;
 import com.openimsdkrn.listener.UserListener;
 //import com.openimsdkrn.listener.OnSignalingListener;
 import com.openimsdkrn.listener.UploadFileCallbackListener;
-//import open_im_sdk_callback.OnAdvancedMsgListener;
-//import open_im_sdk_callback.OnBatchMsgListener;
-//import open_im_sdk_callback.OnConnListener;
-//import open_im_sdk_callback.OnCustomBusinessListener;
-//import open_im_sdk_callback.OnUserListener;
-//import open_im_sdk_callback.SendMsgCallBack;
-//import open_im_sdk_callback.UploadFileCallback;
 
 import java.util.UUID;
 
@@ -387,11 +380,6 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
         Open_im_sdk.getSpecifiedFriendsInfo(new BaseImpl(promise), operationID, userIDList.toString());
     }
 
-//   @ReactMethod
-//   public void getDesignatedFriendsInfo(ReadableArray userIDList,String operationID,Promise promise) {
-//     Open_im_sdk.getDesignatedFriendsInfo(new BaseImpl(promise),operationID,userIDList.toString());
-//   }
-
     @ReactMethod
     public void getFriendList(String operationID,Promise promise) {
         Open_im_sdk.getFriendList(new BaseImpl(promise),operationID);
@@ -427,21 +415,6 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
       Open_im_sdk.deleteFriend(new BaseImpl(promise),operationID, friendUserID);
     }
 
-    // @ReactMethod
-    // public void getRecvFriendApplicationList(String operationID, Promise promise) {
-    //   Open_im_sdk.getRecvFriendApplicationList(new BaseImpl(promise),operationID);
-    // }
-
-    // @ReactMethod
-    // public void getSendFriendApplicationList(String operationID, Promise promise) {
-    //   Open_im_sdk.getSendFriendApplicationList(new BaseImpl(promise),operationID);
-    // }
-
-    // @ReactMethod
-    // public void refuseFriendApplication(ReadableMap userIDHandleMsg,String operationID, Promise promise) {
-    //     Open_im_sdk.refuseFriendApplication(new BaseImpl(promise),operationID, readableMap2string(userIDHandleMsg));
-    // }
-
     @ReactMethod
     public void getFriendApplicationListAsRecipient(String operationID, Promise promise) {
         Open_im_sdk.getFriendApplicationListAsRecipient(new BaseImpl(promise), operationID);
@@ -466,18 +439,6 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
     public void addBlack(String blackUserID,String operationID, Promise promise) {
       Open_im_sdk.addBlack(new BaseImpl(promise),operationID, blackUserID);
     }
-
-    // @ReactMethod
-    // public void acceptFriendApplication(ReadableMap userIDHandleMsg,String operationID, Promise promise) {
-    //     Open_im_sdk.acceptFriendApplication(new BaseImpl(promise),operationID, readableMap2string(userIDHandleMsg));
-    // }
-
-
-    // @ReactMethod
-    // public void checkFriend(ReadableArray uidList,String operationID, Promise promise) {
-    //     Open_im_sdk.checkFriend(new BaseImpl(promise),operationID, uidList.toString());
-    // }
-
 
     @ReactMethod
     public void getBlackList(String operationID,Promise promise) {
@@ -636,8 +597,8 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
         Open_im_sdk.kickGroupMember(new BaseImpl(promise), operationID, options.getString("groupID"), options.getString("reason"), options.getArray("userIDList").toString());
     }
     @ReactMethod
-    public void transferGroupOwner(String gid, String uid,String operationID,Promise promise) {
-        Open_im_sdk.transferGroupOwner(new BaseImpl(promise),operationID,gid,uid);
+    public void transferGroupOwner(ReadableMap options,String operationID,Promise promise) {
+        Open_im_sdk.transferGroupOwner(new BaseImpl(promise),operationID,options.getString("groupID"),options.getString("newOwnerUserID"));
     }
     @ReactMethod
     public void inviteUserToGroup(ReadableMap options,String operationID,  Promise promise) {
@@ -656,12 +617,12 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void acceptGroupApplication(ReadableMap options,String operationID,Promise promise) {
-        Open_im_sdk.acceptGroupApplication(new BaseImpl(promise),operationID,options.getString("gid"),options.getString("fromUserID"),options.getString("handleMsg"));
+        Open_im_sdk.acceptGroupApplication(new BaseImpl(promise),operationID,options.getString("groupID"),options.getString("fromUserID"),options.getString("handleMsg"));
     }
 
     @ReactMethod
     public void refuseGroupApplication(ReadableMap options,String operationID,Promise promise) {
-        Open_im_sdk.refuseGroupApplication(new BaseImpl(promise),operationID,options.getString("gid"),options.getString("fromUserID"),options.getString("handleMsg"));
+        Open_im_sdk.refuseGroupApplication(new BaseImpl(promise),operationID,options.getString("groupID"),options.getString("fromUserID"),options.getString("handleMsg"));
     }
 
     @ReactMethod
@@ -706,192 +667,6 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
         Open_im_sdk.sendMessageNotOss(new SendMsgCallBack(reactContext, promise, message), operationID, message, receiver, groupID, readableMap2string(offlinePushInfo));
     }
 
-    // @ReactMethod
-    // public void getHistoryMessageList(ReadableMap options,String operationID, Promise promise) {
-    //     Open_im_sdk.getHistoryMessageList( new BaseImpl(promise),operationID,readableMap2string(options));
-    // }
-
-    // @ReactMethod
-    // public void revokeMessage(ReadableMap message,String operationID, Promise promise) {
-    //     Open_im_sdk.revokeMessage( new BaseImpl(promise),operationID,readableMap2string(message));
-    // }
-
-    // @ReactMethod
-    // public void deleteMessageFromLocalStorage(ReadableMap message,String operationID, Promise promise) {
-    //     Open_im_sdk.deleteMessageFromLocalStorage( new BaseImpl(promise),operationID,readableMap2string(message));
-    // }
-
-    // @ReactMethod
-    // public void insertSingleMessageToLocalStorage(ReadableMap message,String recv,String sender,String operationID, Promise promise) {
-    //     Open_im_sdk.insertSingleMessageToLocalStorage ( new BaseImpl(promise),operationID,readableMap2string(message),recv,sender);
-    // }
-
-    // @ReactMethod
-    // public void insertGroupMessageToLocalStorage(String message,String groupID,String sendID,String operationID, Promise promise) {
-    //   Open_im_sdk.insertGroupMessageToLocalStorage ( new BaseImpl(promise),operationID,message,groupID,sendID);
-    // }
-
-    // @ReactMethod
-    // public void searchLocalMessages(ReadableMap searchParam,String operationID, Promise promise) {
-    //   Open_im_sdk.searchLocalMessages ( new BaseImpl(promise),operationID,readableMap2string(searchParam));
-    // }
-
-    // @ReactMethod
-    // public void markC2CMessageAsRead(String uid, ReadableArray msgIDs,String operationID, Promise promise) {
-    //     Open_im_sdk.markC2CMessageAsRead( new BaseImpl(promise),operationID,uid,msgIDs.toString());
-    // }
-
-    // @ReactMethod
-    // public void typingStatusUpdate(String uid, String tip,String operationID, Promise promise) {
-    //     Open_im_sdk.typingStatusUpdate( new BaseImpl(promise),operationID,uid,tip);
-    // }
-
-    // @ReactMethod
-    // public void createTextMessage(String text, String operationID,Promise promise) {
-    //     promise.resolve(Open_im_sdk.createTextMessage(operationID,text));
-    // }
-
-    // @ReactMethod
-    // public void createTextAtMessage(String text, ReadableArray atIds,ReadableArray atInfos,ReadableMap quteMsg,String operationID, Promise promise) {
-    //      promise.resolve(Open_im_sdk.createTextAtMessage(operationID, text,atIds.toString(),atInfos.toString(),readableMap2string(quteMsg)));
-    // }
-
-    // @ReactMethod
-    // public void createImageMessage(String path,String operationID, Promise promise) {
-    //      promise.resolve(Open_im_sdk.createImageMessage(operationID, path));
-    // }
-
-    // @ReactMethod
-    // public void createImageMessageByURL(ReadableMap sourceInfo,ReadableMap bigInfo,ReadableMap snaInfo,String operationID, Promise promise) {
-    //      promise.resolve(Open_im_sdk.createImageMessageByURL(operationID,readableMap2string(sourceInfo),readableMap2string(bigInfo),readableMap2string(snaInfo)));
-    // }
-
-    // @ReactMethod
-    // public void createImageMessageFromFullPath(String path,String operationID, Promise promise) {
-    //     promise.resolve(Open_im_sdk.createImageMessageFromFullPath(operationID,path));
-    // }
-
-    // @ReactMethod
-    // public void createSoundMessage(String path,Integer duration,String operationID, Promise promise) {
-    //      promise.resolve(Open_im_sdk.createSoundMessage(operationID, path,duration));
-    // }
-
-    // @ReactMethod
-    // public void createSoundMessageFromFullPath(String path,Integer duration,String operationID, Promise promise) {
-    //      promise.resolve(Open_im_sdk.createSoundMessageFromFullPath(operationID, path,duration));
-    // }
-
-    // @ReactMethod
-    // public void createSoundMessageByURL(ReadableMap info,String operationID, Promise promise) {
-    //     promise.resolve(Open_im_sdk.createSoundMessageByURL(operationID, readableMap2string(info)));
-    // }
-
-    // @ReactMethod
-    // public void createVideoMessage(String videoPath, String videoType, Integer duration, String snapshotPath,String operationID, Promise promise) {
-    //      promise.resolve(Open_im_sdk.createVideoMessage(operationID, videoPath,videoType,duration,snapshotPath));
-    // }
-
-    // @ReactMethod
-    // public void createVideoMessageFromFullPath(String videoPath, String videoType, Integer duration, String snapshotPath,String operationID, Promise promise) {
-    //      promise.resolve(Open_im_sdk.createVideoMessageFromFullPath(operationID, videoPath,videoType,duration,snapshotPath));
-    // }
-
-    // @ReactMethod
-    // public void createVideoMessageByURL(ReadableMap info,String operationID, Promise promise) {
-    //     promise.resolve(Open_im_sdk.createVideoMessageByURL(operationID,readableMap2string(info)));
-    // }
-
-    // @ReactMethod
-    // public void createFileMessage(String path,String fileName,String operationID, Promise promise) {
-    //      promise.resolve( Open_im_sdk.createFileMessage(operationID, path,fileName));
-    // }
-
-    // @ReactMethod
-    // public void createFileMessageFromFullPath(String path,String fileName,String operationID, Promise promise) {
-    //      promise.resolve(Open_im_sdk.createFileMessageFromFullPath(operationID, path,fileName));
-    // }
-
-    // @ReactMethod
-    // public void createFileMessageByURL(ReadableMap info,String operationID, Promise promise) {
-    //     promise.resolve(Open_im_sdk.createFileMessageByURL(operationID, readableMap2string(info)));
-    // }
-
-    // @ReactMethod
-    // public void createMergerMessage(ReadableArray messageList, String title, ReadableArray summaryList,String operationID, Promise promise){
-    //      promise.resolve(Open_im_sdk.createMergerMessage(operationID,messageList.toString(),title,summaryList.toString()));
-    // }
-
-    // @ReactMethod
-    // public void createForwardMessage(ReadableMap message,String operationID, Promise promise) {
-    //      promise.resolve(Open_im_sdk.createForwardMessage(operationID, readableMap2string(message)));
-    // }
-
-    // @ReactMethod
-    // public void createLocationMessage(Double latitude, Double longitude, String description,String operationID, Promise promise){
-    //      promise.resolve(Open_im_sdk.createLocationMessage(operationID,description,longitude,latitude));
-    // }
-
-    // @ReactMethod
-    // public void createCustomMessage(String data, String ex, String description,String operationID, Promise promise){
-    //      promise.resolve(Open_im_sdk.createCustomMessage(operationID,data,ex,description));
-    // }
-
-//     @ReactMethod
-//     public void createQuoteMessage(String text, ReadableMap message,String operationID, Promise promise){
-//          promise.resolve(Open_im_sdk.createQuoteMessage(operationID,text,readableMap2string(message)));
-//     }
-
-//     @ReactMethod
-//     public void createCardMessage(String content,String operationID, Promise promise){
-//          promise.resolve(Open_im_sdk.createCardMessage(operationID,content));
-//     }
-
-//     @ReactMethod
-//     public void clearC2CHistoryMessage(String uid,String operationID,Promise promise){
-//         Open_im_sdk.clearC2CHistoryMessage(new BaseImpl(promise),operationID, uid);
-//     }
-
-//     @ReactMethod
-//     public void clearGroupHistoryMessage(String gid,String operationID,Promise promise){
-//         Open_im_sdk.clearGroupHistoryMessage(new BaseImpl(promise),operationID, gid);
-//     }
-
-//   //--------------
-//   @ReactMethod
-//   public void addSignalingListener(){
-//     Open_im_sdk.setSignalingListener(new OnSignalingListener(reactContext));
-//   }
-
-//   @ReactMethod
-//   public void signalingInvite(ReadableMap signalInviteReq,String operationID,Promise promise){
-//     Open_im_sdk.signalingInvite(new BaseImpl(promise), operationID, readableMap2string(signalInviteReq));
-//   }
-
-
-//   @ReactMethod
-//   public void signalingInviteInGroup(ReadableMap signalInviteInGroupReq,String operationID,Promise promise){
-//     Open_im_sdk.signalingInviteInGroup(new BaseImpl(promise), operationID, readableMap2string(signalInviteInGroupReq));
-//   }
-
-//   @ReactMethod
-//   public void signalingAccept(ReadableMap signalAcceptReq,String operationID,Promise promise){
-//     Open_im_sdk.signalingAccept(new BaseImpl(promise), operationID, readableMap2string(signalAcceptReq));
-//   }
-
-//   @ReactMethod
-//   public void signalingReject(ReadableMap signalRejectReq,String operationID,Promise promise){
-//     Open_im_sdk.signalingReject(new BaseImpl(promise), operationID, readableMap2string(signalRejectReq));
-//   }
-
-//   @ReactMethod
-//   public void signalingCancel(ReadableMap signalCancelReq,String operationID,Promise promise){
-//     Open_im_sdk.signalingCancel(new BaseImpl(promise), operationID, readableMap2string(signalCancelReq));
-//   }
-
-//   @ReactMethod
-//   public void signalingHungUp(ReadableMap signalHungUpReq,String operationID,Promise promise){
-//     Open_im_sdk.signalingHungUp(new BaseImpl(promise), operationID, readableMap2string(signalHungUpReq));
-//   }
     //third
     @ReactMethod
     public void updateFcmToken(ReadableArray userIDList,String operationID,  Promise promise) {

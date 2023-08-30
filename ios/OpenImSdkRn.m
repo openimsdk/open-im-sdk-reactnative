@@ -1078,8 +1078,8 @@ RCT_EXPORT_METHOD(kickGroupMember:(NSDictionary *)options operationID:(NSString 
 RCT_EXPORT_METHOD(transferGroupOwner:(NSDictionary *)options operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter)
 {
     RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
-    NSString *gid = options[@"gid"];
-    NSString *uid = options[@"uid"];
+    NSString *gid = options[@"groupID"];
+    NSString *uid = options[@"newOwnerUserID"];
     NSString *generatedOpid = operationID ?: [self generateRandomOpid];
     
     Open_im_sdkTransferGroupOwner(proxy, generatedOpid, gid, uid);
@@ -1118,7 +1118,7 @@ RCT_EXPORT_METHOD(getGroupApplicationListAsApplicant:(NSString *)operationID res
 RCT_EXPORT_METHOD(acceptGroupApplication:(NSDictionary *)options operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter)
 {
     RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
-    NSString *gid = options[@"gid"];
+    NSString *gid = options[@"groupID"];
     NSString *fromUserID = options[@"fromUserID"];
     NSString *handleMsg = options[@"handleMsg"];
     
@@ -1131,7 +1131,7 @@ RCT_EXPORT_METHOD(acceptGroupApplication:(NSDictionary *)options operationID:(NS
 RCT_EXPORT_METHOD(refuseGroupApplication:(NSDictionary *)options operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter)
 {
     RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
-    NSString *gid = options[@"gid"];
+    NSString *gid = options[@"groupID"];
     NSString *fromUserID = options[@"fromUserID"];
     NSString *handleMsg = options[@"handleMsg"];
     
