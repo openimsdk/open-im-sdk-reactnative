@@ -39,9 +39,6 @@
     self.rejecter([NSString stringWithFormat:@"%d",errCode],errMsg,nil);
 }
 
-- (void)onSuccess:(NSString * _Nullable)data {
-    self.resolver(data);
-}
 - (NSDictionary *)parseJsonStr2Dict:(NSString *)jsonStr {
     NSData *jsonData = [jsonStr dataUsingEncoding:NSUTF8StringEncoding];
     NSError *error = nil;
@@ -53,6 +50,12 @@
     NSDictionary *data = (NSDictionary *)jsonObject;
     return data;
 }
+
+- (void)onSuccess:(NSString * _Nullable)data {
+    NSDictionary *messageDict = [self parseJsonStr2Dict:data];
+    self.resolver(messageDict);
+}
+
 - (void)onProgress:(long)progress {
     NSDictionary *messageDict = [self parseJsonStr2Dict:self.msg];
     NSDictionary *data = @{
