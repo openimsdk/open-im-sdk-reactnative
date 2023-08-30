@@ -42,12 +42,23 @@
 - (void)onSuccess:(NSString * _Nullable)data {
     self.resolver(data);
 }
-
+- (NSDictionary *)parseJsonStr2Dict:(NSString *)jsonStr {
+    NSData *jsonData = [jsonStr dataUsingEncoding:NSUTF8StringEncoding];
+    NSError *error = nil;
+    id jsonObject = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&error];
+    if (error) {
+        NSLog(@"Error while parsing JSON: %@", error.localizedDescription);
+        return nil;
+    }
+    NSDictionary *data = (NSDictionary *)jsonObject;
+    return data;
+}
 - (void)onProgress:(long)progress {
+    NSDictionary *messageDict = [self parseJsonStr2Dict:self.msg];
     NSDictionary *data = @{
-        @"progress":[NSString stringWithFormat:@"%ld",progress],
-        @"message":self.msg
+        @"progress":@(progress),
+        @"message":messageDict
     };
-    [self.module pushEvent:@"SendMessageProgress" errCode:@(0) errMsg:@"" data:[data json]];
+    [self.module pushEvent:@"SendMessageProgress" errCode:@(0) errMsg:@"" data:data];
 }
 @end

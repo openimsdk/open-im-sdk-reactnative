@@ -51,8 +51,62 @@ RCT_EXPORT_MODULE()
 
 - (NSArray<NSString *> *)supportedEvents
 {
-  return @[@"onConnectSuccess",@"onConnecting",@"onConnectFailed",@"onKickedOffline",@"onSelfInfoUpdated",@"onUserTokenExpired",
-  @"onRecvC2CReadReceipt",@"onRecvMessageRevoked",@"onRecvNewMessage",@"onRecvGroupReadReceipt",@"onConversationChanged",@"onNewConversation",@"onSyncServerFailed",@"onSyncServerFinish",@"onSyncServerStart",@"onTotalUnreadMessageCountChanged",@"onBlackAdded",@"onBlackDeleted",@"onFriendApplicationAccepted",@"onFriendApplicationAdded",@"onFriendApplicationDeleted",@"onFriendApplicationRejected",@"onFriendInfoChanged",@"onFriendAdded",@"onFriendDeleted",@"onGroupApplicationAccepted",@"onGroupApplicationRejected",@"onGroupApplicationAdded",@"onGroupApplicationDeleted",@"onGroupInfoChanged",@"onGroupMemberInfoChanged",@"onGroupMemberAdded",@"onGroupMemberDeleted",@"onJoinedGroupAdded",@"onJoinedGroupDeleted",@"SendMessageProgress",@"onInvitationCancelled",@"onInvitationTimeout",@"onInviteeAccepted",@"onInviteeAcceptedByOtherDevice",@"onInviteeRejected",@"onInviteeRejectedByOtherDevice",@"onReceiveNewInvitation",@"onHangUp"];
+  return @[
+  @"onConnectSuccess",
+  @"onConnecting",
+  @"onConnectFailed",
+  @"onKickedOffline",
+  @"onSelfInfoUpdated",
+  @"onUserStatusChanged",
+  @"onUserTokenExpired",
+  @"onRecvNewMessages",
+  @"onRecvOfflineNewMessages",
+  @"onMsgDeleted" ,
+  @"onRecvC2CReadReceipt",
+  @"onRecvMessageRevoked",
+  @"onRecvGroupReadReceipt",
+  @"onRecvNewMessage",
+  @"onRecvOfflineNewMessage",
+  
+  @"onConversationChanged",
+  @"onNewConversation",
+  @"onSyncServerFailed",
+  @"onSyncServerFinish",
+  @"onSyncServerStart",
+  @"onTotalUnreadMessageCountChanged",
+  
+  @"onBlackAdded",
+  @"onBlackDeleted",
+  @"onFriendApplicationAccepted",
+  @"onFriendApplicationAdded",
+  @"onFriendApplicationDeleted",
+  @"onFriendApplicationRejected",
+  @"onFriendInfoChanged",
+  @"onFriendAdded",
+  @"onFriendDeleted",
+
+  @"onGroupApplicationAccepted",
+  @"onGroupApplicationRejected",
+  @"onGroupApplicationAdded",
+  @"onGroupApplicationDeleted",
+  @"onGroupInfoChanged",
+  @"onGroupMemberInfoChanged",
+  @"onGroupMemberAdded",
+  @"onGroupMemberDeleted",
+  @"onJoinedGroupAdded",
+  @"onJoinedGroupDeleted",
+  @"onGroupDismissed",
+  @"SendMessageProgress",
+//   @"onInvitationCancelled",
+//   @"onInvitationTimeout",
+//   @"onInviteeAccepted",
+//   @"onInviteeAcceptedByOtherDevice",
+//   @"onInviteeRejected",
+//   @"onInviteeRejectedByOtherDevice",
+//   @"onReceiveNewInvitation",
+//   @"onHangUp",
+  @"UploadFileProgress"
+  ];
 }
 
 // 在添加第一个监听函数时触发
@@ -1188,6 +1242,12 @@ RCT_EXPORT_METHOD(uploadFile:(NSDictionary *)reqData operationID:(NSString *)ope
     [self pushEvent:@"onSelfInfoUpdated" errCode:@(0) errMsg:@"" data:data];
 }
 
+- (void)onUserStatusChanged:(NSString * _Nullable)statusMap {
+    NSDictionary *data = [self parseJsonStr2Dict:statusMap];
+    [self pushEvent:@"onUserStatusChanged" errCode:@(0) errMsg:@"" data:data];
+}
+
+
 // MARK: - Open_im_sdk_callbackOnBatchMsgListener
 
 - (void)onRecvNewMessages:(NSString * _Nullable)messageList {
@@ -1198,7 +1258,7 @@ RCT_EXPORT_METHOD(uploadFile:(NSDictionary *)reqData operationID:(NSString *)ope
     NSArray *messageListArray = [self parseJsonStr2Array:messageList];
     [self pushEvent:@"onRecvOfflineNewMessages" errCode:@(0) errMsg:@"" data:messageListArray];
 }
- // MARK: - Open_im_sdkIMSDKAdvancedMsgListener
+// MARK: - Open_im_sdkIMSDKAdvancedMsgListener
 - (void)onMsgDeleted:(NSString* _Nullable)message {
     NSDictionary *messageDict = [self parseJsonStr2Dict:message];
     [self pushEvent:@"onMsgDeleted" errCode:@(0) errMsg:@"" data:messageDict];
@@ -1209,19 +1269,19 @@ RCT_EXPORT_METHOD(uploadFile:(NSDictionary *)reqData operationID:(NSString *)ope
     [self pushEvent:@"onNewRecvMessageRevoked" errCode:@(0) errMsg:@"" data:messageRevokedDict];
 }
 
- - (void)onRecvC2CReadReceipt:(NSString* _Nullable)msgReceiptList {
+- (void)onRecvC2CReadReceipt:(NSString* _Nullable)msgReceiptList {
     NSArray *msgReceiptListArray = [self parseJsonStr2Array:msgReceiptList];
     [self pushEvent:@"onRecvC2CReadReceipt" errCode:@(0) errMsg:@"" data:msgReceiptListArray];
- }
+}
 
 //  - (void)onRecvMessageRevoked:(NSString* _Nullable)msgId {
 //      [self pushEvent:@"onRecvMessageRevoked" errCode:@(0) errMsg:@"" data:msgId];
 //  }
 
- - (void)onRecvNewMessage:(NSString* _Nullable)message {
-    NSDictionary *messageDict = [self parseJsonStr2Dict:message];
-     [self pushEvent:@"onRecvNewMessage" errCode:@(0) errMsg:@"" data:messageDict];
- }
+//  - (void)onRecvNewMessage:(NSString* _Nullable)message {
+//     NSDictionary *messageDict = [self parseJsonStr2Dict:message];
+//      [self pushEvent:@"onRecvNewMessage" errCode:@(0) errMsg:@"" data:messageDict];
+//  }
 
 - (void)onRecvGroupReadReceipt:(NSString * _Nullable)groupMsgReceiptList {
     NSArray *msgReceiptListArray = [self parseJsonStr2Array:groupMsgReceiptList];
@@ -1241,8 +1301,20 @@ RCT_EXPORT_METHOD(uploadFile:(NSDictionary *)reqData operationID:(NSString *)ope
     
 }
 
+- (void)onRecvNewMessage:(NSString * _Nullable)message {
+    NSArray *messageListArray = [self parseJsonStr2Array:message];
+    [self pushEvent:@"onRecvNewMessage" errCode:@(0) errMsg:@"" data:messageListArray];
+}
 
- // MARK: - Open_im_sdkOnFriendshipListener
+
+- (void)onRecvOfflineNewMessage:(NSString * _Nullable)message {
+    NSArray *messageListArray = [self parseJsonStr2Array:message];
+    [self pushEvent:@"onRecvOfflineNewMessage" errCode:@(0) errMsg:@"" data:messageListArray];
+}
+
+
+
+// MARK: - Open_im_sdkOnFriendshipListener
 
 
 - (void)onBlackAdded:(NSString * _Nullable)blackInfo {
@@ -1290,36 +1362,36 @@ RCT_EXPORT_METHOD(uploadFile:(NSDictionary *)reqData operationID:(NSString *)ope
     [self pushEvent:@"onFriendInfoChanged" errCode:@(0) errMsg:@"" data:friendInfoDict];
 }
 
- // MARK: - Open_im_sdkOnConversationListener
+// MARK: - Open_im_sdkOnConversationListener
 
- - (void)onConversationChanged:(NSString* _Nullable)conversationList {
+- (void)onConversationChanged:(NSString* _Nullable)conversationList {
     NSArray *conversationListArray = [self parseJsonStr2Array:conversationList];
-     [self pushEvent:@"onConversationChanged" errCode:@(0) errMsg:@"" data:conversationListArray];
- }
+    [self pushEvent:@"onConversationChanged" errCode:@(0) errMsg:@"" data:conversationListArray];
+}
 
- - (void)onNewConversation:(NSString* _Nullable)conversationList {
+- (void)onNewConversation:(NSString* _Nullable)conversationList {
     NSArray *conversationListArray = [self parseJsonStr2Array:conversationList];
-     [self pushEvent:@"onNewConversation" errCode:@(0) errMsg:@"" data:conversationListArray];
- }
+    [self pushEvent:@"onNewConversation" errCode:@(0) errMsg:@"" data:conversationListArray];
+}
 
- - (void)onSyncServerFailed {
-     [self pushEvent:@"onSyncServerFailed" errCode:@(0) errMsg:@"" data:@"syncServerFailed"];
- }
+- (void)onSyncServerFailed {
+    [self pushEvent:@"onSyncServerFailed" errCode:@(0) errMsg:@"" data:@"syncServerFailed"];
+}
 
- - (void)onSyncServerFinish {
-     [self pushEvent:@"onSyncServerFinish" errCode:@(0) errMsg:@"" data:@"syncServerFinish"];
- }
+- (void)onSyncServerFinish {
+    [self pushEvent:@"onSyncServerFinish" errCode:@(0) errMsg:@"" data:@"syncServerFinish"];
+}
 
- - (void)onSyncServerStart {
-     [self pushEvent:@"onSyncServerStart" errCode:@(0) errMsg:@"" data:@"syncServerStart"];
- }
+- (void)onSyncServerStart {
+    [self pushEvent:@"onSyncServerStart" errCode:@(0) errMsg:@"" data:@"syncServerStart"];
+}
 
- - (void)onTotalUnreadMessageCountChanged:(int32_t)totalUnreadCount {
-     [self pushEvent:@"onTotalUnreadMessageCountChanged" errCode:@(0) errMsg:@"" data:[NSString stringWithFormat:@"%d",totalUnreadCount]];
- }
+- (void)onTotalUnreadMessageCountChanged:(int32_t)totalUnreadCount {
+    [self pushEvent:@"onTotalUnreadMessageCountChanged" errCode:@(0) errMsg:@"" data:[NSString stringWithFormat:@"%d",totalUnreadCount]];
+}
 
 
- // MARK: - Open_im_sdkOnGroupListener
+// MARK: - Open_im_sdkOnGroupListener
 - (void)onGroupApplicationAccepted:(NSString * _Nullable)groupApplication {
     NSDictionary *groupApplicationDict = [self parseJsonStr2Dict:groupApplication];
     [self pushEvent:@"onGroupApplicationAccepted" errCode:@(0) errMsg:@"" data:groupApplicationDict];
@@ -1370,31 +1442,48 @@ RCT_EXPORT_METHOD(uploadFile:(NSDictionary *)reqData operationID:(NSString *)ope
     [self pushEvent:@"onJoinedGroupDeleted" errCode:@(0) errMsg:@"" data:groupInfoDict];
 }
 
+- (void)onGroupDismissed:(NSString * _Nullable)groupInfo {
+    NSDictionary *groupInfoDict = [self parseJsonStr2Dict:groupInfo];
+    [self pushEvent:@"onGroupDismissed" errCode:@(0) errMsg:@"" data:groupInfoDict];
+}
+
+
 // MARK: - Open_im_sdk_callbackOnSignalingListener
 
-// - (void)onInvitationCancelled:(NSString* _Nullable)invitationCancelledCallback{
-//     [self pushEvent:@"onInvitationCancelled" errCode:@(0) errMsg:@"" data:invitationCancelledCallback];
-// }
-// - (void)onInvitationTimeout:(NSString* _Nullable)invitationTimeoutCallback{
-//     [self pushEvent:@"onInvitationTimeout" errCode:@(0) errMsg:@"" data:invitationTimeoutCallback];
-// }
-// - (void)onInviteeAccepted:(NSString* _Nullable)inviteeAcceptedCallback{
-//     [self pushEvent:@"onInviteeAccepted" errCode:@(0) errMsg:@"" data:inviteeAcceptedCallback];
-// }
-// - (void)onInviteeAcceptedByOtherDevice:(NSString* _Nullable)inviteeAcceptedCallback{
-//     [self pushEvent:@"onInviteeAcceptedByOtherDevice" errCode:@(0) errMsg:@"" data:inviteeAcceptedCallback];
-// }
-// - (void)onInviteeRejected:(NSString* _Nullable)inviteeRejectedCallback{
-//     [self pushEvent:@"onInviteeRejected" errCode:@(0) errMsg:@"" data:inviteeRejectedCallback];
-// }
-// - (void)onInviteeRejectedByOtherDevice:(NSString* _Nullable)inviteeRejectedCallback{
-//     [self pushEvent:@"onInviteeRejectedByOtherDevice" errCode:@(0) errMsg:@"" data:inviteeRejectedCallback];
-// }
-// - (void)onReceiveNewInvitation:(NSString* _Nullable)receiveNewInvitationCallback{
-//     [self pushEvent:@"onReceiveNewInvitation" errCode:@(0) errMsg:@"" data:receiveNewInvitationCallback];
-// }
-// - (void)onHangUp:(NSString* _Nullable)hangUpCallback{
-//     [self pushEvent:@"onHangUp" errCode:@(0) errMsg:@"" data:hangUpCallback];
-// }
+ - (void)onInvitationCancelled:(NSString* _Nullable)invitationCancelledCallback{
+     [self pushEvent:@"onInvitationCancelled" errCode:@(0) errMsg:@"" data:invitationCancelledCallback];
+ }
+ - (void)onInvitationTimeout:(NSString* _Nullable)invitationTimeoutCallback{
+     [self pushEvent:@"onInvitationTimeout" errCode:@(0) errMsg:@"" data:invitationTimeoutCallback];
+ }
+ - (void)onInviteeAccepted:(NSString* _Nullable)inviteeAcceptedCallback{
+     [self pushEvent:@"onInviteeAccepted" errCode:@(0) errMsg:@"" data:inviteeAcceptedCallback];
+ }
+ - (void)onInviteeAcceptedByOtherDevice:(NSString* _Nullable)inviteeAcceptedCallback{
+     [self pushEvent:@"onInviteeAcceptedByOtherDevice" errCode:@(0) errMsg:@"" data:inviteeAcceptedCallback];
+ }
+ - (void)onInviteeRejected:(NSString* _Nullable)inviteeRejectedCallback{
+     [self pushEvent:@"onInviteeRejected" errCode:@(0) errMsg:@"" data:inviteeRejectedCallback];
+ }
+ - (void)onInviteeRejectedByOtherDevice:(NSString* _Nullable)inviteeRejectedCallback{
+     [self pushEvent:@"onInviteeRejectedByOtherDevice" errCode:@(0) errMsg:@"" data:inviteeRejectedCallback];
+ }
+ - (void)onReceiveNewInvitation:(NSString* _Nullable)receiveNewInvitationCallback{
+     [self pushEvent:@"onReceiveNewInvitation" errCode:@(0) errMsg:@"" data:receiveNewInvitationCallback];
+ }
+ - (void)onHangUp:(NSString* _Nullable)hangUpCallback{
+     [self pushEvent:@"onHangUp" errCode:@(0) errMsg:@"" data:hangUpCallback];
+ }
+
+- (void)onRoomParticipantConnected:(NSString * _Nullable)onRoomParticipantConnectedCallback {
+    
+}
+
+
+- (void)onRoomParticipantDisconnected:(NSString * _Nullable)onRoomParticipantDisconnectedCallback {
+    
+}
+
+
 
 @end

@@ -16,38 +16,63 @@
 
 @interface RNUploadFileCallbackProxy()
 
-@property (nonatomic, copy) RCTPromiseResolveBlock resolver;
-@property (nonatomic, copy) RCTPromiseRejectBlock rejecter;
-@property (nonatomic, copy) NSString* msg;
+@property (nonatomic, copy) NSString* opid;
 @property (nonatomic, weak) OpenIMSDKRN* module;
 
 @end
 
 @implementation RNUploadFileCallbackProxy
 
-- (id)initWithMessage:(NSString *)msg module:(OpenIMSDKRN *)module resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter{
+- (nonnull id)initWithOpid:(nonnull NSString *)operationID module:(nonnull OpenIMSDKRN *)module {
     if (self = [super init]) {
-        self.msg = msg;
+        self.opid = operationID;
         self.module = module;
-        self.resolver = resolver;
-        self.rejecter = rejecter;
     }
     return self;
 }
 
-- (void)onError:(int32_t)errCode errMsg:(NSString * _Nullable)errMsg {
-    self.rejecter([NSString stringWithFormat:@"%d",errCode],errMsg,nil);
+- (void)complete:(int64_t)size url:(NSString * _Nullable)url typ:(long)typ {
+    
 }
 
-- (void)onSuccess:(NSString * _Nullable)data {
-    self.resolver(data);
+- (void)hashPartComplete:(NSString * _Nullable)partsHash fileHash:(NSString * _Nullable)fileHash {
+    
 }
 
-- (void)onProgress:(long)progress {
-    NSDictionary *data = @{
-        @"progress":[NSString stringWithFormat:@"%ld",progress],
-        @"message":self.msg
-    };
-    [self.module pushEvent:@"UploadFileProgress" errCode:@(0) errMsg:@"" data:[data json]];
+- (void)hashPartProgress:(long)index size:(int64_t)size partHash:(NSString * _Nullable)partHash {
+    
 }
+
+- (void)open:(int64_t)size {
+    
+}
+
+- (void)partSize:(int64_t)partSize num:(long)num {
+    
+}
+
+- (void)uploadComplete:(int64_t)fileSize streamSize:(int64_t)streamSize storageSize:(int64_t)storageSize {
+    NSMutableDictionary *data = [NSMutableDictionary dictionary];
+    [data setObject:[NSNumber numberWithLongLong:fileSize] forKey:@"fileSize"];
+    [data setObject:[NSNumber numberWithLongLong:streamSize] forKey:@"streamSize"];
+    [data setObject:[NSNumber numberWithLongLong:storageSize] forKey:@"storageSize"];
+    [data setObject:self.opid forKey:@"operationID"];
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params setObject:data forKey:@"data"];
+    
+    [self.module pushEvent:@"uploadComplete" errCode:@(0) errMsg:@"" data:params];
+}
+
+
+- (void)uploadID:(NSString * _Nullable)uploadID {
+    
+}
+
+- (void)uploadPartComplete:(long)index partSize:(int64_t)partSize partHash:(NSString * _Nullable)partHash {
+    
+}
+
+
+
 @end
