@@ -67,6 +67,9 @@ RCT_EXPORT_MODULE()
   @"onRecvGroupReadReceipt",
   @"onRecvNewMessage",
   @"onRecvOfflineNewMessage",
+  @"onRecvMessageExtensionsAdded",
+  @"onRecvMessageExtensionsChanged",
+  @"onRecvMessageExtensionsDeleted",
   
   @"onConversationChanged",
   @"onNewConversation",
@@ -1288,17 +1291,20 @@ RCT_EXPORT_METHOD(uploadFile:(NSDictionary *)reqData operationID:(NSString *)ope
     [self pushEvent:@"onRecvGroupReadReceipt" errCode:@(0) errMsg:@"" data:msgReceiptListArray];
 }
 - (void)onRecvMessageExtensionsAdded:(NSString * _Nullable)msgID reactionExtensionList:(NSString * _Nullable)reactionExtensionList {
-    
+    NSArray *msgReceiptListArray = [self parseJsonStr2Array:reactionExtensionList];
+    [self pushEvent:@"onRecvMessageExtensionsAdded" errCode:@(0) errMsg:@"" data:msgReceiptListArray];
 }
 
 
 - (void)onRecvMessageExtensionsChanged:(NSString * _Nullable)msgID reactionExtensionList:(NSString * _Nullable)reactionExtensionList {
-    
+    NSArray *msgReceiptListArray = [self parseJsonStr2Array:reactionExtensionList];
+    [self pushEvent:@"onRecvMessageExtensionsChanged" errCode:@(0) errMsg:@"" data:msgReceiptListArray];
 }
 
 
 - (void)onRecvMessageExtensionsDeleted:(NSString * _Nullable)msgID reactionExtensionKeyList:(NSString * _Nullable)reactionExtensionKeyList {
-    
+    NSArray *msgReceiptListArray = [self parseJsonStr2Array:reactionExtensionList];
+    [self pushEvent:@"onRecvMessageExtensionsDeleted" errCode:@(0) errMsg:@"" data:msgReceiptListArray];
 }
 
 - (void)onRecvNewMessage:(NSString * _Nullable)message {
