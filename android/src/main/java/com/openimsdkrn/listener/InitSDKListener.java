@@ -15,26 +15,26 @@ public class InitSDKListener extends Emitter implements OnConnListener {
 
     @Override
     public void onConnectFailed(int l, String s) {
-        send(ctx,"onConnectFailed",getParams(l,s,"connectFailed"));
+        send(ctx,"onConnectFailed",getParamsWithoutData(l,s));
     }
 
     @Override
     public void onConnectSuccess() {
-        send(ctx,"onConnectSuccess",getParams(0,"","connectSuccess"));
+        send(ctx,"onConnectSuccess",getParamsWithoutData(0,""));
     }
 
     @Override
     public void onConnecting() {
-        send(ctx,"onConnecting",getParams(0,"","connecting"));
+        send(ctx,"onConnecting",getParamsWithoutData(0,""));
     }
 
     @Override
     public void onKickedOffline() {
-        send(ctx,"onKickedOffline",getParams(0,"","kickedOffline"));
+        send(ctx,"onKickedOffline",getParamsWithoutData(0,""));
     }
 
     @Override
     public void onUserTokenExpired() {
-        send(ctx,"onUserTokenExpired",getParams(0,"","userTokenExpired"));
+        send(ctx,"onUserTokenExpired",getParamsWithoutData(0,""));
     }
 }

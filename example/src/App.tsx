@@ -16,6 +16,7 @@ export default function App() {
 
   const Listener = () => {
     OpenIMEmitter.addListener('onConnectSuccess', (v) => {
+      console.log('connect success:::');
       console.log(v);
     });
     OpenIMEmitter.addListener('onConnectFailed', (v) => {
@@ -34,6 +35,10 @@ export default function App() {
     });
     OpenIMEmitter.addListener('SendMessageProgress', (v) => {
       console.log('send msg progress:::');
+      console.log(v);
+    });
+    OpenIMEmitter.addListener('onNewConversation', (v) => {
+      console.log('cve new:::');
       console.log(v);
     });
   };

@@ -16,7 +16,7 @@ import com.openimsdkrn.listener.OnConversationListener;
 import com.openimsdkrn.listener.OnFriendshipListener;
 import com.openimsdkrn.listener.OnGroupListener;
 import com.openimsdkrn.listener.UserListener;
-import com.openimsdkrn.listener.OnSignalingListener;
+//import com.openimsdkrn.listener.OnSignalingListener;
 import com.openimsdkrn.listener.UploadFileCallbackListener;
 //import open_im_sdk_callback.OnAdvancedMsgListener;
 //import open_im_sdk_callback.OnBatchMsgListener;
@@ -25,6 +25,8 @@ import com.openimsdkrn.listener.UploadFileCallbackListener;
 //import open_im_sdk_callback.OnUserListener;
 //import open_im_sdk_callback.SendMsgCallBack;
 //import open_im_sdk_callback.UploadFileCallback;
+
+import java.util.UUID;
 
 import open_im_sdk.Open_im_sdk;
 
@@ -907,8 +909,9 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
     }
     @ReactMethod
     public void uploadFile(ReadableMap reqData,String operationID,  Promise promise) {
-
-        Open_im_sdk.uploadFile(new BaseImpl(promise), operationID, readableMap2string(reqData), new UploadFileCallbackListener(reactContext));
+        UUID uuid = UUID.randomUUID();
+        String uuidString = uuid.toString();
+        Open_im_sdk.uploadFile(new BaseImpl(promise), operationID, readableMap2string(reqData), new UploadFileCallbackListener(reactContext,uuidString));
     }
     //advance
 //    @ReactMethod

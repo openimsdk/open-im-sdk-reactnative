@@ -26,7 +26,7 @@ public class SendMsgCallBack extends Emitter implements open_im_sdk_callback.Sen
         WritableMap params = Arguments.createMap();
         params.putInt("progress", (int)l);
         params.putString("message", msg);
-        send(ctx,"SendMessageProgress",getParams(0,"",readableMap2string(params)));
+        send(ctx,"SendMessageProgress",getParamsWithObject(0,"",readableMap2string(params)));
     }
 
     @Override
