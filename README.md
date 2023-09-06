@@ -18,7 +18,11 @@ yarn example ios
 yarn example android
 ```
 for android add following two urls to build gradle:
+
+
 https://open-im-online.rentsoft.cn:51000/repository/maven2/
+
+
 https://open-im-online.rentsoft.cn:51000/repository/maven2/
 
 ```
