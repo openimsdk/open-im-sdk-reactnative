@@ -18,13 +18,13 @@ yarn example ios
 yarn example android
 ```
 for android add following two urls to build gradle:
-
-
-https://open-im-online.rentsoft.cn:51000/repository/maven2/
-
+<br />
 
 https://open-im-online.rentsoft.cn:51000/repository/maven2/
+<br />
 
+https://open-im-online.rentsoft.cn:51000/repository/maven2/
+<br />
 ```
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
