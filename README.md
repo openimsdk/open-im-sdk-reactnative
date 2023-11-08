@@ -5,7 +5,7 @@ OpenIM SDK for react-native
 ## Installation
 
 ```sh
-npm install open-im-sdk-rn
+yarn add open-im-sdk-rn
 ```
 
 ## Usage
