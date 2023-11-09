@@ -1263,7 +1263,7 @@ RCT_EXPORT_METHOD(getSubscribeUsersStatus:(NSString *)operationID resolver:(RCTP
 //}
 
 
-RCT_EXPORT_METHOD(subscribeUsersStatus:(NSString *)operationID userIDs:(NSString *)userIDs resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter)
+RCT_EXPORT_METHOD(subscribeUsersStatus:(NSString *)userIDs operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter)
 {
     RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
     Open_im_sdkSubscribeUsersStatus(proxy, operationID, userIDs);
