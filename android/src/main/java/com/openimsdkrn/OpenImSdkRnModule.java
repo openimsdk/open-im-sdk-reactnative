@@ -18,7 +18,7 @@ import com.openimsdkrn.listener.OnGroupListener;
 import com.openimsdkrn.listener.UserListener;
 //import com.openimsdkrn.listener.OnSignalingListener;
 import com.openimsdkrn.listener.UploadFileCallbackListener;
-
+import com.openimsdkrn.listener.BatchMsgListener;
 import java.util.UUID;
 
 import open_im_sdk.Open_im_sdk;
@@ -62,6 +62,7 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
         setFriendListener();
         setGroupListener();
         addAdvancedMsgListener();
+        setBatchMsgListener();
 //        addSignalingListener();
         if(initialized){
             promise.resolve("init success");
@@ -74,7 +75,10 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
   public void setUserListener() {
     Open_im_sdk.setUserListener(new UserListener(reactContext));
   }
-
+    @ReactMethod
+  public void setBatchMsgListener() {
+    Open_im_sdk.setBatchMsgListener(new BatchMsgListener(reactContext));
+  }
     @ReactMethod
     public void login(ReadableMap options,String operationID,Promise promise) {
         Open_im_sdk.login(new BaseImpl(promise),operationID,options.getString("userID"),options.getString("token"));
@@ -164,7 +168,10 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
     public void deleteAllConversationFromLocal(String operationID, Promise promise) {
         Open_im_sdk.deleteAllConversationFromLocal(new BaseImpl(promise), operationID);
     }
-
+//    @ReactMethod
+//    public void hideAllConversations(String operationID, Promise promise) {
+//        Open_im_sdk.hideAllConversations(new BaseImpl(promise), operationID);
+//    }
     @ReactMethod
     public void setConversationDraft( ReadableMap options,String operationID, Promise promise) {
         Open_im_sdk.setConversationDraft(new BaseImpl(promise), operationID, options.getString("conversationID"), options.getString("draftText"));
@@ -513,7 +520,7 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
     public void quitGroup(String gid,String operationID,Promise promise) {
         Open_im_sdk.quitGroup(new BaseImpl(promise),operationID,gid);
     }
-        @ReactMethod
+    @ReactMethod
     public void dismissGroup(String groupID,String operationID,  Promise promise) {
         Open_im_sdk.dismissGroup(new BaseImpl(promise), operationID, groupID);
     }
@@ -542,7 +549,7 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
     public void getJoinedGroupList(String operationID, Promise promise) {
         Open_im_sdk.getJoinedGroupList(new BaseImpl(promise), operationID);
     }
-        @ReactMethod
+    @ReactMethod
     public void getSpecifiedGroupsInfo(ReadableArray groupIDList,String operationID,  Promise promise) {
         Open_im_sdk.getSpecifiedGroupsInfo(new BaseImpl(promise), operationID, groupIDList.toString());
     }
@@ -667,7 +674,6 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
         Open_im_sdk.sendMessageNotOss(new SendMsgCallBack(reactContext, promise, message), operationID, message, receiver, groupID, readableMap2string(offlinePushInfo));
     }
 
-    //third
     @ReactMethod
     public void updateFcmToken(ReadableArray userIDList,String operationID,  Promise promise) {
         Open_im_sdk.updateFcmToken(new BaseImpl(promise), operationID, userIDList.toString());
@@ -687,6 +693,47 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
         UUID uuid = UUID.randomUUID();
         String uuidString = uuid.toString();
         Open_im_sdk.uploadFile(new BaseImpl(promise), operationID, readableMap2string(reqData), new UploadFileCallbackListener(reactContext,uuidString));
+    }
+
+    @ReactMethod
+    public void unInitSDK(String operationID) {
+        Open_im_sdk.unInitSDK(operationID);
+    }
+
+    @ReactMethod
+    public void deleteAllMsgFromLocalAndSvr(String operationID, Promise promise) {
+        Open_im_sdk.deleteAllMsgFromLocalAndSvr(new BaseImpl(promise), operationID);
+    }
+
+    @ReactMethod
+    public void deleteAllMsgFromLocal(String operationID, Promise promise) {
+        Open_im_sdk.deleteAllMsgFromLocal(new BaseImpl(promise), operationID);
+    }
+
+    @ReactMethod
+    public void deleteMessageFromLocalStorage(String conversationID,String clientMsgID, String operationID, Promise promise) {
+        Open_im_sdk.deleteMessageFromLocalStorage(new BaseImpl(promise), operationID,  conversationID, clientMsgID );
+    }
+    @ReactMethod
+    public void deleteMessage( String conversationID,String clientMsgID,  String operationID,Promise promise) {
+        Open_im_sdk.deleteMessage(new BaseImpl(promise), operationID,  conversationID, clientMsgID);
+    }
+    @ReactMethod
+    public void getSubscribeUsersStatus( String operationID, Promise promise) {
+        Open_im_sdk.getSubscribeUsersStatus(new BaseImpl(promise), operationID);
+    }
+//    @ReactMethod
+//    public void getUsersInfoWithCache( String operationID,ReadableArray userIDs,String groupID, Promise promise) {
+//        Open_im_sdk.getUsersInfoWithCache(new BaseImpl(promise), operationID, userIDs.toString(), groupID);
+//    }
+
+    @ReactMethod
+    public void updateMsgSenderInfo(  String nickname, String faceURL, String operationID, Promise promise) {
+        Open_im_sdk.updateMsgSenderInfo(new BaseImpl(promise), operationID, nickname, faceURL);
+    }
+    @ReactMethod
+    public void subscribeUsersStatus( ReadableArray userIDs,String operationID,  Promise promise) {
+        Open_im_sdk.subscribeUsersStatus(new BaseImpl(promise), operationID, userIDs.toString());
     }
     //advance
 //    @ReactMethod

@@ -108,7 +108,9 @@ RCT_EXPORT_MODULE()
 //   @"onInviteeRejectedByOtherDevice",
 //   @"onReceiveNewInvitation",
 //   @"onHangUp",
-  @"UploadFileProgress"
+  @"UploadFileProgress",
+  @"onReceiveNewMessages",
+  @"onReceiveOfflineNewMessages"
   ];
 }
 
@@ -1214,6 +1216,61 @@ RCT_EXPORT_METHOD(uploadFile:(NSDictionary *)reqData operationID:(NSString *)ope
 }
 
 
+RCT_EXPORT_METHOD(unInitSDK:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter)
+{
+    Open_im_sdkUnInitSDK(operationID);
+}
+
+RCT_EXPORT_METHOD(deleteAllMsgFromLocalAndSvr:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter)
+{
+    RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
+    Open_im_sdkDeleteAllMsgFromLocalAndSvr(proxy, operationID);
+}
+
+RCT_EXPORT_METHOD(deleteAllMsgFromLocal:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter)
+{
+    RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
+    Open_im_sdkDeleteAllMsgFromLocal(proxy, operationID);
+}
+
+RCT_EXPORT_METHOD(deleteMessageFromLocalStorage:(NSDictionary *)options operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter)
+{
+    RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
+    NSString *conversationID = options[@"conversationID"]; 
+    NSString *clientMsgID = options[@"clientMsgID"];
+    Open_im_sdkDeleteMessageFromLocalStorage(proxy, operationID, conversationID, clientMsgID);
+}
+
+RCT_EXPORT_METHOD(deleteMessage:(NSDictionary *)options operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter)
+{
+    RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
+    NSString *conversationID = options[@"conversationID"];
+    NSString *clientMsgID = options[@"clientMsgID"];
+    Open_im_sdkDeleteMessage(proxy, operationID, conversationID, clientMsgID);
+}
+
+RCT_EXPORT_METHOD(getSubscribeUsersStatus:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter)
+{
+    RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
+    Open_im_sdkGetSubscribeUsersStatus(proxy, operationID);
+}
+
+// Uncomment this method if needed
+//RCT_EXPORT_METHOD(getUsersInfoWithCache:(NSString *)operationID userIDs:(NSString *)userIDs groupID:(NSString *)groupID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter)
+//{
+//    RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
+//    Open_im_sdkGetUsersInfoWithCache(proxy, operationID, userIDs, groupID);
+//}
+
+
+RCT_EXPORT_METHOD(subscribeUsersStatus:(NSString *)operationID userIDs:(NSString *)userIDs resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter)
+{
+    RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
+    Open_im_sdkSubscribeUsersStatus(proxy, operationID, userIDs);
+}
+
+
+
 
 // MARK: - Open_im_sdkIMSDKListener
 
@@ -1490,6 +1547,12 @@ RCT_EXPORT_METHOD(uploadFile:(NSDictionary *)reqData operationID:(NSString *)ope
     
 }
 
-
+// MARK: - Open_im_sdk_callbackOnBatchMsgListener
+    - (void)onReceiveNewMessages:(NSString* _Nullable)receiveNewMessagesCallback{
+     [self pushEvent:@"onReceiveNewMessages" errCode:@(0) errMsg:@"" data:receiveNewMessagesCallback];
+    }
+    - (void)onReceiveOfflineNewMessages:(NSString* _Nullable)receiveOfflineNewMessages{
+        [self pushEvent:@"onReceiveOfflineNewMessages" errCode:@(0) errMsg:@"" data:receiveOfflineNewMessages];
+    }
 
 @end

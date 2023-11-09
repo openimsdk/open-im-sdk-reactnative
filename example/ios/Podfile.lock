@@ -74,10 +74,10 @@ PODS:
     - hermes-engine/Pre-built (= 0.72.4)
   - hermes-engine/Pre-built (0.72.4)
   - libevent (2.1.12)
-  - open-im-sdk-rn (3.2.0):
-    - OpenIMSDKCore (= 3.2.0)
+  - open-im-sdk-rn (3.3.0):
+    - OpenIMSDKCore (= 3.3.0)
     - React-Core
-  - OpenIMSDKCore (3.2.0)
+  - OpenIMSDKCore (3.3.0)
   - OpenSSL-Universal (1.1.1100)
   - RCT-Folly (2021.07.22.00):
     - boost
