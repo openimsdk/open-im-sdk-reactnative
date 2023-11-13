@@ -169,6 +169,61 @@ export default function App() {
       console.error('Error SendMsg:', error); // Log the error
     }
   };
+  const getUsersInfoWithCache = async () => {
+
+    const options = {
+      userIDs : ['12'],
+      groupID : "123"
+    }
+    try {
+      const data = await OpenIMSDKRN.getUsersInfoWithCache(
+        options,
+        uuid()
+      );
+      console.log(data);
+    }catch (error) {
+      console.error('Error getUsersInfoWithCache:', error); // Log the error
+    }
+  };
+  const updateMsgSenderInfo = async () => {
+
+    const options = {
+      nickname : "NICK",
+      faceURL : "123"
+    }
+    try {
+      const data = await OpenIMSDKRN.updateMsgSenderInfo(
+        options,
+        uuid()
+      );
+      console.log(data);
+    }catch (error) {
+      console.error('Error updateMsgSenderInfo:', error); // Log the error
+    }
+  };
+  const subscribeUsersStatus = async () => {
+
+
+    try {
+      const data = await OpenIMSDKRN.subscribeUsersStatus(
+        ["123"],
+        uuid()
+      );
+      console.log(data);
+    }catch (error) {
+      console.error('Error subscribeUsersStatus:', error); // Log the error
+    }
+  };
+  const hideAllConversations = async () => {
+    try {
+      const data = await OpenIMSDKRN.hideAllConversations(
+        uuid()
+      );
+      console.log(data);
+    }catch (error) {
+      console.error('Error hideAllConversations:', error); // Log the error
+    }
+  };
   return (
     <View style={styles.container}>
       <Button onPress={Init} title="Init" />
@@ -179,8 +234,11 @@ export default function App() {
       <Button onPress={SendMsg} title="SendMsg" />
       <Button onPress={GetCveSplit} title="getCveSplit" />
       <Button onPress={CreateSoundMessageByURL} title="createSoundMessageByURL" />
-      <Button onPress={getGroupMemberListByJoinTimeFilter} title="getGroupMemberListByJoinTimeFilter" />
-    </View>
+      <Button onPress={getUsersInfoWithCache} title="getUsersInfoWithCache" />
+      <Button onPress={updateMsgSenderInfo} title="updateMsgSenderInfo" />
+      <Button onPress={subscribeUsersStatus} title="subscribeUsersStatus" />
+      <Button onPress={hideAllConversations} title="hideAllConversations" />
+   </View>
   );
 }
 
