@@ -19,4 +19,4 @@ const OpenIMSDKRN = NativeModules.OpenIMSDKRN
 
 export const OpenIMEmitter = new NativeEventEmitter(OpenIMSDKRN);
 
-export default OpenIMSDKRN
+export default OpenIMSDKRN;

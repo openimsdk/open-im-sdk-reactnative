@@ -57,7 +57,6 @@ To edit the Objective-C or Swift files, open `example/ios/OpenImSdkRnExample.xcw
 
 To edit the Java or Kotlin files, open `example/android` in Android studio and find the source files at `open-im-sdk-rn` under `Android`.
 
-
 ### Commit message convention
 
 We follow the [conventional commits specification](https://www.conventionalcommits.org/en) for our commit messages:
