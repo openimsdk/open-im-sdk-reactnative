@@ -712,11 +712,16 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void deleteMessageFromLocalStorage(String conversationID,String clientMsgID, String operationID, Promise promise) {
+    public void deleteMessageFromLocalStorage(ReadableMap options, String operationID, Promise promise) {
+      String conversationID = options.getString("conversationID");
+      String clientMsgID = options.getString("clientMsgID");
         Open_im_sdk.deleteMessageFromLocalStorage(new BaseImpl(promise), operationID,  conversationID, clientMsgID );
     }
     @ReactMethod
-    public void deleteMessage( String conversationID,String clientMsgID,  String operationID,Promise promise) {
+    public void deleteMessage(ReadableMap options,  String operationID,Promise promise) {
+      String conversationID = options.getString("conversationID");
+      String clientMsgID = options.getString("clientMsgID");
+
         Open_im_sdk.deleteMessage(new BaseImpl(promise), operationID,  conversationID, clientMsgID);
     }
     @ReactMethod
@@ -724,12 +729,16 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
         Open_im_sdk.getSubscribeUsersStatus(new BaseImpl(promise), operationID);
     }
    @ReactMethod
-   public void getUsersInfoWithCache( String operationID,ReadableArray userIDs,String groupID, Promise promise) {
+   public void getUsersInfoWithCache( ReadableMap options,String operationID, Promise promise) {
+     ReadableArray userIDs = options.getArray("userIDs");
+     String groupID = options.getString("groupID");
        Open_im_sdk.getUsersInfoWithCache(new BaseImpl(promise), operationID, userIDs.toString(), groupID);
    }
 
     @ReactMethod
-    public void updateMsgSenderInfo(  String nickname, String faceURL, String operationID, Promise promise) {
+    public void updateMsgSenderInfo(  ReadableMap options, String operationID, Promise promise) {
+      String nickname = options.getString("nickname");
+      String faceURL = options.getString("faceURL");
         Open_im_sdk.updateMsgSenderInfo(new BaseImpl(promise), operationID, nickname, faceURL);
     }
     @ReactMethod
