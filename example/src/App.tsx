@@ -4,10 +4,10 @@ import { StyleSheet, View, Button } from 'react-native';
 import { useEffect, useState } from 'react';
 import RNFS from 'react-native-fs';
 // const OpenIMEmitter = new NativeEventEmitter(OpenIMSDKRN);
-
+  console.log(text)
 export default function App() {
   const [text, setText] = useState('');
-
+  console.log(text)
   useEffect(() => {
     Listener();
   }, []);
