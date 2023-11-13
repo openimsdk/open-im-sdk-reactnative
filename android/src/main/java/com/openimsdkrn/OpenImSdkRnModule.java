@@ -164,14 +164,14 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
         Open_im_sdk.getConversationRecvMessageOpt(new BaseImpl(promise), operationID, conversationIDList.toString());
     }
 
-    @ReactMethod
-    public void deleteAllConversationFromLocal(String operationID, Promise promise) {
-        Open_im_sdk.deleteAllConversationFromLocal(new BaseImpl(promise), operationID);
-    }
 //    @ReactMethod
-//    public void hideAllConversations(String operationID, Promise promise) {
-//        Open_im_sdk.hideAllConversations(new BaseImpl(promise), operationID);
+//    public void deleteAllConversationFromLocal(String operationID, Promise promise) {
+//        Open_im_sdk.deleteAllConversationFromLocal(new BaseImpl(promise), operationID);
 //    }
+    @ReactMethod
+    public void hideAllConversations(String operationID, Promise promise) {
+        Open_im_sdk.hideAllConversations(new BaseImpl(promise), operationID);
+    }
     @ReactMethod
     public void setConversationDraft( ReadableMap options,String operationID, Promise promise) {
         Open_im_sdk.setConversationDraft(new BaseImpl(promise), operationID, options.getString("conversationID"), options.getString("draftText"));
@@ -275,7 +275,8 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
     String jsonStr1 = options.getMap("sourcePicture").toString();
     String jsonStr2 = options.getMap("bigPicture").toString();
     String jsonStr3 = options.getMap("snapshotPicture").toString();
-    String result = Open_im_sdk.createImageMessageByURL(OperationID, jsonStr1, jsonStr2, jsonStr3);
+    String jsonStr4 = options.getMap("sourcePath").toString();
+    String result = Open_im_sdk.createImageMessageByURL(OperationID, jsonStr1, jsonStr2, jsonStr3,jsonStr4);
     promise.resolve(result);
   }
 
@@ -675,8 +676,8 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void updateFcmToken(ReadableArray userIDList,String operationID,  Promise promise) {
-        Open_im_sdk.updateFcmToken(new BaseImpl(promise), operationID, userIDList.toString());
+    public void updateFcmToken(ReadableArray userIDList,String operationID,long expiredTime, Promise promise) {
+        Open_im_sdk.updateFcmToken(new BaseImpl(promise), operationID, userIDList.toString(),expiredTime);
     }
 
     @ReactMethod
@@ -722,10 +723,10 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
     public void getSubscribeUsersStatus( String operationID, Promise promise) {
         Open_im_sdk.getSubscribeUsersStatus(new BaseImpl(promise), operationID);
     }
-//    @ReactMethod
-//    public void getUsersInfoWithCache( String operationID,ReadableArray userIDs,String groupID, Promise promise) {
-//        Open_im_sdk.getUsersInfoWithCache(new BaseImpl(promise), operationID, userIDs.toString(), groupID);
-//    }
+   @ReactMethod
+   public void getUsersInfoWithCache( String operationID,ReadableArray userIDs,String groupID, Promise promise) {
+       Open_im_sdk.getUsersInfoWithCache(new BaseImpl(promise), operationID, userIDs.toString(), groupID);
+   }
 
     @ReactMethod
     public void updateMsgSenderInfo(  String nickname, String faceURL, String operationID, Promise promise) {
