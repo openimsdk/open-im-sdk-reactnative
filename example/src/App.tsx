@@ -1,6 +1,6 @@
 import * as React from 'react';
 import OpenIMSDKRN, { OpenIMEmitter } from 'open-im-sdk-rn';
-import { StyleSheet, View, Button, TurboModuleRegistry } from 'react-native';
+import { StyleSheet, View, Button } from 'react-native';
 import { useEffect, useState } from 'react';
 import RNFS from 'react-native-fs';
 // const OpenIMEmitter = new NativeEventEmitter(OpenIMSDKRN);
@@ -12,7 +12,9 @@ export default function App() {
     Listener();
   }, []);
 
-  const uuid = () => (Math.random() * 36).toString(36).slice(2) + new Date().getTime().toString()
+  const uuid = () =>
+    (Math.random() * 36).toString(36).slice(2) +
+    new Date().getTime().toString();
 
   const Listener = () => {
     OpenIMEmitter.addListener('onConnectSuccess', (v) => {
@@ -57,7 +59,6 @@ export default function App() {
       const opid = uuid();
       const result = await OpenIMSDKRN.initSDK(config, opid);
       console.log(result); // Success message
-
     } catch (error) {
       console.error('Error initializing SDK:', error); // Log the error
     }
@@ -65,16 +66,15 @@ export default function App() {
 
   const Login = async () => {
     const tk =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiI2OTYwNTYyODA1IiwiUGxhdGZvcm1JRCI6NSwiZXhwIjoxNzAxMDY5OTM0LCJuYmYiOjE2OTMyOTM2MzQsImlhdCI6MTY5MzI5MzkzNH0.n9HvwQDA99eoCfkivB20m8byubN-_dcllBdsC9raOYs'
-      const options = {
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiI2OTYwNTYyODA1IiwiUGxhdGZvcm1JRCI6NSwiZXhwIjoxNzAxMDY5OTM0LCJuYmYiOjE2OTMyOTM2MzQsImlhdCI6MTY5MzI5MzkzNH0.n9HvwQDA99eoCfkivB20m8byubN-_dcllBdsC9raOYs';
+    const options = {
       userID: '6960562805',
       token: tk,
     };
     try {
       const data = await OpenIMSDKRN.login(options, uuid());
       console.log(data);
-    }
-    catch (error) {
+    } catch (error) {
       console.error('Error login:', error); // Log the error
     }
   };
@@ -86,9 +86,9 @@ export default function App() {
 
   const GetCveSplit = async () => {
     const options = {
-      offset:0,
-      count:1,
-    }
+      offset: 0,
+      count: 1,
+    };
     const data = await OpenIMSDKRN.getConversationListSplit(options, uuid());
     console.log(data);
   };
@@ -97,7 +97,7 @@ export default function App() {
     try {
       const data = await OpenIMSDKRN.getUsersInfo(['6960562805'], uuid());
       console.log(data);
-    }catch (error) {
+    } catch (error) {
       console.error('Error GetUsersInfo:', error); // Log the error
     }
   };
@@ -107,10 +107,9 @@ export default function App() {
       const data = await OpenIMSDKRN.createTextMessage('rn text msg', uuid());
       console.log(data);
       setText(data);
-    }catch (error) {
+    } catch (error) {
       console.error('Error CreateTextMsg:', error); // Log the error
     }
-    
   };
   const CreateSoundMessageByURL = async () => {
     const soundinfo = {
@@ -120,107 +119,52 @@ export default function App() {
       sourceUrl: '',
       dataSize: 1024,
       soundType: 'mp3',
-    }
+    };
     try {
       const data = await OpenIMSDKRN.createSoundMessageByURL(soundinfo, uuid());
       console.log(data);
-    }catch (error) {
+    } catch (error) {
       console.error('Error CreateSoundMessageByURL:', error); // Log the error
     }
-  }
-  const getGroupMemberListByJoinTimeFilter = async () =>{
-    const options = {
-      groupID: '',
-      offset: 0,
-      count: 20,
-      joinTimeBegin: 0,
-      joinTimeEnd: 0,
-      filterUserIDList: ['userID'],
-    }
-    try {
-      const data = await OpenIMSDKRN.getGroupMemberListByJoinTimeFilter(options, uuid());
-      console.log(data);
-    }catch (error) {
-      console.error('Error getGroupMemberListByJoinTimeFilter:', error); // Log the error
-    }
-  }
-  const SendMsg = async () => {
-    const offlinePushInfo = {
-      title: 'you have a new message',
-      desc: 'new message',
-      ex: '',
-      iOSPushSound: '+1',
-      iOSBadgeCount: true,
-    }
-    const options = {
-      message:text,
-      recvID:'7440671006',
-      groupID:'',
-      offlinePushInfo
-    }
-    try {
-      const data = await OpenIMSDKRN.sendMessage(
-        options,
-        uuid()
-      );
-      console.log(data);
-      setText(data);
-    }catch (error) {
-      console.error('Error SendMsg:', error); // Log the error
-    }
   };
+ 
   const getUsersInfoWithCache = async () => {
-
     const options = {
-      userIDs : ['12'],
-      groupID : "123"
-    }
+      userIDs: ['12'],
+      groupID: '123',
+    };
     try {
-      const data = await OpenIMSDKRN.getUsersInfoWithCache(
-        options,
-        uuid()
-      );
+      const data = await OpenIMSDKRN.getUsersInfoWithCache(options, uuid());
       console.log(data);
-    }catch (error) {
+    } catch (error) {
       console.error('Error getUsersInfoWithCache:', error); // Log the error
     }
   };
   const updateMsgSenderInfo = async () => {
-
     const options = {
-      nickname : "NICK",
-      faceURL : "123"
-    }
+      nickname: 'NICK',
+      faceURL: '123',
+    };
     try {
-      const data = await OpenIMSDKRN.updateMsgSenderInfo(
-        options,
-        uuid()
-      );
+      const data = await OpenIMSDKRN.updateMsgSenderInfo(options, uuid());
       console.log(data);
-    }catch (error) {
+    } catch (error) {
       console.error('Error updateMsgSenderInfo:', error); // Log the error
     }
   };
   const subscribeUsersStatus = async () => {
-
-
     try {
-      const data = await OpenIMSDKRN.subscribeUsersStatus(
-        ["123"],
-        uuid()
-      );
+      const data = await OpenIMSDKRN.subscribeUsersStatus(['123'], uuid());
       console.log(data);
-    }catch (error) {
+    } catch (error) {
       console.error('Error subscribeUsersStatus:', error); // Log the error
     }
   };
   const hideAllConversations = async () => {
     try {
-      const data = await OpenIMSDKRN.hideAllConversations(
-        uuid()
-      );
+      const data = await OpenIMSDKRN.hideAllConversations(uuid());
       console.log(data);
-    }catch (error) {
+    } catch (error) {
       console.error('Error hideAllConversations:', error); // Log the error
     }
   };
@@ -233,12 +177,15 @@ export default function App() {
       <Button onPress={CreateTextMsg} title="CreateTextMsg" />
       <Button onPress={SendMsg} title="SendMsg" />
       <Button onPress={GetCveSplit} title="getCveSplit" />
-      <Button onPress={CreateSoundMessageByURL} title="createSoundMessageByURL" />
+      <Button
+        onPress={CreateSoundMessageByURL}
+        title="createSoundMessageByURL"
+      />
       <Button onPress={getUsersInfoWithCache} title="getUsersInfoWithCache" />
       <Button onPress={updateMsgSenderInfo} title="updateMsgSenderInfo" />
       <Button onPress={subscribeUsersStatus} title="subscribeUsersStatus" />
       <Button onPress={hideAllConversations} title="hideAllConversations" />
-   </View>
+    </View>
   );
 }
 

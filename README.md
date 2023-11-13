@@ -1,6 +1,5 @@
 # React Native SDK for OpenIM 👨‍💻💬
 
-
 Here is the updated description for the React Native SDK for adding instant messaging capabilities using the OpenIM SDK:
 
 **React Native OpenIM SDK**
@@ -18,7 +17,6 @@ iOS Integration with XCFramework: On iOS, the OpenIM SDK Core can be compiled in
 Empower your application with instant messaging capabilities across web, Android, and iOS platforms, and enhance user engagement with real-time communication using the React Native OpenIM SDK.
 
 For detailed integration instructions, refer to the OpenIM SDK Core documentation.
-
 
 ## Documentation 📚
 
@@ -41,6 +39,7 @@ yarn example ios
 
 yarn example android
 ```
+
 for android add following two urls to build gradle:
 <br />
 
@@ -49,6 +48,7 @@ https://open-im-online.rentsoft.cn:51000/repository/maven2/
 
 https://open-im-online.rentsoft.cn:51000/repository/maven2/
 <br />
+
 ```
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
@@ -88,10 +88,10 @@ allprojects {
 ## Examples 🌟
 
 You can find a demo web app that uses the SDK in the [openim-pc-web-demo](https://github.com/openimsdk/openim-reactnative-demo) repository.
+
 ## Contributing
 
 See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the repository and the development workflow.
-
 
 ## Community :busts_in_silhouette:
 
@@ -115,4 +115,3 @@ Check out our [user case studies](https://github.com/OpenIMSDK/community/blob/ma
 ## License :page_facing_up:
 
 OpenIM is licensed under the Apache 2.0 license. See [LICENSE](https://github.com/openimsdk/open-im-server/tree/main/LICENSE) for the full license text.
-
