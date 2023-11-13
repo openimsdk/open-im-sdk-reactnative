@@ -127,7 +127,7 @@ export default function App() {
       console.error('Error CreateSoundMessageByURL:', error); // Log the error
     }
   };
- 
+
   const getUsersInfoWithCache = async () => {
     const options = {
       userIDs: ['12'],
@@ -175,7 +175,7 @@ export default function App() {
       <Button onPress={GetLoginStatus} title="getLoginStatus" />
       <Button onPress={GetUsersInfo} title="GetUsersInfo" />
       <Button onPress={CreateTextMsg} title="CreateTextMsg" />
-      <Button onPress={SendMsg} title="SendMsg" />
+      {/* <Button onPress={SendMsg} title="SendMsg" /> */}
       <Button onPress={GetCveSplit} title="getCveSplit" />
       <Button
         onPress={CreateSoundMessageByURL}
