@@ -144,6 +144,9 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
         Open_im_sdk.getOneConversation(new BaseImpl(promise), operationID, options.getInt("sessionType"), options.getString("sourceID"));
     }
 
+    public void markConversationMessageAsRead(String conversationID,String operationID, Promise promise){
+        Open_im_sdk.markConversationMessageAsRead(new BaseImpl(promise), operationID, conversationID);
+    }
     @ReactMethod
     public void getMultipleConversation( ReadableArray conversationIDList,String operationID, Promise promise) {
         Open_im_sdk.getMultipleConversation(new BaseImpl(promise), operationID, conversationIDList.toString()); //会不会报错
@@ -417,7 +420,7 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
     public void setFriendRemark(String userIDRemark,String operationID, Promise promise) {
       Open_im_sdk.setFriendRemark(new BaseImpl(promise),operationID, userIDRemark);
     }
-
+    
     @ReactMethod
     public void deleteFriend(String friendUserID,String operationID, Promise promise) {
       Open_im_sdk.deleteFriend(new BaseImpl(promise),operationID, friendUserID);

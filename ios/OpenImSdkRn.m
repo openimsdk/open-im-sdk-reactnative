@@ -389,6 +389,11 @@ RCT_EXPORT_METHOD(setConversationPrivateChat:(NSDictionary *)options operationID
     Open_im_sdkSetConversationPrivateChat(proxy,operationID, [options valueForKey:@"conversationID"], [[options valueForKey:@"isPrivate"] boolValue] );
 }
 
+RCT_EXPORT_METHOD(markConversationMessageAsRead:(NSString *)conversationID operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter)
+{
+    RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
+    Open_im_sdkMarkConversationMessageAsRead(proxy,operationID, conversationID);
+}
 RCT_EXPORT_METHOD(setConversationBurnDuration:(NSDictionary *)options operationID:(NSString *)operationID  resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter)
 {
     RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
@@ -1333,14 +1338,14 @@ RCT_EXPORT_METHOD(subscribeUsersStatus:(NSString *)userIDs operationID:(NSString
     [self pushEvent:@"onRecvC2CReadReceipt" errCode:@(0) errMsg:@"" data:msgReceiptListArray];
 }
 
-//  - (void)onRecvMessageRevoked:(NSString* _Nullable)msgId {
-//      [self pushEvent:@"onRecvMessageRevoked" errCode:@(0) errMsg:@"" data:msgId];
-//  }
+ - (void)onRecvMessageRevoked:(NSString* _Nullable)msgId {
+     [self pushEvent:@"onRecvMessageRevoked" errCode:@(0) errMsg:@"" data:msgId];
+ }
 
-//  - (void)onRecvNewMessage:(NSString* _Nullable)message {
-//     NSDictionary *messageDict = [self parseJsonStr2Dict:message];
-//      [self pushEvent:@"onRecvNewMessage" errCode:@(0) errMsg:@"" data:messageDict];
-//  }
+ - (void)onRecvNewMessage:(NSString* _Nullable)message {
+    NSDictionary *messageDict = [self parseJsonStr2Dict:message];
+     [self pushEvent:@"onRecvNewMessage" errCode:@(0) errMsg:@"" data:messageDict];
+ }
 
 - (void)onRecvGroupReadReceipt:(NSString * _Nullable)groupMsgReceiptList {
     NSArray *msgReceiptListArray = [self parseJsonStr2Array:groupMsgReceiptList];
