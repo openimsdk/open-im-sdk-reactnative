@@ -389,6 +389,11 @@ RCT_EXPORT_METHOD(setConversationPrivateChat:(NSDictionary *)options operationID
     Open_im_sdkSetConversationPrivateChat(proxy,operationID, [options valueForKey:@"conversationID"], [[options valueForKey:@"isPrivate"] boolValue] );
 }
 
+RCT_EXPORT_METHOD(markConversationMessageAsRead:(NSString *)conversationID operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter)
+{
+    RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
+    Open_im_sdkMarkConversationMessageAsRead(proxy,operationID, conversationID);
+}
 RCT_EXPORT_METHOD(setConversationBurnDuration:(NSDictionary *)options operationID:(NSString *)operationID  resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter)
 {
     RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
