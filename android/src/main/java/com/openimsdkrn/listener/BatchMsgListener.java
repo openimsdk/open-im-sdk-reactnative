@@ -14,11 +14,11 @@ public class BatchMsgListener extends Emitter implements OnBatchMsgListener {
 
   @Override
   public void onRecvNewMessages(String s) {
-    send(ctx,"OnRecvNewMessages",getParamsWithObject(0,"",s));
+    send(ctx,"OnRecvNewMessages",getParamsWithArray(0,"",s));
   }
 
   @Override
   public void onRecvOfflineNewMessages(String s) {
-    send(ctx,"OnRecvOfflineNewMessages",getParamsWithObject(0,"",s));
+    send(ctx,"OnRecvOfflineNewMessages",getParamsWithArray(0,"",s));
   }
 }
