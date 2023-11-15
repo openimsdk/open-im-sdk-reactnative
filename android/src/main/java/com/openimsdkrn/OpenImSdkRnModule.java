@@ -137,13 +137,13 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void getConversationListSplit(ReadableMap options, String operationID, Promise promise) {
         Open_im_sdk.getConversationListSplit(new BaseImpl(promise),operationID, options.getInt("offset"), options.getInt("count"));
-    }//要改吗
+    }
 
     @ReactMethod
     public void getOneConversation(ReadableMap options,String operationID, Promise promise) {
         Open_im_sdk.getOneConversation(new BaseImpl(promise), operationID, options.getInt("sessionType"), options.getString("sourceID"));
     }
-
+    @ReactMethod
     public void markConversationMessageAsRead(String conversationID,String operationID, Promise promise){
         Open_im_sdk.markConversationMessageAsRead(new BaseImpl(promise), operationID, conversationID);
     }
@@ -733,9 +733,9 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
     }
    @ReactMethod
    public void getUsersInfoWithCache( ReadableMap options,String operationID, Promise promise) {
-     ReadableArray userIDs = options.getArray("userIDs");
+     ReadableArray userIDList = options.getArray("userIDList");
      String groupID = options.getString("groupID");
-       Open_im_sdk.getUsersInfoWithCache(new BaseImpl(promise), operationID, userIDs.toString(), groupID);
+       Open_im_sdk.getUsersInfoWithCache(new BaseImpl(promise), operationID, userIDList.toString(), groupID);
    }
 
     @ReactMethod
@@ -745,8 +745,8 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
         Open_im_sdk.updateMsgSenderInfo(new BaseImpl(promise), operationID, nickname, faceURL);
     }
     @ReactMethod
-    public void subscribeUsersStatus( ReadableArray userIDs,String operationID,  Promise promise) {
-        Open_im_sdk.subscribeUsersStatus(new BaseImpl(promise), operationID, userIDs.toString());
+    public void subscribeUsersStatus( ReadableArray userIDList,String operationID,  Promise promise) {
+        Open_im_sdk.subscribeUsersStatus(new BaseImpl(promise), operationID, userIDList.toString());
     }
     //advance
 //    @ReactMethod

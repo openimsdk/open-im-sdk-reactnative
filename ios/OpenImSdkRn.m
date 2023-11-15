@@ -1254,9 +1254,9 @@ RCT_EXPORT_METHOD(getSubscribeUsersStatus:(NSString *)operationID resolver:(RCTP
 RCT_EXPORT_METHOD(getUsersInfoWithCache:(NSDictionary *)options operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter)
 {
     RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
-    NSArray *userIDs = options[@"userIDs"];
+    NSArray *userIDList = options[@"userIDList"];
     NSString *groupID = options[@"groupID"];
-    Open_im_sdkGetUsersInfoWithCache(proxy, operationID, [userIDs json], groupID);
+    Open_im_sdkGetUsersInfoWithCache(proxy, operationID, [userIDList json], groupID);
 }
 RCT_EXPORT_METHOD(updateFcmToken:(NSDictionary *)options operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter)
 {
@@ -1267,10 +1267,10 @@ RCT_EXPORT_METHOD(updateFcmToken:(NSDictionary *)options operationID:(NSString *
 }
 
 
-RCT_EXPORT_METHOD(subscribeUsersStatus:(NSString *)userIDs operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter)
+RCT_EXPORT_METHOD(subscribeUsersStatus:(NSString *)userIDList operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter)
 {
     RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
-    Open_im_sdkSubscribeUsersStatus(proxy, operationID, userIDs);
+    Open_im_sdkSubscribeUsersStatus(proxy, operationID, userIDList);
 }
 
 
