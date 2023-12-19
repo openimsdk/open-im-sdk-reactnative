@@ -1368,10 +1368,10 @@ RCT_EXPORT_METHOD(subscribeUsersStatus:(NSString *)userIDList operationID:(NSStr
     [self pushEvent:@"onRecvMessageExtensionsDeleted" errCode:@(0) errMsg:@"" data:msgReceiptListArray];
 }
 
-- (void)onRecvNewMessage:(NSString * _Nullable)message {
-    NSArray *messageListArray = [self parseJsonStr2Array:message];
-    [self pushEvent:@"onRecvNewMessage" errCode:@(0) errMsg:@"" data:messageListArray];
-}
+//- (void)onRecvNewMessage:(NSString * _Nullable)message {
+//    NSArray *messageListArray = [self parseJsonStr2Array:message];
+//    [self pushEvent:@"onRecvNewMessage" errCode:@(0) errMsg:@"" data:messageListArray];
+//}
 
 
 - (void)onRecvOfflineNewMessage:(NSString * _Nullable)message {
