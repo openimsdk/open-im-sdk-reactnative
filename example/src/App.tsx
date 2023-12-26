@@ -31,7 +31,7 @@ export default function App() {
       console.log('cve changed:::');
       console.log(v);
     });
-    OpenIMEmitter.addListener('onRecvNewMessage', (v) => {
+    OpenIMEmitter.addListener('onRecvNewMessages', (v) => {
       console.log('rec new msg:::');
       console.log(v);
     });
@@ -49,8 +49,8 @@ export default function App() {
     await RNFS.mkdir(RNFS.DocumentDirectoryPath + '/tmp');
     const config = {
       platformID: 5,
-      apiAddr: 'https://web.rentsoft.cn/api',
-      wsAddr: 'wss://web.rentsoft.cn/msg_gateway',
+      apiAddr: 'http://14.29.168.56:10002',
+      wsAddr: 'ws://14.29.168.56:10001',
       dataDir: RNFS.DocumentDirectoryPath + '/tmp',
       logLevel: 6,
       isLogStandardOutput: true,
@@ -66,9 +66,9 @@ export default function App() {
 
   const Login = async () => {
     const tk =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiI2OTYwNTYyODA1IiwiUGxhdGZvcm1JRCI6NSwiZXhwIjoxNzAxMDY5OTM0LCJuYmYiOjE2OTMyOTM2MzQsImlhdCI6MTY5MzI5MzkzNH0.n9HvwQDA99eoCfkivB20m8byubN-_dcllBdsC9raOYs';
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiIzIiwiUGxhdGZvcm1JRCI6MiwiZXhwIjoxNzExMzQ5MjY4LCJuYmYiOjE3MDM1NzI5NjgsImlhdCI6MTcwMzU3MzI2OH0.1NaLdnMcD-dLbDM9YwbPU9-FD2lKvoLnmVbEMXD6fhg';
     const options = {
-      userID: '6960562805',
+      userID: '3',
       token: tk,
     };
     try {

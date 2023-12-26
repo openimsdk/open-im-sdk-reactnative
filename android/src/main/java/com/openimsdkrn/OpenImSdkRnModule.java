@@ -75,7 +75,7 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void setUserListener() {
-    Open_im_sdk.setUserListener(new UserListener(reactContext));
+      Open_im_sdk.setUserListener(new UserListener(reactContext));
   }
     @ReactMethod
   public void setBatchMsgListener() {
@@ -400,10 +400,6 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
     String conversationID = options.getString("conversationID");
     String clientMsgID = options.getString("clientMsgID");
     Open_im_sdk.deleteMessageFromLocalStorage(new BaseImpl(promise), operationID,  conversationID, clientMsgID );
-  }
-  @ReactMethod //TODO ios
-  public void deleteMessage(ReadableMap options, String operationID, Promise promise) {
-    Open_im_sdk.deleteMessage(new BaseImpl(promise), operationID, options.getString("conversationID"), options.getString("clientMsgID"));
   }
   @ReactMethod
   public void deleteAllMsgFromLocalAndSvr(String operationID, Promise promise) {
