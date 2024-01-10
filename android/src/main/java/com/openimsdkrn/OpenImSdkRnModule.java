@@ -3,6 +3,7 @@ package com.openimsdkrn;
 
 import androidx.annotation.RequiresPermission;
 
+import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContext;
@@ -12,6 +13,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 
+import com.facebook.react.bridge.WritableMap;
 import com.openimsdkrn.listener.AdvancedMsgListener;
 import com.openimsdkrn.listener.InitSDKListener;
 import com.openimsdkrn.listener.OnConversationListener;
@@ -24,6 +26,7 @@ import com.openimsdkrn.listener.BatchMsgListener;
 import java.util.UUID;
 
 import open_im_sdk.Open_im_sdk;
+import open_im_sdk_callback.UploadLogProgress;
 
 public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
 
@@ -505,8 +508,8 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void addBlack(String blackUserID,String operationID, Promise promise) {
-      Open_im_sdk.addBlack(new BaseImpl(promise),operationID, blackUserID);
+    public void addBlack(String blackUserID,String ex, String operationID, Promise promise) {
+      Open_im_sdk.addBlack(new BaseImpl(promise),operationID, blackUserID, ex);
     }
 
     @ReactMethod
@@ -533,7 +536,7 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void joinGroup(ReadableMap options, String operationID, Promise promise) {
-      Open_im_sdk.joinGroup(new BaseImpl(promise), operationID, options.getString("groupID"), options.getString("reqMsg"),options.getInt("joinSource"));
+      Open_im_sdk.joinGroup(new BaseImpl(promise), operationID, options.getString("groupID"), options.getString("reqMsg"),options.getInt("joinSource"),options.getString("ex"));
     }
 
     @ReactMethod
@@ -703,12 +706,21 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
         Open_im_sdk.setAppBadge(new BaseImpl(promise), operationID, appUnreadCount);
     }
 
-    @ReactMethod
-    public void uploadLogs(ReadableArray data, String operationID, Promise promise) {
-        Open_im_sdk.uploadLogs(new BaseImpl(promise), operationID, data.toString());
-    }
+  @ReactMethod
+  public void uploadLogs(ReadableArray data, String operationID, Promise promise) {
+    Open_im_sdk.uploadLogs(new BaseImpl(promise), operationID, new UploadLogProgress() {
+      @Override
+      public void onProgress(long uploadedBytes, long totalBytes) {
+        // You can create a map to send progress updates back to React Native
+        WritableMap progressMap = Arguments.createMap();
+        progressMap.putDouble("uploadedBytes", uploadedBytes);
+        progressMap.putDouble("totalBytes", totalBytes);
+      }
+    });
+  }
 
-    @ReactMethod
+
+  @ReactMethod
     public String getSdkVersion() {
         return Open_im_sdk.getSdkVersion();
     }

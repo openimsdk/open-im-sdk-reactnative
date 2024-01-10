@@ -56,4 +56,9 @@ public class AdvancedMsgListener extends Emitter implements OnAdvancedMsgListene
   public void onRecvOfflineNewMessage(String s) {
     send(ctx,"onRecvOfflineNewMessage",getParamsWithObject(0,"",s));
   }
+
+  @Override
+  public void onRecvOnlineOnlyMessage(String s) {
+    send(ctx,"onRecvOnlineOnlyMessage",getParamsWithObject(0,"",s));
+  }
 }
