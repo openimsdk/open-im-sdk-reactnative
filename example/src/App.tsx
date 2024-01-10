@@ -48,7 +48,7 @@ export default function App() {
   const Init = async () => {
     await RNFS.mkdir(RNFS.DocumentDirectoryPath + '/tmp');
     const config = {
-      platformID: 5,
+      platformID: 2,
       apiAddr: 'http://14.29.168.56:10002',
       wsAddr: 'ws://14.29.168.56:10001',
       dataDir: RNFS.DocumentDirectoryPath + '/tmp',
@@ -66,7 +66,7 @@ export default function App() {
 
   const Login = async () => {
     const tk =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiIzIiwiUGxhdGZvcm1JRCI6MiwiZXhwIjoxNzExMzQ5MjY4LCJuYmYiOjE3MDM1NzI5NjgsImlhdCI6MTcwMzU3MzI2OH0.1NaLdnMcD-dLbDM9YwbPU9-FD2lKvoLnmVbEMXD6fhg';
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiIzIiwiUGxhdGZvcm1JRCI6MiwiZXhwIjoxNzExMzU4NDkyLCJuYmYiOjE3MDM1ODIxOTIsImlhdCI6MTcwMzU4MjQ5Mn0.MLoBpIA4S0LyQKFOyQPC7fNf6k6YMvwoBSkhsNXUJFg';
     const options = {
       userID: '3',
       token: tk,
