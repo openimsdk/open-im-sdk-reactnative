@@ -67,11 +67,13 @@ RCT_EXPORT_MODULE()
   @"onRecvGroupReadReceipt",
   @"onRecvNewMessage",
   @"onRecvOfflineNewMessage",
+  @"onRecvOnlineOnlyMessage",
   @"onRecvMessageExtensionsAdded",
   @"onRecvMessageExtensionsChanged",
   @"onRecvMessageExtensionsDeleted",
   
   @"onConversationChanged",
+  @"onConversationUserInputStatusChanged",
   @"onNewConversation",
   @"onSyncServerFailed",
   @"onSyncServerFinish",
@@ -961,10 +963,10 @@ RCT_EXPORT_METHOD(refuseFriendApplication:(NSDictionary *)userIDHandleMsg operat
     Open_im_sdkRefuseFriendApplication(proxy, operationID, userIDHandleMsgJson);
 }
 
-RCT_EXPORT_METHOD(addBlack:(NSString *)blackUserID operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter)
+RCT_EXPORT_METHOD(addBlack:(NSString *)blackUserID ex:(NSString *)ex operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter)
 {
     RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
-    Open_im_sdkAddBlack(proxy, operationID, blackUserID);
+    Open_im_sdkAddBlack(proxy, operationID, blackUserID,ex);
 }
 
 RCT_EXPORT_METHOD(getBlackList:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter)
@@ -1008,10 +1010,10 @@ RCT_EXPORT_METHOD(joinGroup:(NSDictionary *)options operationID:(NSString *)oper
     NSNumber *joinSource = [options objectForKey:@"joinSource"];
     NSString *groupID = [options objectForKey:@"groupID"];
     NSString *reqMsg = [options objectForKey:@"reqMsg"];
-    
+    NSString *ex = [options objectForKey:@"ex"];
      
     
-    Open_im_sdkJoinGroup(proxy, operationID, groupID, reqMsg, joinSource.intValue);
+    Open_im_sdkJoinGroup(proxy, operationID, groupID, reqMsg, joinSource.intValue,ex);
 }
 
 RCT_EXPORT_METHOD(quitGroup:(NSString *)gid operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter)
@@ -1321,9 +1323,35 @@ RCT_EXPORT_METHOD(setAppBadge:(int32_t)appUnreadCount operationID:(NSString *)op
 
 RCT_EXPORT_METHOD(uploadLogs:(NSArray *)data operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter)
 {
+    // Creating a proxy for resolving or rejecting the promise in React Native
     RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
-    Open_im_sdkUploadLogs(proxy, operationID, [data json]);
+
+    // Creating a delegate to handle upload progress
+    RNUploadLogProgress *progressDelegate = [[RNUploadLogProgress alloc] init];
+    progressDelegate.eventEmitter = self.bridge.eventDispatcher;
+
+    // Convert NSArray to JSON string
+    NSString *dataJson = [data json];
+
+    // Call the native SDK's uploadLogs method
+    Open_im_sdkUploadLogs(proxy, operationID, dataJson, progressDelegate);
 }
+
+// Implementation of RNUploadLogProgress
+@implementation RNUploadLogProgress
+
+- (void)onProgress:(long)uploadedBytes totalBytes:(long)totalBytes {
+    if (self.eventEmitter != nil) {
+        NSDictionary *progress = @{
+            @"uploadedBytes": @(uploadedBytes),
+            @"totalBytes": @(totalBytes)
+        };
+        [self.eventEmitter sendEventWithName:@"UploadProgress" body:progress];
+    }
+}
+
+@end
+
 
 RCT_EXPORT_METHOD(getSdkVersion: resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter)
 {
@@ -1440,6 +1468,10 @@ RCT_EXPORT_METHOD(uploadFile:(NSDictionary *)reqData operationID:(NSString *)ope
     NSArray *messageListArray = [self parseJsonStr2Array:message];
     [self pushEvent:@"onRecvOfflineNewMessage" errCode:@(0) errMsg:@"" data:messageListArray];
 }
+- (void)onRecvOnlineOnlyMessage:(NSString * _Nullable)message {
+    NSArray *messageListArray = [self parseJsonStr2Array:message];
+    [self pushEvent:@"onRecvOnlineOnlyMessage" errCode:@(0) errMsg:@"" data:messageListArray];
+}
 
 
 
@@ -1496,6 +1528,11 @@ RCT_EXPORT_METHOD(uploadFile:(NSDictionary *)reqData operationID:(NSString *)ope
 - (void)onConversationChanged:(NSString* _Nullable)conversationList {
     NSArray *conversationListArray = [self parseJsonStr2Array:conversationList];
     [self pushEvent:@"onConversationChanged" errCode:@(0) errMsg:@"" data:conversationListArray];
+}
+
+- (void)onConversationUserInputStatusChanged:(NSString* _Nullable)conversationList {
+    NSArray *conversationListArray = [self parseJsonStr2Array:conversationList];
+    [self pushEvent:@"onConversationUserInputStatusChanged" errCode:@(0) errMsg:@"" data:conversationListArray];
 }
 
 - (void)onNewConversation:(NSString* _Nullable)conversationList {
