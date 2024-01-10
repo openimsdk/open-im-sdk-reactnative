@@ -825,7 +825,7 @@ RCT_EXPORT_METHOD(insertSingleMessageToLocalStorage:(NSDictionary *)options oper
     NSDictionary *message = options[@"message"];
     NSString *recvID = options[@"recvID"];
     NSString *sendID = options[@"sendID"];
-    Open_im_sdkDeleteConversationAndDeleteAllMsg(proxy, operationID, [message json], recvID, sendID);
+    Open_im_sdkInsertSingleMessageToLocalStorage(proxy, operationID, [message json], recvID, sendID);
 }
 
 RCT_EXPORT_METHOD(insertGroupMessageToLocalStorage:(NSDictionary *)options operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter)
@@ -855,7 +855,7 @@ RCT_EXPORT_METHOD(setMessageLocalEx:(NSDictionary *)options operationID:(NSStrin
 RCT_EXPORT_METHOD(getSpecifiedFriendsInfo:(NSArray *)userIDList operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter)
 {
     RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
-    getSpecifiedFriendsInfo(proxy, operationID, [userIDList json]);
+    Open_im_sdkGetSpecifiedFriendsInfo(proxy, operationID, [userIDList json]);
 }
 
 RCT_EXPORT_METHOD(getFriendList:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter)
