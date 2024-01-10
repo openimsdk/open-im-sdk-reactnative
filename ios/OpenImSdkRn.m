@@ -550,12 +550,12 @@ RCT_EXPORT_METHOD(createImageMessageFromFullPath:(NSString *)imagePath operation
 
 RCT_EXPORT_METHOD(createImageMessageByURL:(NSDictionary *)options operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter)
 {
-    NSString *jsonStr1 = [self dictionaryToJson:options[@"sourcePicture"]];
-    NSString *jsonStr2 = [self dictionaryToJson:options[@"bigPicture"]];
-    NSString *jsonStr3 = [self dictionaryToJson:options[@"snapshotPicture"]];
-    NSString *jsonStr4 = options[@"sourcePath"]; 
+    NSString *sourcePicture = [self dictionaryToJson:options[@"sourcePicture"]];
+    NSString *bigPicture = [self dictionaryToJson:options[@"bigPicture"]];
+    NSString *snapshotPicture = [self dictionaryToJson:options[@"snapshotPicture"]];
+    NSString *sourcePath = options[@"sourcePath"]; 
     
-    NSString *result = Open_im_sdkCreateImageMessageByURL(operationID, jsonStr1, jsonStr2, jsonStr3, jsonStr4);
+    NSString *result = Open_im_sdkCreateImageMessageByURL(operationID, sourcePath, sourcePicture, bigPicture, snapshotPicture);
     resolver(result);
 }
 

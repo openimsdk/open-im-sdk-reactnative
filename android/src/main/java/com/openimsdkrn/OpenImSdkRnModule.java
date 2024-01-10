@@ -280,11 +280,11 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void createImageMessageByURL(ReadableMap options, String OperationID, Promise promise) {
-    String jsonStr1 = options.getMap("sourcePicture").toString();
-    String jsonStr2 = options.getMap("bigPicture").toString();
-    String jsonStr3 = options.getMap("snapshotPicture").toString();
-    String jsonStr4 = options.getString("sourcePath");
-    String result = Open_im_sdk.createImageMessageByURL(OperationID, jsonStr1, jsonStr2, jsonStr3,jsonStr4);
+    String sourcePicture = options.getMap("sourcePicture").toString();
+    String bigPicture = options.getMap("bigPicture").toString();
+    String snapshotPicture = options.getMap("snapshotPicture").toString();
+    String sourcePath = options.getString("sourcePath");
+    String result = Open_im_sdk.createImageMessageByURL(OperationID, sourcePath, sourcePicture, bigPicture,snapshotPicture);
     promise.resolve(result);
   }
 
