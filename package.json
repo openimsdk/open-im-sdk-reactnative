@@ -4,7 +4,7 @@
   "description": "OpenIM SDK for react-native",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
-  "types": "lib/typescript/index.d.ts",
+  "types": "open-im-sdk-rn.d.ts",
   "react-native": "src/index",
   "source": "src/index",
   "files": [

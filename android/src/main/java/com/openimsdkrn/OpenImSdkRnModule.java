@@ -26,6 +26,7 @@ import com.openimsdkrn.listener.BatchMsgListener;
 import java.util.UUID;
 
 import open_im_sdk.Open_im_sdk;
+import open_im_sdk_callback.Base;
 import open_im_sdk_callback.UploadLogProgress;
 
 public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
@@ -117,10 +118,17 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
         Open_im_sdk.getUsersInfo(new BaseImpl(promise),operationID,uidList.toString());
     }
     @ReactMethod
+    public void getUsersInfoFromSrv(ReadableArray uidList,String operationID,Promise promise) {
+      Open_im_sdk.getUsersInfoFromSrv(new BaseImpl(promise),operationID,uidList.toString());
+    }
+    @ReactMethod
     public void setSelfInfo(ReadableMap userInfo,String operationID,Promise promise) {
         Open_im_sdk.setSelfInfo(new BaseImpl(promise),operationID,readableMap2string(userInfo));
     }
-
+    @ReactMethod
+    public void setSelfInfoEx(ReadableMap userInfo,String operationID,Promise promise) {
+      Open_im_sdk.setSelfInfoEx(new BaseImpl(promise),operationID,readableMap2string(userInfo));
+    }
   @ReactMethod
   public void getSelfUserInfo(String operationID,Promise promise) {
     Open_im_sdk.getSelfUserInfo(new BaseImpl(promise),operationID);
@@ -168,7 +176,10 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
     public void setGlobalRecvMessageOpt(int opt,String operationID,  Promise promise) {
         Open_im_sdk.setGlobalRecvMessageOpt(new BaseImpl(promise), operationID, opt);
     }
-
+    @ReactMethod
+    public void hideAllConversations( String operationID, Promise promise) {
+      Open_im_sdk.hideAllConversations(new BaseImpl(promise), operationID);
+    }
     @ReactMethod
     public void hideConversation( String conversationID,String operationID, Promise promise) {
         Open_im_sdk.hideConversation(new BaseImpl(promise), operationID, conversationID);
@@ -187,7 +198,14 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
     public void setConversationDraft( ReadableMap options,String operationID, Promise promise) {
         Open_im_sdk.setConversationDraft(new BaseImpl(promise), operationID, options.getString("conversationID"), options.getString("draftText"));
     }
-
+    @ReactMethod
+    public void setConversationEx( ReadableMap options,String operationID, Promise promise) {
+      Open_im_sdk.setConversationEx(new BaseImpl(promise), operationID, options.getString("conversationID"), options.getString("ex"));
+    }
+    @ReactMethod
+    public void setConversationIsMsgDestruct( ReadableMap options,String operationID, Promise promise) {
+      Open_im_sdk.setConversationIsMsgDestruct(new BaseImpl(promise), operationID, options.getString("conversationID"), options.getBoolean("isMsgDestruct"));
+    }
     @ReactMethod
     public void resetConversationGroupAtType(String conversationID,String operationID,  Promise promise) {
         Open_im_sdk.resetConversationGroupAtType(new BaseImpl(promise), operationID, conversationID);
@@ -197,7 +215,14 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
     public void pinConversation(ReadableMap options,String operationID,  Promise promise) {
         Open_im_sdk.pinConversation(new BaseImpl(promise), operationID, options.getString("conversationID"), options.getBoolean("isPinned"));
     }
-
+    @ReactMethod
+    public void pinFriends(String setFriendsParams,String operationID,  Promise promise) {
+      Open_im_sdk.pinFriends(new BaseImpl(promise), operationID, setFriendsParams);
+    }
+    @ReactMethod
+    public void setConversationMsgDestructTime(ReadableMap options,String operationID,  Promise promise) {
+      Open_im_sdk.setConversationMsgDestructTime(new BaseImpl(promise), operationID, options.getString("conversationID"), options.getInt("msgDestructTime"));
+    }
     @ReactMethod
     public void setConversationPrivateChat(ReadableMap options,String operationID,  Promise promise) {
         Open_im_sdk.setConversationPrivateChat(new BaseImpl(promise), operationID, options.getString("conversationID"), options.getBoolean("isPrivate"));
@@ -385,6 +410,10 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
     public void revokeMessage(ReadableMap options, String operationID, Promise promise) {
         Open_im_sdk.revokeMessage(new BaseImpl(promise), operationID, options.getString("conversationID"), options.getString("clientMsgID"));
     }
+    @ReactMethod
+    public void searchConversation(String searchParams, String operationID, Promise promise) {
+      Open_im_sdk.searchConversation(new BaseImpl(promise), operationID, searchParams);
+    }
 
     @ReactMethod
     public void typingStatusUpdate(ReadableMap options, String operationID, Promise promise) {
@@ -481,7 +510,10 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
     public void setFriendRemark(String userIDRemark,String operationID, Promise promise) {
       Open_im_sdk.setFriendRemark(new BaseImpl(promise),operationID, userIDRemark);
     }
-
+    @ReactMethod
+    public void setFriendsEx(ReadableMap options,String operationID, Promise promise) {
+      Open_im_sdk.setFriendsEx(new BaseImpl(promise),operationID, options.getString("friendIDs"),options.getString("Ex"));
+    }
     @ReactMethod
     public void deleteFriend(String friendUserID,String operationID, Promise promise) {
       Open_im_sdk.deleteFriend(new BaseImpl(promise),operationID, friendUserID);
@@ -611,6 +643,10 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
     public void getGroupMemberOwnerAndAdmin(String groupID,String operationID,  Promise promise) {
         Open_im_sdk.getGroupMemberOwnerAndAdmin(new BaseImpl(promise), operationID, groupID);
     }
+  @ReactMethod
+  public void getInputStates(ReadableMap options,String operationID,  Promise promise) {
+    Open_im_sdk.getInputStates(new BaseImpl(promise), operationID, options.getString("conversationID"),options.getString("userID"));
+  }
 
     @ReactMethod
     public void getGroupMemberListByJoinTimeFilter(ReadableMap options,String operationID,  Promise promise) {
