@@ -1,7 +1,7 @@
 #import "OpenImSdkRn.h"
 #import "SendMessageCallbackProxy.h"
 #import "UploadFileCallbackProxy.h"
-
+#import "UploadLogCallbackProxy.h"
 @implementation NSDictionary (Extensions)
 
 - (NSString *)json {
@@ -380,12 +380,12 @@ RCT_EXPORT_METHOD(getConversationRecvMessageOpt:(NSArray *)conversationIDList op
     
     Open_im_sdkGetConversationRecvMessageOpt(proxy, operationID, [conversationIDList json]);
 }
-RCT_EXPORT_METHOD(hideAllConversations:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter)
-{
-    RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
-    
-    Open_im_sdkHideAllConversations(proxy, operationID);
-}
+//RCT_EXPORT_METHOD(hideAllConversations:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter)
+//{
+//    RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
+//    
+//    Open_im_sdkHideAllConversations(proxy, operationID);
+//}
 
 RCT_EXPORT_METHOD(setConversationDraft:(NSDictionary *)options operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter)
 {
@@ -1408,7 +1408,7 @@ RCT_EXPORT_METHOD(uploadLogs:(NSString *)operationID resolver:(RCTPromiseResolve
 {
     RNCallbackProxy * proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
     RNUploadLogCallbackProxy * uploadProxy = [[RNUploadLogCallbackProxy alloc] initWithOpid:operationID module:self resolver:resolver rejecter:rejecter];
-    OPen_im_sdkUploadLog(proxy,operationID,uploadProxy);
+    Open_im_sdkUploadLogs(proxy,operationID,uploadProxy);
 }
 
 
