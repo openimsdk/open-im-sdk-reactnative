@@ -19,6 +19,7 @@ import com.openimsdkrn.listener.InitSDKListener;
 import com.openimsdkrn.listener.OnConversationListener;
 import com.openimsdkrn.listener.OnFriendshipListener;
 import com.openimsdkrn.listener.OnGroupListener;
+import com.openimsdkrn.listener.UploadLogProgressListener;
 import com.openimsdkrn.listener.UserListener;
 //import com.openimsdkrn.listener.OnSignalingListener;
 import com.openimsdkrn.listener.UploadFileCallbackListener;
@@ -743,16 +744,10 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
     }
 
   @ReactMethod
-  public void uploadLogs(ReadableArray data, String operationID, Promise promise) {
-    Open_im_sdk.uploadLogs(new BaseImpl(promise), operationID, new UploadLogProgress() {
-      @Override
-      public void onProgress(long uploadedBytes, long totalBytes) {
-        // You can create a map to send progress updates back to React Native
-        WritableMap progressMap = Arguments.createMap();
-        progressMap.putDouble("uploadedBytes", uploadedBytes);
-        progressMap.putDouble("totalBytes", totalBytes);
-      }
-    });
+  public void uploadLogs( String operationID, Promise promise) {
+    UUID uuid = UUID.randomUUID();
+    String uuidString = uuid.toString();
+    Open_im_sdk.uploadLogs(new BaseImpl(promise), operationID,new UploadLogProgressListener(reactContext,uuidString));
   }
 
 

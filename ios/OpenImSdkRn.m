@@ -110,10 +110,11 @@ RCT_EXPORT_MODULE()
 //   @"onInviteeRejectedByOtherDevice",
 //   @"onReceiveNewInvitation",
 //   @"onHangUp",
-  @"UploadFileProgress",
+  @"uploadComplete",
   @"onReceiveNewMessages",
   @"onReceiveOfflineNewMessages",
-  @"onRecvCustomBusinessMessage"
+  @"onRecvCustomBusinessMessage",
+  @"uploadOnProgress"
   ];
 }
 
@@ -1403,36 +1404,12 @@ RCT_EXPORT_METHOD(setAppBadge:(int32_t)appUnreadCount operationID:(NSString *)op
     Open_im_sdkSetAppBadge(proxy, operationID, appUnreadCount);
 }
 
-RCT_EXPORT_METHOD(uploadLogs:(NSArray *)data operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter)
+RCT_EXPORT_METHOD(uploadLogs:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter)
 {
-    // Creating a proxy for resolving or rejecting the promise in React Native
-    RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
-
-    // Creating a delegate to handle upload progress
-    RNUploadLogProgress *progressDelegate = [[RNUploadLogProgress alloc] init];
-    progressDelegate.eventEmitter = self.bridge.eventDispatcher;
-
-    // Convert NSArray to JSON string
-    NSString *dataJson = [data json];
-
-    // Call the native SDK's uploadLogs method
-    Open_im_sdkUploadLogs(proxy, operationID, dataJson, progressDelegate);
+    RNCallbackProxy * proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
+    RNUploadLogCallbackProxy * uploadProxy = [[RNUploadLogCallbackProxy alloc] initWithOpid:operationID module:self resolver:resolver rejecter:rejecter];
+    OPen_im_sdkUploadLog(proxy,operationID,uploadProxy);
 }
-
-// Implementation of RNUploadLogProgress
-@implementation RNUploadLogProgress
-
-- (void)onProgress:(long)uploadedBytes totalBytes:(long)totalBytes {
-    if (self.eventEmitter != nil) {
-        NSDictionary *progress = @{
-            @"uploadedBytes": @(uploadedBytes),
-            @"totalBytes": @(totalBytes)
-        };
-        [self.eventEmitter sendEventWithName:@"UploadProgress" body:progress];
-    }
-}
-
-@end
 
 
 RCT_EXPORT_METHOD(getSdkVersion: resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter)
