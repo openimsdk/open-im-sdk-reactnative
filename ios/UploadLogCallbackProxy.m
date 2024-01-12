@@ -1,4 +1,4 @@
-#import "UploadFileCallbackProxy.h"
+#import "UploadLogCallbackProxy.h"
 
 @implementation NSDictionary (Extensions)
 
@@ -34,8 +34,8 @@
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     params[@"current"] = @(current);
     params[@"size"] = @(size);
-    params[@"operationID"] = operationID;
-    [self sendWithCtx:ctx eventName:@"uploadOnProgress" params:params];
+    params[@"operationID"] = _opid;
+    [self.module pushEvent:@"uploadOnProgress" errCode:@(0) errMsg:@"" data:params];
 }
 
 
