@@ -13,46 +13,46 @@ public class OnFriendshipListener extends Emitter implements open_im_sdk_callbac
 
   @Override
   public void onBlackAdded(String s) {
-    send(ctx,"onBlackAdded",getParamsWithObject(0,"",s));
+    send(ctx,"onBlackAdded",getParamsWithObject(s));
   }
 
   @Override
   public void onBlackDeleted(String s) {
-    send(ctx,"onBlackDeleted",getParamsWithObject(0,"",s));
+    send(ctx,"onBlackDeleted",getParamsWithObject(s));
   }
 
   @Override
   public void onFriendAdded(String s) {
-    send(ctx,"onFriendAdded",getParamsWithObject(0,"",s));
+    send(ctx,"onFriendAdded",getParamsWithObject(s));
   }
 
   @Override
   public void onFriendApplicationAccepted(String s) {
-    send(ctx,"onFriendApplicationAccepted",getParamsWithObject(0,"",s));
+    send(ctx,"onFriendApplicationAccepted",getParamsWithObject(s));
   }
 
   @Override
   public void onFriendApplicationAdded(String s) {
-    send(ctx,"onFriendApplicationAdded",getParamsWithObject(0,"",s));
+    send(ctx,"onFriendApplicationAdded",getParamsWithObject(s));
   }
 
   @Override
   public void onFriendApplicationDeleted(String s) {
-    send(ctx,"onFriendApplicationDeleted",getParamsWithObject(0,"",s));
+    send(ctx,"onFriendApplicationDeleted",getParamsWithObject(s));
   }
 
   @Override
   public void onFriendApplicationRejected(String s) {
-    send(ctx,"onFriendApplicationRejected",getParamsWithObject(0,"",s));
+    send(ctx,"onFriendApplicationRejected",getParamsWithObject(s));
   }
 
   @Override
   public void onFriendDeleted(String s) {
-    send(ctx,"onFriendDeleted",getParamsWithObject(0,"",s));
+    send(ctx,"onFriendDeleted",getParamsWithObject(s));
   }
 
   @Override
   public void onFriendInfoChanged(String s) {
-    send(ctx,"onFriendInfoChanged",getParamsWithObject(0,"",s));
+    send(ctx,"onFriendInfoChanged",getParamsWithObject(s));
   }
 }

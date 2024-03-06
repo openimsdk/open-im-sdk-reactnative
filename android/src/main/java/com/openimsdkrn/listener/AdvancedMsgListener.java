@@ -14,51 +14,51 @@ public class AdvancedMsgListener extends Emitter implements OnAdvancedMsgListene
 
   @Override
   public void onMsgDeleted(String s) {
-    send(ctx,"onMsgDeleted",getParamsWithObject(0,"",s));
+    send(ctx,"onMsgDeleted",getParamsWithObject(s));
   }
 
   @Override
   public void onNewRecvMessageRevoked(String s) {
-    send(ctx,"onNewRecvMessageRevoked",getParamsWithObject(0,"",s));
+    send(ctx,"onNewRecvMessageRevoked",getParamsWithObject(s));
   }
 
   @Override
   public void onRecvC2CReadReceipt(String s) {
-    send(ctx,"onRecvC2CReadReceipt",getParamsWithArray(0,"",s));
+    send(ctx,"onRecvC2CReadReceipt",getParamsWithArray(s));
   }
 
   @Override
   public void onRecvGroupReadReceipt(String s) {
-    send(ctx,"onRecvGroupReadReceipt",getParamsWithArray(0,"",s));
+    send(ctx,"onRecvGroupReadReceipt",getParamsWithArray(s));
   }
 
   @Override
   public void onRecvMessageExtensionsAdded(String s, String s1) {
-    send(ctx,"onRecvMessageExtensionsAdded",getParamsWithObject(0,"",s));
+    send(ctx,"onRecvMessageExtensionsAdded",getParamsWithObject(s));
   }
 
   @Override
   public void onRecvMessageExtensionsChanged(String s, String s1) {
-    send(ctx,"onRecvMessageExtensionsChanged",getParamsWithObject(0,"",s));
+    send(ctx,"onRecvMessageExtensionsChanged",getParamsWithObject(s));
   }
 
   @Override
   public void onRecvMessageExtensionsDeleted(String s, String s1) {
-    send(ctx,"onRecvMessageExtensionsDeleted",getParamsWithObject(0,"",s));
+    send(ctx,"onRecvMessageExtensionsDeleted",getParamsWithObject(s));
   }
 
   @Override
   public void onRecvNewMessage(String s) {
-    send(ctx,"onRecvNewMessage",getParamsWithObject(0,"",s));
+    send(ctx,"onRecvNewMessage",getParamsWithObject(s));
   }
 
   @Override
   public void onRecvOfflineNewMessage(String s) {
-    send(ctx,"onRecvOfflineNewMessage",getParamsWithObject(0,"",s));
+    send(ctx,"onRecvOfflineNewMessage",getParamsWithObject(s));
   }
 
   @Override
   public void onRecvOnlineOnlyMessage(String s) {
-    send(ctx,"onRecvOnlineOnlyMessage",getParamsWithObject(0,"",s));
+    send(ctx,"onRecvOnlineOnlyMessage",getParamsWithObject(s));
   }
 }

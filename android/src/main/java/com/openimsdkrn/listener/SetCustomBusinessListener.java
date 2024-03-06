@@ -14,6 +14,6 @@ public class SetCustomBusinessListener extends Emitter implements OnCustomBusine
 
   @Override
   public void onRecvCustomBusinessMessage(String s) {
-    send(ctx,"onRecvCustomBusinessMessage",getParamsWithObject(0,"",s));
+    send(ctx,"onRecvCustomBusinessMessage",getParamsWithObject(s));
   }
 }
