@@ -30,14 +30,15 @@
     }
     return self;
 }
+
 - (void)onProgress:(long)current size:(long)size {
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     params[@"current"] = @(current);
     params[@"size"] = @(size);
     params[@"operationID"] = _opid;
-    [self.module pushEvent:@"uploadOnProgress" errCode:@(0) errMsg:@"" data:params];
+    params[@"errCode"] = @(0);
+    params[@"errMsg"] = @"";
+    [self.module pushEvent:@"uploadOnProgress" data:params];
 }
-
-
 
 @end

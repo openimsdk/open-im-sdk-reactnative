@@ -22,56 +22,56 @@ public class OnGroupListener extends Emitter implements open_im_sdk_callback.OnG
 
   @Override
   public void onGroupApplicationAccepted(String s) {
-    send(ctx,"onGroupApplicationAccepted",getParamsWithObject(0,"",s));
+    send(ctx,"onGroupApplicationAccepted",jsonStringToMap(s));
   }
 
   @Override
   public void onGroupApplicationAdded(String s) {
-    send(ctx,"onGroupApplicationAdded",getParamsWithObject(0,"",s));
+    send(ctx,"onGroupApplicationAdded",jsonStringToMap(s));
   }
 
   @Override
   public void onGroupApplicationDeleted(String s) {
-    send(ctx,"onGroupApplicationDeleted",getParamsWithObject(0,"",s));
+    send(ctx,"onGroupApplicationDeleted",jsonStringToMap(s));
   }
 
   @Override
   public void onGroupApplicationRejected(String s) {
-    send(ctx,"onGroupApplicationRejected",getParamsWithObject(0,"",s));
+    send(ctx,"onGroupApplicationRejected",jsonStringToMap(s));
   }
 
   @Override
   public void onGroupDismissed(String s) {
-    send(ctx,"onGroupDismissed",getParamsWithObject(0,"",s));
+    send(ctx,"onGroupDismissed",jsonStringToMap(s));
   }
 
   @Override
   public void onGroupInfoChanged(String s) {
-    send(ctx,"onGroupInfoChanged",getParamsWithObject(0,"",s));
+    send(ctx,"onGroupInfoChanged",jsonStringToMap(s));
   }
 
   @Override
   public void onGroupMemberAdded(String s) {
-    send(ctx,"onGroupMemberAdded",getParamsWithObject(0,"",s));
+    send(ctx,"onGroupMemberAdded",jsonStringToMap(s));
   }
 
   @Override
   public void onGroupMemberDeleted(String s) {
-    send(ctx,"onGroupMemberDeleted",getParamsWithObject(0,"",s));
+    send(ctx,"onGroupMemberDeleted",jsonStringToMap(s));
   }
 
   @Override
   public void onGroupMemberInfoChanged(String s) {
-    send(ctx,"onGroupMemberInfoChanged",getParamsWithObject(0,"",s));
+    send(ctx,"onGroupMemberInfoChanged",jsonStringToMap(s));
   }
 
   @Override
   public void onJoinedGroupAdded(String s) {
-    send(ctx,"onJoinedGroupAdded",getParamsWithObject(0,"",s));
+    send(ctx,"onJoinedGroupAdded",jsonStringToMap(s));
   }
 
   @Override
   public void onJoinedGroupDeleted(String s) {
-    send(ctx,"onJoinedGroupDeleted",getParamsWithObject(0,"",s));
+    send(ctx,"onJoinedGroupDeleted",jsonStringToMap(s));
   }
 }

@@ -62,6 +62,6 @@
         @"progress":@(progress),
         @"message":messageDict
     };
-    [self.module pushEvent:@"SendMessageProgress" errCode:@(0) errMsg:@"" data:data];
+    [self.module pushEvent:@"SendMessageProgress" data:data];
 }
 @end

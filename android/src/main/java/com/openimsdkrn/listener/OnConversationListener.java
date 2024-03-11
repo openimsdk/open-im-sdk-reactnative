@@ -17,32 +17,32 @@ public class OnConversationListener extends Emitter implements open_im_sdk_callb
 
   @Override
   public void onConversationChanged(String s) {
-    send(ctx,"onConversationChanged",getParamsWithArray(0,"", s));
+    send(ctx,"onConversationChanged",jsonStringToArray(s));
   }
 
   @Override
   public void onConversationUserInputStatusChanged(String s) {
-    send(ctx,"onConversationUserInputStatusChanged",getParamsWithArray(0,"", s));
+    send(ctx,"onConversationUserInputStatusChanged",jsonStringToArray(s));
   }
 
   @Override
   public void onNewConversation(String s) {
-    send(ctx,"onNewConversation",getParamsWithArray(0,"", s));
+    send(ctx,"onNewConversation",jsonStringToArray(s));
   }
 
   @Override
   public void onSyncServerFailed() {
-    send(ctx,"onSyncServerFailed",getParamsWithoutData(0,""));
+    send(ctx,"onSyncServerFailed",null);
   }
 
   @Override
   public void onSyncServerFinish() {
-    send(ctx,"onSyncServerFinish",getParamsWithoutData(0,""));
+    send(ctx,"onSyncServerFinish",null);
   }
 
   @Override
   public void onSyncServerStart() {
-    send(ctx,"onSyncServerStart",getParamsWithoutData(0,""));
+    send(ctx,"onSyncServerStart",null);
   }
 
   @Override
