@@ -60,8 +60,10 @@
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     [params setObject:data forKey:@"data"];
+    params[@"errCode"] = @(0);
+    params[@"errMsg"] = @"";
     
-    [self.module pushEvent:@"uploadComplete" errCode:@(0) errMsg:@"" data:params];
+    [self.module pushEvent:@"uploadComplete" data:params];
 }
 
 

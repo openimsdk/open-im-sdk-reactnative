@@ -14,11 +14,11 @@ public class UserListener extends Emitter implements OnUserListener {
 
   @Override
   public void onSelfInfoUpdated(String s) {
-    send(ctx,"onSelfInfoUpdated",getParamsWithObject(s));
+    send(ctx,"onSelfInfoUpdated",jsonStringToMap(s));
   }
 
   @Override
   public void onUserStatusChanged(String s) {
-    send(ctx,"onUserStatusChanged",getParamsWithObject(s));
+    send(ctx,"onUserStatusChanged",jsonStringToMap(s));
   }
 }

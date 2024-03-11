@@ -13,46 +13,46 @@ public class OnFriendshipListener extends Emitter implements open_im_sdk_callbac
 
   @Override
   public void onBlackAdded(String s) {
-    send(ctx,"onBlackAdded",getParamsWithObject(s));
+    send(ctx,"onBlackAdded",jsonStringToMap(s));
   }
 
   @Override
   public void onBlackDeleted(String s) {
-    send(ctx,"onBlackDeleted",getParamsWithObject(s));
+    send(ctx,"onBlackDeleted",jsonStringToMap(s));
   }
 
   @Override
   public void onFriendAdded(String s) {
-    send(ctx,"onFriendAdded",getParamsWithObject(s));
+    send(ctx,"onFriendAdded",jsonStringToMap(s));
   }
 
   @Override
   public void onFriendApplicationAccepted(String s) {
-    send(ctx,"onFriendApplicationAccepted",getParamsWithObject(s));
+    send(ctx,"onFriendApplicationAccepted",jsonStringToMap(s));
   }
 
   @Override
   public void onFriendApplicationAdded(String s) {
-    send(ctx,"onFriendApplicationAdded",getParamsWithObject(s));
+    send(ctx,"onFriendApplicationAdded",jsonStringToMap(s));
   }
 
   @Override
   public void onFriendApplicationDeleted(String s) {
-    send(ctx,"onFriendApplicationDeleted",getParamsWithObject(s));
+    send(ctx,"onFriendApplicationDeleted",jsonStringToMap(s));
   }
 
   @Override
   public void onFriendApplicationRejected(String s) {
-    send(ctx,"onFriendApplicationRejected",getParamsWithObject(s));
+    send(ctx,"onFriendApplicationRejected",jsonStringToMap(s));
   }
 
   @Override
   public void onFriendDeleted(String s) {
-    send(ctx,"onFriendDeleted",getParamsWithObject(s));
+    send(ctx,"onFriendDeleted",jsonStringToMap(s));
   }
 
   @Override
   public void onFriendInfoChanged(String s) {
-    send(ctx,"onFriendInfoChanged",getParamsWithObject(s));
+    send(ctx,"onFriendInfoChanged",jsonStringToMap(s));
   }
 }

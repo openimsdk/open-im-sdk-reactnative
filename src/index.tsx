@@ -94,327 +94,327 @@ interface OpenIMSDKRNInterface {
   removeListeners: (count: number) => void;
 
   // login
-  initSDK: (params: InitOptions, operationID?: string) => Promise<unknown>;
-  login: (params: LoginParams, operationID?: string) => Promise<unknown>;
-  logout: (operationID?: string) => Promise<unknown>;
-  getLoginStatus: (operationID?: string) => Promise<LoginStatus>;
-  getLoginUserID: (operationID?: string) => Promise<string>;
+  initSDK: (params: InitOptions, operationID: string) => Promise<unknown>;
+  login: (params: LoginParams, operationID: string) => Promise<unknown>;
+  logout: (operationID: string) => Promise<unknown>;
+  getLoginStatus: (operationID: string) => Promise<LoginStatus>;
+  getLoginUserID: (operationID: string) => Promise<string>;
   uploadFile: (
     params: UploadFileParams,
-    operationID?: string
+    operationID: string
   ) => Promise<{
     url: string;
   }>;
 
   // user
-  getSelfUserInfo: (operationID?: string) => Promise<SelfUserInfo>;
+  getSelfUserInfo: (operationID: string) => Promise<SelfUserInfo>;
   setSelfInfo: (
     params: Partial<SelfUserInfo>,
-    operationID?: string
+    operationID: string
   ) => Promise<unknown>;
   getUsersInfoWithCache: (
     params: GetUserInfoWithCacheParams,
-    operationID?: string
+    operationID: string
   ) => Promise<FullUserItemWithCache[]>;
   subscribeUsersStatus: (
     params: string[],
-    operationID?: string
+    operationID: string
   ) => Promise<UserOnlineState>;
   unsubscribeUsersStatus: (
     params: string[],
-    operationID?: string
+    operationID: string
   ) => Promise<unknown>;
-  getSubscribeUsersStatus: (operationID?: string) => Promise<UserOnlineState[]>;
+  getSubscribeUsersStatus: (operationID: string) => Promise<UserOnlineState[]>;
   setAppBackgroundStatus: (
     params: boolean,
-    operationID?: string
+    operationID: string
   ) => Promise<unknown>;
-  networkStatusChanged: (operationID?: string) => Promise<unknown>;
+  networkStatusChanged: (operationID: string) => Promise<unknown>;
   setGlobalRecvMessageOpt: (
     params: MessageReceiveOptType,
-    operationID?: string
+    operationID: string
   ) => Promise<unknown>;
 
   // friend relationShip
   acceptFriendApplication: (
     params: AccessFriendParams,
-    operationID?: string
+    operationID: string
   ) => Promise<unknown>;
-  addBlack: (params: AddBlackParams, operationID?: string) => Promise<unknown>;
-  addFriend: (params: string, operationID?: string) => Promise<unknown>;
+  addBlack: (params: AddBlackParams, operationID: string) => Promise<unknown>;
+  addFriend: (params: string, operationID: string) => Promise<unknown>;
   checkFriend: (
     params: string[],
-    operationID?: string
+    operationID: string
   ) => Promise<FriendshipInfo[]>;
-  deleteFriend: (params: string, operationID?: string) => Promise<unknown>;
-  getBlackList: (operationID?: string) => Promise<BlackUserItem[]>;
+  deleteFriend: (params: string, operationID: string) => Promise<unknown>;
+  getBlackList: (operationID: string) => Promise<BlackUserItem[]>;
   getFriendApplicationListAsApplicant: (
-    operationID?: string
+    operationID: string
   ) => Promise<FriendApplicationItem[]>;
   getFriendApplicationListAsRecipient: (
-    operationID?: string
+    operationID: string
   ) => Promise<FriendApplicationItem[]>;
-  getFriendList: (operationID?: string) => Promise<FullUserItem[]>;
+  getFriendList: (operationID: string) => Promise<FullUserItem[]>;
   getSpecifiedFriendsInfo: (
     params: string[],
-    operationID?: string
+    operationID: string
   ) => Promise<FullUserItem[]>;
   refuseFriendApplication: (
     params: AccessFriendParams,
-    operationID?: string
+    operationID: string
   ) => Promise<unknown>;
-  removeBlack: (params: string, operationID?: string) => Promise<unknown>;
+  removeBlack: (params: string, operationID: string) => Promise<unknown>;
   searchFriends: (
     params: SearchFriendParams,
-    operationID?: string
+    operationID: string
   ) => Promise<SearchedFriendsInfo[]>;
   setFriendRemark: (
     params: RemarkFriendParams,
-    operationID?: string
+    operationID: string
   ) => Promise<unknown>;
 
   // group
   createGroup: (
     params: CreateGroupParams,
-    operationID?: string
+    operationID: string
   ) => Promise<GroupItem>;
   joinGroup: (
     params: JoinGroupParams,
-    operationID?: string
+    operationID: string
   ) => Promise<unknown>;
   inviteUserToGroup: (
     params: OpreateGroupParams,
-    operationID?: string
+    operationID: string
   ) => Promise<unknown>;
-  getJoinedGroupList: (operationID?: string) => Promise<GroupItem[]>;
+  getJoinedGroupList: (operationID: string) => Promise<GroupItem[]>;
   searchGroups: (
     params: SearchGroupParams,
-    operationID?: string
+    operationID: string
   ) => Promise<GroupItem[]>;
   getSpecifiedGroupsInfo: (
     params: string[],
-    operationID?: string
+    operationID: string
   ) => Promise<GroupItem[]>;
   setGroupInfo: (
     params: SetGroupinfoParams,
-    operationID?: string
+    operationID: string
   ) => Promise<unknown>;
   getGroupApplicationListAsRecipient: (
-    operationID?: string
+    operationID: string
   ) => Promise<GroupApplicationItem[]>;
   getGroupApplicationListAsApplicant: (
-    operationID?: string
+    operationID: string
   ) => Promise<GroupApplicationItem[]>;
   acceptGroupApplication: (
     params: AccessGroupParams,
-    operationID?: string
+    operationID: string
   ) => Promise<unknown>;
   refuseGroupApplication: (
     params: AccessGroupParams,
-    operationID?: string
+    operationID: string
   ) => Promise<unknown>;
-  getGroupMemberList: (operationID?: string) => Promise<GroupMemberItem[]>;
+  getGroupMemberList: (operationID: string) => Promise<GroupMemberItem[]>;
   getSpecifiedGroupMembersInfo: (
     params: getGroupMembersInfoParams,
-    operationID?: string
+    operationID: string
   ) => Promise<GroupMemberItem[]>;
   searchGroupMembers: (
     params: SearchGroupMemberParams,
-    operationID?: string
+    operationID: string
   ) => Promise<GroupMemberItem[]>;
   setGroupMemberInfo: (
     params: UpdateMemberInfoParams,
-    operationID?: string
+    operationID: string
   ) => Promise<unknown>;
   getGroupMemberOwnerAndAdmin: (
     params: string,
-    operationID?: string
+    operationID: string
   ) => Promise<GroupMemberItem[]>;
   getGroupMemberListByJoinTimeFilter: (
     params: GetGroupMemberByTimeParams,
-    operationID?: string
+    operationID: string
   ) => Promise<GroupMemberItem[]>;
   kickGroupMember: (
     params: OpreateGroupParams,
-    operationID?: string
+    operationID: string
   ) => Promise<unknown>;
   changeGroupMemberMute: (
     params: ChangeGroupMemberMuteParams,
-    operationID?: string
+    operationID: string
   ) => Promise<unknown>;
   changeGroupMute: (
     params: ChangeGroupMuteParams,
-    operationID?: string
+    operationID: string
   ) => Promise<unknown>;
   transferGroupOwner: (
     params: TransferGroupParams,
-    operationID?: string
+    operationID: string
   ) => Promise<unknown>;
-  dismissGroup: (params: string, operationID?: string) => Promise<unknown>;
-  quitGroup: (params: string, operationID?: string) => Promise<unknown>;
+  dismissGroup: (params: string, operationID: string) => Promise<unknown>;
+  quitGroup: (params: string, operationID: string) => Promise<unknown>;
 
   // conversation & message
-  getAllConversationList: (operationID?: string) => Promise<ConversationItem[]>;
+  getAllConversationList: (operationID: string) => Promise<ConversationItem[]>;
   getConversationListSplit: (
     params: SplitConversationParams,
-    operationID?: string
+    operationID: string
   ) => Promise<ConversationItem[]>;
   getOneConversation: (
     params: GetOneConversationParams,
-    operationID?: string
+    operationID: string
   ) => Promise<ConversationItem>;
   getMultipleConversation: (
     params: string,
-    operationID?: string
+    operationID: string
   ) => Promise<ConversationItem[]>;
   getConversationIDBySessionType: (
     params: GetOneConversationParams,
-    operationID?: string
+    operationID: string
   ) => Promise<ConversationItem>;
-  getTotalUnreadMsgCount: (operationID?: string) => Promise<number>;
+  getTotalUnreadMsgCount: (operationID: string) => Promise<number>;
   markConversationMessageAsRead: (
     params: string,
-    operationID?: string
+    operationID: string
   ) => Promise<unknown>;
   setConversationDraft: (
     params: SetConversationDraftParams,
-    operationID?: string
+    operationID: string
   ) => Promise<unknown>;
   pinConversation: (
     params: PinConversationParams,
-    operationID?: string
+    operationID: string
   ) => Promise<unknown>;
   setConversationRecvMessageOpt: (
     params: SetConversationRecvOptParams,
-    operationID?: string
+    operationID: string
   ) => Promise<unknown>;
   setConversationPrivateChat: (
     params: SetConversationPrivateParams,
-    operationID?: string
+    operationID: string
   ) => Promise<unknown>;
   setConversationBurnDuration: (
     params: SetBurnDurationParams,
-    operationID?: string
+    operationID: string
   ) => Promise<unknown>;
   resetConversationGroupAtType: (
     params: string,
-    operationID?: string
+    operationID: string
   ) => Promise<unknown>;
-  hideConversation: (params: string, operationID?: string) => Promise<unknown>;
-  hideAllConversation: (operationID?: string) => Promise<unknown>;
+  hideConversation: (params: string, operationID: string) => Promise<unknown>;
+  hideAllConversation: (operationID: string) => Promise<unknown>;
   clearConversationAndDeleteAllMsg: (
     params: string,
-    operationID?: string
+    operationID: string
   ) => Promise<unknown>;
   deleteConversationAndDeleteAllMsg: (
     params: string,
-    operationID?: string
+    operationID: string
   ) => Promise<unknown>;
 
   createTextMessage: (
     params: string,
-    operationID?: string
+    operationID: string
   ) => Promise<MessageItem>;
   createTextAtMessage: (
     params: AtMsgParams,
-    operationID?: string
+    operationID: string
   ) => Promise<MessageItem>;
   createImageMessageByURL: (
     params: ImageMsgParams,
-    operationID?: string
+    operationID: string
   ) => Promise<MessageItem>;
   createSoundMessageByURL: (
     params: SoundMsgParams,
-    operationID?: string
+    operationID: string
   ) => Promise<MessageItem>;
   createVideoMessageByURL: (
     params: VideoMsgParams,
-    operationID?: string
+    operationID: string
   ) => Promise<MessageItem>;
   createFileMessageByURL: (
     params: FileMsgParams,
-    operationID?: string
+    operationID: string
   ) => Promise<MessageItem>;
   createMergerMessage: (
     params: MergerMsgParams,
-    operationID?: string
+    operationID: string
   ) => Promise<MessageItem>;
   createForwardMessage: (
     params: MessageItem,
-    operationID?: string
+    operationID: string
   ) => Promise<MessageItem>;
   createLocationMessage: (
     params: LocationMsgParams,
-    operationID?: string
+    operationID: string
   ) => Promise<MessageItem>;
   createQuoteMessage: (
     params: QuoteMsgParams,
-    operationID?: string
+    operationID: string
   ) => Promise<MessageItem>;
   createCardMessage: (
     params: CardElem,
-    operationID?: string
+    operationID: string
   ) => Promise<MessageItem>;
   createCustomMessage: (
     params: CustomMsgParams,
-    operationID?: string
+    operationID: string
   ) => Promise<MessageItem>;
   createFaceMessage: (
     params: FaceMessageParams,
-    operationID?: string
+    operationID: string
   ) => Promise<MessageItem>;
   sendMessage: (
     params: SendMsgParams,
-    operationID?: string
+    operationID: string
   ) => Promise<MessageItem>;
   sendMessageNotOss: (
     params: SendMsgParams,
-    operationID?: string
+    operationID: string
   ) => Promise<MessageItem>;
   typingStatusUpdate: (
     params: TypingUpdateParams,
-    operationID?: string
+    operationID: string
   ) => Promise<unknown>;
   revokeMessage: (
     params: OpreateMessageParams,
-    operationID?: string
+    operationID: string
   ) => Promise<unknown>;
   deleteMessage: (
     params: OpreateMessageParams,
-    operationID?: string
+    operationID: string
   ) => Promise<unknown>;
   deleteMessageFromLocalStorage: (
     params: OpreateMessageParams,
-    operationID?: string
+    operationID: string
   ) => Promise<unknown>;
-  deleteAllMsgFromLocal: (operationID?: string) => Promise<unknown>;
-  deleteAllMsgFromLocalAndSvr: (operationID?: string) => Promise<unknown>;
+  deleteAllMsgFromLocal: (operationID: string) => Promise<unknown>;
+  deleteAllMsgFromLocalAndSvr: (operationID: string) => Promise<unknown>;
   searchLocalMessages: (
     params: SearchLocalParams,
-    operationID?: string
+    operationID: string
   ) => Promise<SearchMessageResult>;
   getAdvancedHistoryMessageList: (
     params: GetAdvancedHistoryMsgParams,
-    operationID?: string
+    operationID: string
   ) => Promise<AdvancedGetMessageResult>;
   getAdvancedHistoryMessageListReverse: (
     params: GetAdvancedHistoryMsgParams,
-    operationID?: string
+    operationID: string
   ) => Promise<AdvancedGetMessageResult>;
   findMessageList: (
     params: FindMessageParams[],
-    operationID?: string
+    operationID: string
   ) => Promise<MessageItem[]>;
   insertGroupMessageToLocalStorage: (
     params: InsertGroupMsgParams,
-    operationID?: string
+    operationID: string
   ) => Promise<unknown>;
   insertSingleMessageToLocalStorage: (
     params: InsertSingleMsgParams,
-    operationID?: string
+    operationID: string
   ) => Promise<unknown>;
   setMessageLocalEx: (
     params: SetMessageLocalExParams,
-    operationID?: string
+    operationID: string
   ) => Promise<unknown>;
 }

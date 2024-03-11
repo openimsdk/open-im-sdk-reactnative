@@ -7,101 +7,84 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactContext;
-import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
 
 import com.facebook.react.bridge.WritableNativeArray;
-import com.facebook.react.bridge.WritableNativeMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 
-import java.util.List;
+import java.math.BigDecimal;
+
 
 public class Emitter {
-
-  // Sends an event to the JS side with optional parameters
-  public void send(ReactContext reactContext, String eventName, @Nullable WritableMap params) {
+  public void send(ReactContext reactContext, String eventName, @Nullable Object params) {
     reactContext
       .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
       .emit(eventName, params);
   }
 
-  // Creates parameters with a JSON object
-  public WritableMap getParamsWithObject(String data) {
-    WritableMap params = Arguments.createMap(); // Use WritableNativeMap to create a new instance
-    // Parse the data string as a JSON object using FastJSON
+  public WritableMap jsonStringToMap(String data) {
     JSONObject parsedData = JSON.parseObject(data);
-
-    // Convert the parsedData to a ReadableMap (WritableMap is an implementation of ReadableMap)
-    ReadableMap dataMap = convertJsonToMap(parsedData);
-    params.putMap("data", dataMap);
-
-    return params;
+    return convertJsonToMap(parsedData);
   }
 
-  // Creates parameters with a JSON array
-  public WritableMap getParamsWithArray(String data) {
-    WritableMap params = Arguments.createMap();
-    // Parse the data string as a JSON array using FastJSON
+  public WritableArray jsonStringToArray(String data) {
     JSONArray parsedArray = JSON.parseArray(data);
-
-    // Convert the parsedData (List) to a WritableArray
     WritableArray dataArray = new WritableNativeArray();
     for (Object item : parsedArray) {
-      dataArray.pushMap(convertJsonToMap((JSONObject) item)); // Convert each item to string and push to the array
+      dataArray.pushMap(convertJsonToMap((JSONObject) item));
     }
-    params.putArray("data", dataArray);
 
-    return params;
+    return dataArray;
   }
 
-  // Helper method to convert JSONObject to WritableMap
-  public WritableMap convertJsonToMap(JSONObject json) {
-    WritableMap map = Arguments.createMap();
-    for (String key : json.keySet()) {
-      Object value = json.get(key);
-      // Check and put value based on its type
-      if (value instanceof JSONObject) {
-        map.putMap(key, convertJsonToMap((JSONObject) value));
-      } else if (value instanceof JSONArray) {
-        map.putArray(key, convertJsonToArray((JSONArray) value));
-      } else if (value instanceof Boolean) {
-        map.putBoolean(key, (Boolean) value);
+  public WritableMap convertJsonToMap(JSONObject jsonObject) {
+    WritableMap writableMap = Arguments.createMap();
+    for (String key : jsonObject.keySet()) {
+      Object value = jsonObject.get(key);
+      if (value instanceof String) {
+        writableMap.putString(key, (String) value);
       } else if (value instanceof Integer) {
-        map.putInt(key, (Integer) value);
-      } else if (value instanceof Double) {
-        map.putDouble(key, (Double) value);
-      } else if (value instanceof String) {
-        map.putString(key, (String) value);
+        writableMap.putInt(key, (Integer) value);
+      } else if (value instanceof BigDecimal) {
+        BigDecimal bd = (BigDecimal) value;
+        try {
+          writableMap.putInt(key, bd.intValueExact());
+        } catch (ArithmeticException e) {
+          writableMap.putDouble(key, bd.doubleValue());
+        }
+      } else if (value instanceof Boolean) {
+        writableMap.putBoolean(key, (Boolean) value);
+      } else if (value instanceof JSONObject) {
+        writableMap.putMap(key, convertJsonToMap((JSONObject) value));
+      } else if (value instanceof JSONArray) {
+        writableMap.putArray(key, convertJsonToArray((JSONArray) value));
       } else {
-        assert value != null;
-        map.putString(key, value.toString());
+        writableMap.putNull(key);
       }
     }
-    return map;
+    return writableMap;
   }
 
-//  // Helper method to convert JSONArray to WritableArray
-public WritableArray convertJsonToArray(JSONArray array) {
+  public WritableArray convertJsonToArray(JSONArray jsonArray) {
     WritableArray writableArray = Arguments.createArray();
-    for (int i = 0; i < array.size(); i++) {
-      Object value = array.get(i);
-      // Check and add value based on its type
-      if (value instanceof JSONObject) {
-        writableArray.pushMap(convertJsonToMap((JSONObject) value));
-      } else if (value instanceof JSONArray) {
-        writableArray.pushArray(convertJsonToArray((JSONArray) value));
-      } else if (value instanceof Boolean) {
-        writableArray.pushBoolean((Boolean) value);
-      } else if (value instanceof Integer) {
-        writableArray.pushInt((Integer) value);
-      } else if (value instanceof Double) {
-        writableArray.pushDouble((Double) value);
-      } else if (value instanceof String) {
-        writableArray.pushString((String) value);
+    for (int i = 0; i < jsonArray.size(); i++) {
+      Object item = jsonArray.get(i);
+      if (item instanceof JSONObject) {
+        writableArray.pushMap(convertJsonToMap((JSONObject) item));
+      } else if (item instanceof JSONArray) {
+        writableArray.pushArray(convertJsonToArray((JSONArray) item));
+      } else if (item instanceof String) {
+        writableArray.pushString((String) item);
+      } else if (item instanceof Integer) {
+        writableArray.pushInt((Integer) item);
+      } else if (item instanceof Double) {
+        writableArray.pushDouble((Double) item);
+      } else if (item instanceof Boolean) {
+        writableArray.pushBoolean((Boolean) item);
       } else {
-        writableArray.pushString(value.toString());
+        writableArray.pushNull();
       }
     }
     return writableArray;

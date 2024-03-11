@@ -17,17 +17,17 @@ public class OnConversationListener extends Emitter implements open_im_sdk_callb
 
   @Override
   public void onConversationChanged(String s) {
-    send(ctx,"onConversationChanged",getParamsWithArray(s));
+    send(ctx,"onConversationChanged",jsonStringToArray(s));
   }
 
   @Override
   public void onConversationUserInputStatusChanged(String s) {
-    send(ctx,"onConversationUserInputStatusChanged",getParamsWithArray(s));
+    send(ctx,"onConversationUserInputStatusChanged",jsonStringToArray(s));
   }
 
   @Override
   public void onNewConversation(String s) {
-    send(ctx,"onNewConversation",getParamsWithArray(s));
+    send(ctx,"onNewConversation",jsonStringToArray(s));
   }
 
   @Override
