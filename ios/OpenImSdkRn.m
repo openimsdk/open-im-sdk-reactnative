@@ -1351,9 +1351,9 @@ RCT_EXPORT_METHOD(uploadFile:(NSDictionary *)reqData operationID:(NSString *)ope
     [self pushEvent:@"onConversationChanged" data:conversationListArray];
 }
 
-- (void)onConversationUserInputStatusChanged:(NSString* _Nullable)conversationList {
-    NSArray *conversationListArray = [self parseJsonStr2Array:conversationList];
-    [self pushEvent:@"onConversationUserInputStatusChanged" data:conversationListArray];
+- (void)onConversationUserInputStatusChanged:(NSString* _Nullable)datils {
+    NSDictionary *datilsDic = [self parseJsonStr2Dict:datils];
+    [self pushEvent:@"onConversationUserInputStatusChanged" data:datilsDic];
 }
 
 - (void)onNewConversation:(NSString* _Nullable)conversationList {
