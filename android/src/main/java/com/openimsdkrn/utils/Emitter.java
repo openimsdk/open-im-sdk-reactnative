@@ -47,6 +47,8 @@ public class Emitter {
         writableMap.putString(key, (String) value);
       } else if (value instanceof Integer) {
         writableMap.putInt(key, (Integer) value);
+      }  else if (value instanceof Long) {
+        writableMap.putDouble(key, ((Long) value).doubleValue());
       } else if (value instanceof BigDecimal) {
         BigDecimal bd = (BigDecimal) value;
         try {
@@ -79,6 +81,8 @@ public class Emitter {
         writableArray.pushString((String) item);
       } else if (item instanceof Integer) {
         writableArray.pushInt((Integer) item);
+      } else if (item instanceof Long) {
+        writableArray.pushDouble(((Long) item).doubleValue());
       } else if (item instanceof Double) {
         writableArray.pushDouble((Double) item);
       } else if (item instanceof Boolean) {
