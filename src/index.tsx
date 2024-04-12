@@ -119,7 +119,7 @@ interface OpenIMSDKRNInterface {
   subscribeUsersStatus: (
     params: string[],
     operationID: string
-  ) => Promise<UserOnlineState>;
+  ) => Promise<UserOnlineState[]>;
   unsubscribeUsersStatus: (
     params: string[],
     operationID: string
