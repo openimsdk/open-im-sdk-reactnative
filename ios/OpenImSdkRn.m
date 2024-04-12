@@ -1374,7 +1374,7 @@ RCT_EXPORT_METHOD(uploadFile:(NSDictionary *)reqData operationID:(NSString *)ope
 }
 
 - (void)onTotalUnreadMessageCountChanged:(int32_t)totalUnreadCount {
-    [self pushEvent:@"onTotalUnreadMessageCountChanged" data:[NSString stringWithFormat:@"%d",totalUnreadCount]];
+    [self pushEvent:@"onTotalUnreadMessageCountChanged" data:@(totalUnreadCount)];
 }
 
 // -------------------- Open_im_sdkOnGroupListener --------------------

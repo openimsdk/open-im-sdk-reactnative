@@ -47,8 +47,6 @@ public class OnConversationListener extends Emitter implements open_im_sdk_callb
 
   @Override
   public void onTotalUnreadMessageCountChanged(int i) {
-    WritableMap params = Arguments.createMap();
-    params.putInt("data", i);
-    send(ctx,"onTotalUnreadMessageCountChanged",params);
+    send(ctx,"onTotalUnreadMessageCountChanged", i);
   }
 }
