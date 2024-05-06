@@ -22,6 +22,7 @@ import {
   AccessFriendParams,
   AccessGroupParams,
   AddBlackParams,
+  AddFriendParams,
   AtMsgParams,
   ChangeGroupMemberMuteParams,
   ChangeGroupMuteParams,
@@ -32,6 +33,7 @@ import {
   FindMessageParams,
   GetAdvancedHistoryMsgParams,
   GetGroupMemberByTimeParams,
+  GetGroupMemberParams,
   GetOneConversationParams,
   GetUserInfoWithCacheParams,
   ImageMsgParams,
@@ -141,7 +143,7 @@ interface OpenIMSDKRNInterface {
     operationID: string
   ) => Promise<unknown>;
   addBlack: (params: AddBlackParams, operationID: string) => Promise<unknown>;
-  addFriend: (params: string, operationID: string) => Promise<unknown>;
+  addFriend: (params: AddFriendParams, operationID: string) => Promise<unknown>;
   checkFriend: (
     params: string[],
     operationID: string
@@ -178,10 +180,7 @@ interface OpenIMSDKRNInterface {
     params: CreateGroupParams,
     operationID: string
   ) => Promise<GroupItem>;
-  joinGroup: (
-    params: JoinGroupParams,
-    operationID: string
-  ) => Promise<unknown>;
+  joinGroup: (params: JoinGroupParams, operationID: string) => Promise<unknown>;
   inviteUserToGroup: (
     params: OpreateGroupParams,
     operationID: string
@@ -213,7 +212,10 @@ interface OpenIMSDKRNInterface {
     params: AccessGroupParams,
     operationID: string
   ) => Promise<unknown>;
-  getGroupMemberList: (operationID: string) => Promise<GroupMemberItem[]>;
+  getGroupMemberList: (
+    params: GetGroupMemberParams,
+    operationID: string
+  ) => Promise<GroupMemberItem[]>;
   getSpecifiedGroupMembersInfo: (
     params: getGroupMembersInfoParams,
     operationID: string
@@ -311,6 +313,22 @@ interface OpenIMSDKRNInterface {
     operationID: string
   ) => Promise<unknown>;
 
+  createImageMessageFromFullPath: (
+    params: string,
+    operationID: string
+  ) => Promise<MessageItem>;
+  createVideoMessageFromFullPath: (
+    params: string,
+    operationID: string
+  ) => Promise<MessageItem>;
+  createSoundMessageFromFullPath: (
+    params: string,
+    operationID: string
+  ) => Promise<MessageItem>;
+  createFileMessageFromFullPath: (
+    params: string,
+    operationID: string
+  ) => Promise<MessageItem>;
   createTextMessage: (
     params: string,
     operationID: string

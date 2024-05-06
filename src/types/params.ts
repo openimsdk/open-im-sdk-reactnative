@@ -81,6 +81,11 @@ export type AddBlackParams = {
   ex?: string;
 };
 
+export type AddFriendParams = {
+  toUserID: string;
+  reqMsg: string;
+};
+
 export type SearchFriendParams = {
   keywordList: string[];
   isSearchUserID: boolean;
