@@ -849,6 +849,12 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
+  public void getJoinedGroupListPage(ReadableMap options, String operationID, Promise promise) {
+    Open_im_sdk.getJoinedGroupListPage(new BaseImpl(promise), operationID, options.getInt("offset"),
+      options.getInt("count"));
+  }
+
+  @ReactMethod
   public void getSpecifiedGroupsInfo(ReadableArray groupIDList, String operationID, Promise promise) {
     Open_im_sdk.getSpecifiedGroupsInfo(new BaseImpl(promise), operationID, groupIDList.toString());
   }
@@ -902,6 +908,12 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public void getSpecifiedGroupMembersInfo(ReadableMap options, String operationID, Promise promise) {
     Open_im_sdk.getSpecifiedGroupMembersInfo(new BaseImpl(promise), operationID, options.getString("groupID"),
+      Objects.requireNonNull(options.getArray("userIDList")).toString());
+  }
+
+  @ReactMethod
+  public void getUsersInGroup(ReadableMap options, String operationID, Promise promise) {
+    Open_im_sdk.getUsersInGroup(new BaseImpl(promise), operationID, options.getString("groupID"),
       Objects.requireNonNull(options.getArray("userIDList")).toString());
   }
 
@@ -983,7 +995,7 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
 
     Boolean isOnlineOnly = false;
     if (options.hasKey("isOnlineOnly")) {
-        isOnlineOnly = options.getBoolean("isOnlineOnly");
+      isOnlineOnly = options.getBoolean("isOnlineOnly");
     }
 
     if (offlinePushInfo == null) {
@@ -1009,7 +1021,7 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
 
     Boolean isOnlineOnly = false;
     if (options.hasKey("isOnlineOnly")) {
-        isOnlineOnly = options.getBoolean("isOnlineOnly");
+      isOnlineOnly = options.getBoolean("isOnlineOnly");
     }
 
     if (offlinePushInfo == null) {
@@ -1023,7 +1035,7 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
     }
 
     assert message != null;
-    Open_im_sdk.sendMessageNotOss(new SendMsgCallBack(reactContext, promise, message), operationID, message.toString(), receiver,groupID, offlinePushInfo.toString(), isOnlineOnly);
+    Open_im_sdk.sendMessageNotOss(new SendMsgCallBack(reactContext, promise, message), operationID, message.toString(), receiver, groupID, offlinePushInfo.toString(), isOnlineOnly);
   }
 
   @ReactMethod
@@ -1032,8 +1044,8 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void uploadLogs(String ex, String operationID, Promise promise) {
-    Open_im_sdk.uploadLogs(new BaseImpl(promise), operationID, ex, new UploadLogProgressListener(reactContext, operationID));
+  public void uploadLogs(ReadableMap options, String operationID, Promise promise) {
+    Open_im_sdk.uploadLogs(new BaseImpl(promise), operationID, options.getInt("line"), options.getString("ex"), new UploadLogProgressListener(reactContext, operationID));
   }
 
   @ReactMethod

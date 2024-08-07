@@ -989,6 +989,14 @@ RCT_EXPORT_METHOD(getJoinedGroupList:(NSString *)operationID resolver:(RCTPromis
     Open_im_sdkGetJoinedGroupList(proxy, operationID);
 }
 
+RCT_EXPORT_METHOD(getJoinedGroupListPage:(NSDictionary *)options operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
+    RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
+    NSInteger offset = [options[@"offset"] integerValue];
+    NSInteger count = [options[@"count"] integerValue];
+    
+    Open_im_sdkGetJoinedGroupListPage(proxy, operationID, (int32_t)offset, (int32_t)count);
+}
+
 RCT_EXPORT_METHOD(getSpecifiedGroupsInfo:(NSArray *)groupIDList operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
     RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
     NSString *groupIDListJson = [groupIDList json];
@@ -1075,6 +1083,14 @@ RCT_EXPORT_METHOD(getSpecifiedGroupMembersInfo:(NSDictionary *)options operation
     NSArray *userIDList = options[@"userIDList"];
     
     Open_im_sdkGetSpecifiedGroupMembersInfo(proxy, operationID, groupID, [userIDList json]);
+}
+
+RCT_EXPORT_METHOD(getUsersInGroup:(NSDictionary *)options operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
+    RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
+    NSString *groupID = options[@"groupID"];
+    NSArray *userIDList = options[@"userIDList"];
+    
+    Open_im_sdkGetUsersInGroup(proxy, operationID, groupID, [userIDList json]);
 }
 
 RCT_EXPORT_METHOD(kickGroupMember:(NSDictionary *)options operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
@@ -1174,10 +1190,17 @@ RCT_EXPORT_METHOD(setAppBadge:(int32_t)appUnreadCount operationID:(NSString *)op
     Open_im_sdkSetAppBadge(proxy, operationID, appUnreadCount);
 }
 
-RCT_EXPORT_METHOD(uploadLogs:(NSString *)ex operationID:(NSString *)operationID  resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
+RCT_EXPORT_METHOD(uploadLogs:(NSDictionary *)options operationID:(NSString *)operationID  resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
     RNCallbackProxy * proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
     RNUploadLogCallbackProxy * uploadProxy = [[RNUploadLogCallbackProxy alloc] initWithOpid:operationID module:self resolver:resolver rejecter:rejecter];
-    Open_im_sdkUploadLogs(proxy,operationID,ex,uploadProxy);
+    
+    NSString *ex = options[@"ex"];
+
+    if (!ex) {
+        ex = @"";
+    }
+    
+    Open_im_sdkUploadLogs(proxy,operationID,[[options valueForKey:@"line"] longValue],ex,uploadProxy);
 }
 
 RCT_EXPORT_METHOD(getSdkVersion:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
@@ -1209,6 +1232,10 @@ RCT_EXPORT_METHOD(uploadFile:(NSDictionary *)reqData operationID:(NSString *)ope
     [self pushEvent:@"onUserTokenExpired" data:nil];
 }
 
+- (void)onUserTokenInvalid:(NSString* _Nullable)errMsg {
+    [self pushEvent:@"onUserTokenInvalid" data:nil];
+}
+
 - (void)onConnectFailed:(int32_t)errCode errMsg:(NSString * _Nullable)errMsg {
     NSDictionary *data = @{
         @"errCode": @(errCode),
@@ -1228,6 +1255,18 @@ RCT_EXPORT_METHOD(uploadFile:(NSDictionary *)reqData operationID:(NSString *)ope
 - (void)onUserStatusChanged:(NSString * _Nullable)statusMap {
     NSDictionary *data = [self parseJsonStr2Dict:statusMap];
     [self pushEvent:@"onUserStatusChanged" data:data];
+}
+
+- (void)onUserCommandAdd:(NSString* _Nullable)userCommand {
+    [self pushEvent:@"onUserCommandAdd" data:nil];
+}
+
+- (void)onUserCommandDelete:(NSString* _Nullable)userCommand {
+    [self pushEvent:@"onUserCommandDelete" data:nil];
+}
+
+- (void)onUserCommandUpdate:(NSString* _Nullable)userCommand {
+    [self pushEvent:@"onUserCommandUpdate" data:nil];
 }
 
 // -------------------- Open_im_sdk_callbackOnBatchMsgListener --------------------
@@ -1361,16 +1400,20 @@ RCT_EXPORT_METHOD(uploadFile:(NSDictionary *)reqData operationID:(NSString *)ope
     [self pushEvent:@"onNewConversation" data:conversationListArray];
 }
 
-- (void)onSyncServerFailed {
-    [self pushEvent:@"onSyncServerFailed" data:nil];
+- (void)onSyncServerFailed:(BOOL)reinstalled {
+    [self pushEvent:@"onSyncServerFailed" data:@(reinstalled)];
 }
 
-- (void)onSyncServerFinish {
-    [self pushEvent:@"onSyncServerFinish" data:nil];
+- (void)onSyncServerFinish:(BOOL)reinstalled {
+    [self pushEvent:@"onSyncServerFinish" data:@(reinstalled)];
 }
 
-- (void)onSyncServerStart {
-    [self pushEvent:@"onSyncServerStart" data:nil];
+- (void)onSyncServerStart:(BOOL)reinstalled {
+    [self pushEvent:@"onSyncServerStart" data:@(reinstalled)];
+}
+
+- (void)onSyncServerProgress:(long)progress {
+    [self pushEvent:@"onSyncServerProgress" data:@(progress)];
 }
 
 - (void)onTotalUnreadMessageCountChanged:(int32_t)totalUnreadCount {

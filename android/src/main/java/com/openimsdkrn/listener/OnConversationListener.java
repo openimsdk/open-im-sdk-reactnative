@@ -8,45 +8,50 @@ import com.openimsdkrn.utils.Emitter;
 
 
 public class OnConversationListener extends Emitter implements open_im_sdk_callback.OnConversationListener {
-    private final ReactApplicationContext ctx;
+  private final ReactApplicationContext ctx;
 
-    public OnConversationListener(ReactApplicationContext ctx){
-        this.ctx = ctx;
-    }
+  public OnConversationListener(ReactApplicationContext ctx) {
+    this.ctx = ctx;
+  }
 
 
   @Override
   public void onConversationChanged(String s) {
-    send(ctx,"onConversationChanged",jsonStringToArray(s));
+    send(ctx, "onConversationChanged", jsonStringToArray(s));
   }
 
   @Override
   public void onConversationUserInputStatusChanged(String s) {
-    send(ctx,"onConversationUserInputStatusChanged",jsonStringToMap(s));
+    send(ctx, "onConversationUserInputStatusChanged", jsonStringToMap(s));
   }
 
   @Override
   public void onNewConversation(String s) {
-    send(ctx,"onNewConversation",jsonStringToArray(s));
+    send(ctx, "onNewConversation", jsonStringToArray(s));
   }
 
   @Override
-  public void onSyncServerFailed() {
-    send(ctx,"onSyncServerFailed",null);
+  public void onSyncServerFailed(boolean b) {
+    send(ctx, "onSyncServerFailed", b);
   }
 
   @Override
-  public void onSyncServerFinish() {
-    send(ctx,"onSyncServerFinish",null);
+  public void onSyncServerFinish(boolean b) {
+    send(ctx, "onSyncServerFinish", b);
   }
 
   @Override
-  public void onSyncServerStart() {
-    send(ctx,"onSyncServerStart",null);
+  public void onSyncServerStart(boolean b) {
+    send(ctx, "onSyncServerStart", b);
+  }
+
+  @Override
+  public void onSyncServerProgress(long l) {
+    send(ctx, "onSyncServerProgress", l);
   }
 
   @Override
   public void onTotalUnreadMessageCountChanged(int i) {
-    send(ctx,"onTotalUnreadMessageCountChanged", i);
+    send(ctx, "onTotalUnreadMessageCountChanged", i);
   }
 }

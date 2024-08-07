@@ -23,7 +23,7 @@ Pod::Spec.new do |s|
   # else
   s.static_framework = true
   s.dependency "React-Core"
-  s.dependency "OpenIMSDKCore","3.5.1"
+  s.dependency "OpenIMSDKCore","3.8.1-rc.0"
   s.library = 'resolv'
   # Don't install the dependencies when we run `pod install` in the old architecture.
   if ENV['RCT_NEW_ARCH_ENABLED'] == '1' then
