@@ -44,6 +44,7 @@ import {
   LocationMsgParams,
   LoginParams,
   MergerMsgParams,
+  OffsetParams,
   OpreateGroupParams,
   OpreateMessageParams,
   PinConversationParams,
@@ -66,6 +67,7 @@ import {
   TypingUpdateParams,
   UpdateMemberInfoParams,
   UploadFileParams,
+  UploadLogsParams,
   VideoMsgParams,
   getGroupMembersInfoParams,
 } from './types/params';
@@ -157,6 +159,10 @@ interface OpenIMSDKRNInterface {
     operationID: string
   ) => Promise<FriendApplicationItem[]>;
   getFriendList: (operationID: string) => Promise<FullUserItem[]>;
+  getFriendListPage: (
+    params: OffsetParams,
+    operationID: string
+  ) => Promise<FullUserItem[]>;
   getSpecifiedFriendsInfo: (
     params: string[],
     operationID: string
@@ -186,6 +192,10 @@ interface OpenIMSDKRNInterface {
     operationID: string
   ) => Promise<unknown>;
   getJoinedGroupList: (operationID: string) => Promise<GroupItem[]>;
+  getJoinedGroupListPage: (
+    params: OffsetParams,
+    operationID: string
+  ) => Promise<GroupItem[]>;
   searchGroups: (
     params: SearchGroupParams,
     operationID: string
@@ -220,6 +230,10 @@ interface OpenIMSDKRNInterface {
     params: getGroupMembersInfoParams,
     operationID: string
   ) => Promise<GroupMemberItem[]>;
+  getUsersInGroup: (
+    params: getGroupMembersInfoParams,
+    operationID: string
+  ) => Promise<string[]>;
   searchGroupMembers: (
     params: SearchGroupMemberParams,
     operationID: string
@@ -435,4 +449,6 @@ interface OpenIMSDKRNInterface {
     params: SetMessageLocalExParams,
     operationID: string
   ) => Promise<unknown>;
+  uploadLogs: (params: UploadLogsParams, opid?: string) => Promise<unknown>;
+  unInitSDK: (opid?: string) => Promise<unknown>;
 }

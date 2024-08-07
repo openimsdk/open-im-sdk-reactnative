@@ -24,7 +24,7 @@ jobs:
         run: npm install
 
       - name: Build
-        run: npm run build
+        run: npm run prepack
 
       - name: Authenticate with npm registry
         run: npm config set //registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}

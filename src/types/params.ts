@@ -29,6 +29,11 @@ export type LoginParams = {
   token: string;
 };
 
+export type OffsetParams = {
+  offset: number;
+  count: number;
+};
+
 export type SetSelfInfoParams = Partial<SelfUserInfo>;
 
 export type GetUserInfoWithCacheParams = {
@@ -331,4 +336,9 @@ export declare type UploadFileParams = {
   uuid: string;
   cause?: string;
   filepath: string;
+};
+
+export type UploadLogsParams = {
+  line: number;
+  ex?: string;
 };
