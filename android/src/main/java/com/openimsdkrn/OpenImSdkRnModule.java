@@ -33,6 +33,7 @@ import com.facebook.react.modules.core.DeviceEventManagerModule;
 
 import java.util.Objects;
 import java.util.UUID;
+import java.util.HashMap;
 
 import open_im_sdk.Open_im_sdk;
 import open_im_sdk_callback.Base;
@@ -57,7 +58,13 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
   private int listenerCount = 0;
 
   private String readableMap2string(ReadableMap map) {
-    return map.toString();
+    try {
+      HashMap<String, Object> hashMap = map.toHashMap();
+      return JSON.toJSONString(hashMap);
+    } catch (Exception e) {
+        e.printStackTrace();
+        return "{}";
+    }
   }
 
   private Emitter emitter = new Emitter();
