@@ -47,7 +47,8 @@ public class OnConversationListener extends Emitter implements open_im_sdk_callb
 
   @Override
   public void onSyncServerProgress(long l) {
-    send(ctx, "onSyncServerProgress", l);
+    int intValue = (int) l;
+    send(ctx, "onSyncServerProgress", intValue);
   }
 
   @Override
