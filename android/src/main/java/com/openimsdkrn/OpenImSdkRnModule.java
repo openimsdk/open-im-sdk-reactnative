@@ -305,7 +305,7 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
     String atUsersInfo = atUsersInfoMap != null ? atUsersInfoMap.toString() : null;
 
     ReadableMap messageMap = options.hasKey("message") ? options.getMap("message") : null;
-    String quoteMessage = messageMap != null ? messageMap.toString() : null;
+    String quoteMessage = messageMap != null ? readableMap2string(messageMap) : null;
 
     String message = Open_im_sdk.createTextAtMessage(operationID, text, atUserIDList, atUsersInfo, quoteMessage);
     try {
@@ -360,9 +360,9 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public void createQuoteMessage(ReadableMap options, String operationID, Promise promise) {
     String text = options.getString("text");
-    String quoteMessage = Objects.requireNonNull(options.getMap("message")).toString();
+    String quoteMessage = Objects.requireNonNull(options.getMap("message"));
 
-    String message = Open_im_sdk.createQuoteMessage(operationID, text, quoteMessage);
+    String message = Open_im_sdk.createQuoteMessage(operationID, text, readableMap2string(quoteMessage));
     try {
       JSONObject obj = JSON.parseObject(message);
       promise.resolve(emitter.convertJsonToMap(obj));
@@ -374,10 +374,10 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public void createAdvancedQuoteMessage(ReadableMap options, String operationID, Promise promise) {
     String text = options.getString("text");
-    String quoteMessage = Objects.requireNonNull(options.getMap("message")).toString();
+    String quoteMessage = Objects.requireNonNull(options.getMap("message"));
     String messageEntityList = Objects.requireNonNull(options.getArray("messageEntityList")).toString();
 
-    String message = Open_im_sdk.createAdvancedQuoteMessage(operationID, text, quoteMessage, messageEntityList);
+    String message = Open_im_sdk.createAdvancedQuoteMessage(operationID, text, readableMap2string(quoteMessage), messageEntityList);
     try {
       JSONObject obj = JSON.parseObject(message);
       promise.resolve(emitter.convertJsonToMap(obj));
@@ -423,12 +423,12 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void createImageMessageByURL(ReadableMap options, String operationID, Promise promise) {
-    String sourcePicture = Objects.requireNonNull(options.getMap("sourcePicture")).toString();
-    String bigPicture = Objects.requireNonNull(options.getMap("bigPicture")).toString();
-    String snapshotPicture = Objects.requireNonNull(options.getMap("snapshotPicture")).toString();
+    String sourcePicture = Objects.requireNonNull(options.getMap("sourcePicture"));
+    String bigPicture = Objects.requireNonNull(options.getMap("bigPicture"));
+    String snapshotPicture = Objects.requireNonNull(options.getMap("snapshotPicture"));
     String sourcePath = options.getString("sourcePath");
 
-    String message = Open_im_sdk.createImageMessageByURL(operationID, sourcePath, sourcePicture, bigPicture, snapshotPicture);
+    String message = Open_im_sdk.createImageMessageByURL(operationID, sourcePath, readableMap2string(sourcePicture), readableMap2string(bigPicture), readableMap2string(snapshotPicture));
     try {
       JSONObject obj = JSON.parseObject(message);
       promise.resolve(emitter.convertJsonToMap(obj));
@@ -688,18 +688,18 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public void insertSingleMessageToLocalStorage(ReadableMap options, String operationID, Promise promise) {
     Open_im_sdk.insertSingleMessageToLocalStorage(new BaseImpl(promise), operationID,
-      Objects.requireNonNull(options.getMap("message")).toString(), options.getString("recvID"), options.getString("sendID"));
+    readableMap2string(Objects.requireNonNull(options.getMap("message"))), options.getString("recvID"), options.getString("sendID"));
   }
 
   @ReactMethod
   public void insertGroupMessageToLocalStorage(ReadableMap options, String operationID, Promise promise) {
     Open_im_sdk.insertGroupMessageToLocalStorage(new BaseImpl(promise), operationID,
-      Objects.requireNonNull(options.getMap("message")).toString(), options.getString("groupID"), options.getString("sendID"));
+    readableMap2string(Objects.requireNonNull(options.getMap("message"))), options.getString("groupID"), options.getString("sendID"));
   }
 
   @ReactMethod
   public void searchLocalMessages(ReadableMap searchParam, String operationID, Promise promise) {
-    Open_im_sdk.searchLocalMessages(new BaseImpl(promise), operationID, searchParam.toString());
+    Open_im_sdk.searchLocalMessages(new BaseImpl(promise), operationID, readableMap2string(searchParam));
   }
 
   @ReactMethod
@@ -1016,7 +1016,7 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
     }
 
     assert message != null;
-    Open_im_sdk.sendMessage(new SendMsgCallBack(reactContext, promise, message), operationID, message.toString(), receiver, groupID, offlinePushInfo.toString(), isOnlineOnly);
+    Open_im_sdk.sendMessage(new SendMsgCallBack(reactContext, promise, message), operationID, readableMap2string(message), receiver, groupID, readableMap2string(offlinePushInfo), isOnlineOnly);
   }
 
   @ReactMethod
@@ -1042,7 +1042,7 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
     }
 
     assert message != null;
-    Open_im_sdk.sendMessageNotOss(new SendMsgCallBack(reactContext, promise, message), operationID, message.toString(), receiver, groupID, offlinePushInfo.toString(), isOnlineOnly);
+    Open_im_sdk.sendMessageNotOss(new SendMsgCallBack(reactContext, promise, message), operationID, readableMap2string(message), receiver, groupID, readableMap2string(offlinePushInfo), isOnlineOnly);
   }
 
   @ReactMethod
