@@ -360,9 +360,9 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public void createQuoteMessage(ReadableMap options, String operationID, Promise promise) {
     String text = options.getString("text");
-    String quoteMessage = Objects.requireNonNull(options.getMap("message"));
+    String quoteMessage = readableMap2string(Objects.requireNonNull(options.getMap("message")));
 
-    String message = Open_im_sdk.createQuoteMessage(operationID, text, readableMap2string(quoteMessage));
+    String message = Open_im_sdk.createQuoteMessage(operationID, text, quoteMessage);
     try {
       JSONObject obj = JSON.parseObject(message);
       promise.resolve(emitter.convertJsonToMap(obj));
@@ -374,10 +374,10 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public void createAdvancedQuoteMessage(ReadableMap options, String operationID, Promise promise) {
     String text = options.getString("text");
-    String quoteMessage = Objects.requireNonNull(options.getMap("message"));
+    String quoteMessage = readableMap2string(Objects.requireNonNull(options.getMap("message")));
     String messageEntityList = Objects.requireNonNull(options.getArray("messageEntityList")).toString();
 
-    String message = Open_im_sdk.createAdvancedQuoteMessage(operationID, text, readableMap2string(quoteMessage), messageEntityList);
+    String message = Open_im_sdk.createAdvancedQuoteMessage(operationID, text, quoteMessage, messageEntityList);
     try {
       JSONObject obj = JSON.parseObject(message);
       promise.resolve(emitter.convertJsonToMap(obj));
@@ -423,12 +423,12 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void createImageMessageByURL(ReadableMap options, String operationID, Promise promise) {
-    String sourcePicture = Objects.requireNonNull(options.getMap("sourcePicture"));
-    String bigPicture = Objects.requireNonNull(options.getMap("bigPicture"));
-    String snapshotPicture = Objects.requireNonNull(options.getMap("snapshotPicture"));
+    String sourcePicture = readableMap2string(Objects.requireNonNull(options.getMap("sourcePicture")));
+    String bigPicture = readableMap2string(Objects.requireNonNull(options.getMap("bigPicture")));
+    String snapshotPicture =readableMap2string(Objects.requireNonNull(options.getMap("snapshotPicture")));
     String sourcePath = options.getString("sourcePath");
 
-    String message = Open_im_sdk.createImageMessageByURL(operationID, sourcePath, readableMap2string(sourcePicture), readableMap2string(bigPicture), readableMap2string(snapshotPicture));
+    String message = Open_im_sdk.createImageMessageByURL(operationID, sourcePath, sourcePicture, bigPicture, snapshotPicture);
     try {
       JSONObject obj = JSON.parseObject(message);
       promise.resolve(emitter.convertJsonToMap(obj));
