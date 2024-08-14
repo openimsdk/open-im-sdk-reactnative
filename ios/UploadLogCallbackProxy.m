@@ -23,7 +23,7 @@
 
 @implementation RNUploadLogCallbackProxy
 
-- (nonnull id)initWithOpid:(nonnull NSString *)operationID module:(nonnull OpenIMSDKRN *)module {
+- (nonnull id)initWithOpid:(nonnull NSString *)operationID module:(nonnull OpenIMSDKRN *)module resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter {
     if (self = [super init]) {
         self.opid = operationID;
         self.module = module;
@@ -31,7 +31,7 @@
     return self;
 }
 
-- (void)onProgress:(long)current size:(long)size {
+- (void)onProgress:(int64_t)current size:(int64_t)size {
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     params[@"current"] = @(current);
     params[@"size"] = @(size);
