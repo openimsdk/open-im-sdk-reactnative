@@ -23,7 +23,7 @@
 
 @implementation RNUploadFileCallbackProxy
 
-- (nonnull id)initWithOpid:(nonnull NSString *)operationID module:(nonnull OpenIMSDKRN *)module {
+- (nonnull id)initWithOpid:(nonnull NSString *)operationID module:(nonnull OpenIMSDKRN *)module resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter {
     if (self = [super init]) {
         self.opid = operationID;
         self.module = module;

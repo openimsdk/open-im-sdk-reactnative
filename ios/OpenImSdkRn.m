@@ -79,6 +79,7 @@ RCT_EXPORT_MODULE()
   @"onSyncServerFailed",
   @"onSyncServerFinish",
   @"onSyncServerStart",
+  @"onSyncServerProgress",
   @"onTotalUnreadMessageCountChanged",
   
   @"onBlackAdded",
