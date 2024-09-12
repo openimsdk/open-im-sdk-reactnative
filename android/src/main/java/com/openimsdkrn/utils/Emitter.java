@@ -8,8 +8,10 @@ import com.alibaba.fastjson.JSONObject;
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReadableMap;
+import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
+import com.facebook.react.bridge.ReadableMapKeySetIterator;
 
 import com.facebook.react.bridge.WritableNativeArray;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
@@ -90,6 +92,75 @@ public class Emitter {
       } else {
         writableArray.pushNull();
       }
+    }
+    return writableArray;
+  }
+
+  public WritableMap convertReadableMap(ReadableMap readableMap) {
+    WritableMap writableMap = Arguments.createMap();
+    ReadableMapKeySetIterator iterator = readableMap.keySetIterator();
+
+    // 遍历 ReadableMap 并根据不同类型进行转换
+    while (iterator.hasNextKey()) {
+        String key = iterator.nextKey();
+        switch (readableMap.getType(key)) {
+            case String:
+                writableMap.putString(key, readableMap.getString(key));
+                break;
+            case Number:
+                double numberValue = readableMap.getDouble(key);
+                if (numberValue == (long) numberValue) {
+                    writableMap.putInt(key, (int) numberValue);  // 是整数时存储为 int
+                } else {
+                    writableMap.putDouble(key, numberValue);  // 否则存储为 double
+                }
+                break;
+            case Boolean:
+                writableMap.putBoolean(key, readableMap.getBoolean(key));
+                break;
+            case Map:
+                writableMap.putMap(key, convertReadableMap(readableMap.getMap(key)));  // 递归处理嵌套 Map
+                break;
+            case Array:
+                writableMap.putArray(key, convertReadableArray(readableMap.getArray(key)));  // 处理数组
+                break;
+            default:
+                writableMap.putNull(key);  // 处理空值
+                break;
+        }
+    }
+
+    return writableMap;
+  }
+
+  public WritableArray convertReadableArray(ReadableArray readableArray) {
+    WritableArray writableArray = Arguments.createArray();
+    for (int i = 0; i < readableArray.size(); i++) {
+        switch (readableArray.getType(i)) {
+            case String:
+                writableArray.pushString(readableArray.getString(i));
+                break;
+            case Number:
+                double numberValue = readableArray.getDouble(i);
+                if (numberValue == (long) numberValue) {
+                    writableArray.pushInt((int) numberValue);  // 存储为 int
+                } else {
+                    writableArray.pushDouble(numberValue);  // 存储为 double
+                }
+                break;
+            case Boolean:
+                writableArray.pushBoolean(readableArray.getBoolean(i));
+                break;
+            case Map:
+                writableArray.pushMap(convertReadableMap(readableArray.getMap(i)));  // 递归处理 Map
+                break;
+            case Array:
+                writableArray.pushArray(convertReadableArray(readableArray.getArray(i)));  // 递归处理数组
+                break;
+            default:
+                writableArray.pushNull();  // 处理空值
+                break;
+        }
     }
     return writableArray;
   }

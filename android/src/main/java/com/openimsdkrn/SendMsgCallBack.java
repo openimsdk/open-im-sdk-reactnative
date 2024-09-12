@@ -11,12 +11,12 @@ import com.facebook.react.bridge.Promise;
 public class SendMsgCallBack extends Emitter implements open_im_sdk_callback.SendMsgCallBack {
   final ReactApplicationContext ctx;
   final private Promise promise;
-  final private ReadableMap message;
+  final private WritableMap message;
 
   public SendMsgCallBack(ReactApplicationContext ctx, Promise promise, ReadableMap message) {
     this.ctx = ctx;
     this.promise = promise;
-    this.message = message;
+    this.message = convertReadableMap(message);
   }
 
   @Override
