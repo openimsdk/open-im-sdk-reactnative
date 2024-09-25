@@ -11,12 +11,12 @@ import com.facebook.react.bridge.Promise;
 public class SendMsgCallBack extends Emitter implements open_im_sdk_callback.SendMsgCallBack {
   final ReactApplicationContext ctx;
   final private Promise promise;
-  final private WritableMap message;
+  final private ReadableMap message;
 
   public SendMsgCallBack(ReactApplicationContext ctx, Promise promise, ReadableMap message) {
     this.ctx = ctx;
     this.promise = promise;
-    this.message = convertReadableMap(message);
+    this.message = message;
   }
 
   @Override
@@ -28,7 +28,7 @@ public class SendMsgCallBack extends Emitter implements open_im_sdk_callback.Sen
   public void onProgress(long progress) {
     WritableMap params = Arguments.createMap();
     params.putInt("progress", (int) progress);
-    params.putMap("message", message);
+    params.putMap("message", Arguments.makeNativeMap(message.toHashMap()));
     send(ctx, "SendMessageProgress", params);
   }
 
