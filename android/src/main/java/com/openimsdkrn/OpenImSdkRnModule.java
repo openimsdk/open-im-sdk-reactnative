@@ -31,6 +31,8 @@ import com.openimsdkrn.listener.BatchMsgListener;
 
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.UUID;
 import java.util.HashMap;
@@ -57,7 +59,7 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
 
   private int listenerCount = 0;
 
-  private String readableMap2string(ReadableMap map) {
+  private String map2string(ReadableMap map) {
     return map.toString();
   }
 
@@ -77,8 +79,12 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void initSDK(ReadableMap options, String operationID, Promise promise) {
-    boolean initialized = Open_im_sdk.initSDK(new InitSDKListener(reactContext), operationID,
-      readableMap2string(options));
+    WritableMap config = Arguments.createMap();
+    config.merge(options);
+
+    config.putInt("platformID", 2);
+
+    boolean initialized = Open_im_sdk.initSDK(new InitSDKListener(reactContext), operationID, map2string(config));
     setUserListener();
     setConversationListener();
     setFriendListener();
@@ -141,15 +147,8 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void getUsersInfoWithCache(ReadableMap options, String operationID, Promise promise) {
-    ReadableArray userIDList = options.getArray("userIDList");
-    String groupID = options.getString("groupID");
-    Open_im_sdk.getUsersInfoWithCache(new BaseImpl(promise), operationID, userIDList.toString(), groupID);
-  }
-
-  @ReactMethod
   public void setSelfInfo(ReadableMap userInfo, String operationID, Promise promise) {
-    Open_im_sdk.setSelfInfo(new BaseImpl(promise), operationID, readableMap2string(userInfo));
+    Open_im_sdk.setSelfInfo(new BaseImpl(promise), operationID, map2string(userInfo));
   }
 
   @ReactMethod
@@ -207,7 +206,9 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void setGlobalRecvMessageOpt(int opt, String operationID, Promise promise) {
-    Open_im_sdk.setGlobalRecvMessageOpt(new BaseImpl(promise), operationID, opt);
+    JSONObject params = new JSONObject();
+    params.put("globalRecvMsgOpt", opt);
+    Open_im_sdk.setGroupInfo(new BaseImpl(promise), operationID, params.toString());
   }
 
   @ReactMethod
@@ -221,49 +222,56 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void getConversationRecvMessageOpt(ReadableArray conversationIDList, String operationID, Promise promise) {
-    Open_im_sdk.getConversationRecvMessageOpt(new BaseImpl(promise), operationID, conversationIDList.toString());
+  public void setConversation(ReadableMap options, String operationID, Promise promise) {
+    String conversationID = options.getString("conversationID");
+    String conversation = map2string(options);
+    Open_im_sdk.setConversation(new BaseImpl(promise), operationID, conversationID, conversation);
   }
 
   @ReactMethod
   public void setConversationDraft(ReadableMap options, String operationID, Promise promise) {
-    Open_im_sdk.setConversationDraft(new BaseImpl(promise), operationID, options.getString("conversationID"),
-      options.getString("draftText"));
-  }
-
-  @ReactMethod
-  public void setConversationEx(ReadableMap options, String operationID, Promise promise) {
-    Open_im_sdk.setConversationEx(new BaseImpl(promise), operationID, options.getString("conversationID"),
-      options.getString("ex"));
+    String conversationID = options.getString("conversationID");
+    String draftText = options.getString("draftText");
+    Open_im_sdk.setConversationDraft(new BaseImpl(promise), operationID, conversationID, draftText);
   }
 
   @ReactMethod
   public void resetConversationGroupAtType(String conversationID, String operationID, Promise promise) {
-    Open_im_sdk.resetConversationGroupAtType(new BaseImpl(promise), operationID, conversationID);
+    JSONObject params = new JSONObject();
+    params.put("groupAtType", 0);
+    Open_im_sdk.setConversation(new BaseImpl(promise), operationID, conversationID, params.toString());
   }
 
   @ReactMethod
   public void pinConversation(ReadableMap options, String operationID, Promise promise) {
-    Open_im_sdk.pinConversation(new BaseImpl(promise), operationID, options.getString("conversationID"),
-      options.getBoolean("isPinned"));
+    String conversationID = options.getString("conversationID");
+    JSONObject params = new JSONObject();
+    params.put("isPinned", options.getBoolean("isPinned"));
+    Open_im_sdk.setConversation(new BaseImpl(promise), operationID, conversationID, params.toString());
   }
 
   @ReactMethod
   public void setConversationPrivateChat(ReadableMap options, String operationID, Promise promise) {
-    Open_im_sdk.setConversationPrivateChat(new BaseImpl(promise), operationID, options.getString("conversationID"),
-      options.getBoolean("isPrivate"));
+    String conversationID = options.getString("conversationID");
+    JSONObject params = new JSONObject();
+    params.put("isPrivateChat", options.getBoolean("isPrivate"));
+    Open_im_sdk.setConversation(new BaseImpl(promise), operationID, conversationID, params.toString());
   }
 
   @ReactMethod
   public void setConversationBurnDuration(ReadableMap options, String operationID, Promise promise) {
-    Open_im_sdk.setConversationBurnDuration(new BaseImpl(promise), operationID, options.getString("conversationID"),
-      options.getInt("burnDuration"));
+    String conversationID = options.getString("conversationID");
+    JSONObject params = new JSONObject();
+    params.put("burnDuration", options.getInt("burnDuration"));
+    Open_im_sdk.setConversation(new BaseImpl(promise), operationID, conversationID, params.toString());
   }
 
   @ReactMethod
   public void setConversationRecvMessageOpt(ReadableMap options, String operationID, Promise promise) {
-    Open_im_sdk.setConversationRecvMessageOpt(new BaseImpl(promise), operationID, options.getString("conversationID"),
-      options.getInt("opt"));
+    String conversationID = options.getString("conversationID");
+    JSONObject params = new JSONObject();
+    params.put("recvMsgOpt", options.getInt("opt"));
+    Open_im_sdk.setConversation(new BaseImpl(promise), operationID, conversationID, params.toString());
   }
 
   @ReactMethod
@@ -299,7 +307,7 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
     String atUsersInfo = atUsersInfoMap != null ? atUsersInfoMap.toString() : null;
 
     ReadableMap messageMap = options.hasKey("message") ? options.getMap("message") : null;
-    String quoteMessage = messageMap != null ? readableMap2string(messageMap) : null;
+    String quoteMessage = messageMap != null ? map2string(messageMap) : null;
 
     String message = Open_im_sdk.createTextAtMessage(operationID, text, atUserIDList, atUsersInfo, quoteMessage);
     try {
@@ -324,10 +332,10 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public void createLocationMessage(ReadableMap options, String operationID, Promise promise) {
     String description = options.getString("description");
-    Double longitude = options.getDouble("longitude");
-    Double latitude = options.getDouble("latitude");
+    double longitude = options.getDouble("longitude");
+    double latitude = options.getDouble("latitude");
 
-    String message = Open_im_sdk.createLocationMessage(operationID, description, 22.2, 33.3);
+    String message = Open_im_sdk.createLocationMessage(operationID, description, longitude, latitude);
     try {
       JSONObject obj = JSON.parseObject(message);
       promise.resolve(emitter.convertJsonToMap(obj));
@@ -354,7 +362,7 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public void createQuoteMessage(ReadableMap options, String operationID, Promise promise) {
     String text = options.getString("text");
-    String quoteMessage = readableMap2string(Objects.requireNonNull(options.getMap("message")));
+    String quoteMessage = map2string(Objects.requireNonNull(options.getMap("message")));
 
     String message = Open_im_sdk.createQuoteMessage(operationID, text, quoteMessage);
     try {
@@ -368,7 +376,7 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public void createAdvancedQuoteMessage(ReadableMap options, String operationID, Promise promise) {
     String text = options.getString("text");
-    String quoteMessage = readableMap2string(Objects.requireNonNull(options.getMap("message")));
+    String quoteMessage = map2string(Objects.requireNonNull(options.getMap("message")));
     String messageEntityList = Objects.requireNonNull(options.getArray("messageEntityList")).toString();
 
     String message = Open_im_sdk.createAdvancedQuoteMessage(operationID, text, quoteMessage, messageEntityList);
@@ -382,7 +390,7 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void createCardMessage(ReadableMap cardElem, String operationID, Promise promise) {
-    String card = readableMap2string(cardElem);
+    String card = map2string(cardElem);
 
     String message = Open_im_sdk.createCardMessage(operationID, card);
     try {
@@ -417,9 +425,9 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void createImageMessageByURL(ReadableMap options, String operationID, Promise promise) {
-    String sourcePicture = readableMap2string(Objects.requireNonNull(options.getMap("sourcePicture")));
-    String bigPicture = readableMap2string(Objects.requireNonNull(options.getMap("bigPicture")));
-    String snapshotPicture = readableMap2string(Objects.requireNonNull(options.getMap("snapshotPicture")));
+    String sourcePicture = map2string(Objects.requireNonNull(options.getMap("sourcePicture")));
+    String bigPicture = map2string(Objects.requireNonNull(options.getMap("bigPicture")));
+    String snapshotPicture = map2string(Objects.requireNonNull(options.getMap("snapshotPicture")));
     String sourcePath = options.getString("sourcePath");
 
     String message = Open_im_sdk.createImageMessageByURL(operationID, sourcePath, sourcePicture, bigPicture, snapshotPicture);
@@ -434,7 +442,7 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public void createSoundMessage(ReadableMap options, String operationID, Promise promise) {
     String soundPath = options.getString("soundPath");
-    Integer duration = options.getInt("duration");
+    int duration = options.getInt("duration");
 
     String message = Open_im_sdk.createSoundMessage(operationID, soundPath, duration);
     try {
@@ -448,7 +456,7 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public void createSoundMessageFromFullPath(ReadableMap options, String operationID, Promise promise) {
     String soundPath = options.getString("soundPath");
-    Integer duration = options.getInt("duration");
+    int duration = options.getInt("duration");
 
     String message = Open_im_sdk.createSoundMessageFromFullPath(operationID, soundPath, duration);
     try {
@@ -461,7 +469,7 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void createSoundMessageByURL(ReadableMap soundInfo, String operationID, Promise promise) {
-    String sound = readableMap2string(soundInfo);
+    String sound = map2string(soundInfo);
 
     String message = Open_im_sdk.createSoundMessageByURL(operationID, sound);
     try {
@@ -476,7 +484,7 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
   public void createVideoMessage(ReadableMap options, String operationID, Promise promise) {
     String videoPath = options.getString("videoPath");
     String videoType = options.getString("videoType");
-    Integer duration = options.getInt("duration");
+    int duration = options.getInt("duration");
     String snapshotPath = options.getString("snapshotPath");
 
     String message = Open_im_sdk.createVideoMessage(operationID, videoPath, videoType, duration, snapshotPath);
@@ -492,7 +500,7 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
   public void createVideoMessageFromFullPath(ReadableMap options, String operationID, Promise promise) {
     String videoPath = options.getString("videoPath");
     String videoType = options.getString("videoType");
-    Integer duration = options.getInt("duration");
+    int duration = options.getInt("duration");
     String snapshotPath = options.getString("snapshotPath");
 
     String message = Open_im_sdk.createVideoMessage(operationID, videoPath, videoType, duration, snapshotPath);
@@ -506,7 +514,7 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void createVideoMessageByURL(ReadableMap videoInfo, String operationID, Promise promise) {
-    String video = readableMap2string(videoInfo);
+    String video = map2string(videoInfo);
 
     String message = Open_im_sdk.createVideoMessageByURL(operationID, video);
     try {
@@ -547,7 +555,7 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void createFileMessageByURL(ReadableMap fileInfo, String operationID, Promise promise) {
-    String file = readableMap2string(fileInfo);
+    String file = map2string(fileInfo);
 
     String message = Open_im_sdk.createFileMessageByURL(operationID, file);
     try {
@@ -589,7 +597,7 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void createForwardMessage(ReadableMap messageList, String operationID, Promise promise) {
-    String forward = readableMap2string(messageList);
+    String forward = map2string(messageList);
 
     String message = Open_im_sdk.createForwardMessage(operationID, forward);
     try {
@@ -609,17 +617,17 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void findMessageList(ReadableMap findOptions, String operationID, Promise promise) {
-    Open_im_sdk.findMessageList(new BaseImpl(promise), operationID, readableMap2string(findOptions));
+    Open_im_sdk.findMessageList(new BaseImpl(promise), operationID, map2string(findOptions));
   }
 
   @ReactMethod
   public void getAdvancedHistoryMessageList(ReadableMap findOptions, String operationID, Promise promise) {
-    Open_im_sdk.getAdvancedHistoryMessageList(new BaseImpl(promise), operationID, readableMap2string(findOptions));
+    Open_im_sdk.getAdvancedHistoryMessageList(new BaseImpl(promise), operationID, map2string(findOptions));
   }
 
   @ReactMethod
   public void getAdvancedHistoryMessageListReverse(ReadableMap options, String operationID, Promise promise) {
-    Open_im_sdk.getAdvancedHistoryMessageListReverse(new BaseImpl(promise), operationID, readableMap2string(options));
+    Open_im_sdk.getAdvancedHistoryMessageListReverse(new BaseImpl(promise), operationID, map2string(options));
   }
 
   @ReactMethod
@@ -637,6 +645,20 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
   public void typingStatusUpdate(ReadableMap options, String operationID, Promise promise) {
     Open_im_sdk.typingStatusUpdate(new BaseImpl(promise), operationID, options.getString("recvID"),
       options.getString("msgTip"));
+  }
+
+  @ReactMethod
+  public void changeInputStates(ReadableMap options, String operationID, Promise promise) {
+    String conversationID = options.getString("conversationID");
+    boolean focus = options.getBoolean("focus");
+    Open_im_sdk.changeInputStates(new BaseImpl(promise), operationID, conversationID, focus);
+  }
+
+  @ReactMethod
+  public void getInputStates(ReadableMap options, String operationID, Promise promise) {
+    String conversationID = options.getString("conversationID");
+    String userID = options.getString("userID");
+    Open_im_sdk.getInputStates(new BaseImpl(promise), operationID, conversationID, userID);
   }
 
   @ReactMethod
@@ -682,18 +704,18 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public void insertSingleMessageToLocalStorage(ReadableMap options, String operationID, Promise promise) {
     Open_im_sdk.insertSingleMessageToLocalStorage(new BaseImpl(promise), operationID,
-      readableMap2string(Objects.requireNonNull(options.getMap("message"))), options.getString("recvID"), options.getString("sendID"));
+      map2string(Objects.requireNonNull(options.getMap("message"))), options.getString("recvID"), options.getString("sendID"));
   }
 
   @ReactMethod
   public void insertGroupMessageToLocalStorage(ReadableMap options, String operationID, Promise promise) {
     Open_im_sdk.insertGroupMessageToLocalStorage(new BaseImpl(promise), operationID,
-      readableMap2string(Objects.requireNonNull(options.getMap("message"))), options.getString("groupID"), options.getString("sendID"));
+      map2string(Objects.requireNonNull(options.getMap("message"))), options.getString("groupID"), options.getString("sendID"));
   }
 
   @ReactMethod
   public void searchLocalMessages(ReadableMap searchParam, String operationID, Promise promise) {
-    Open_im_sdk.searchLocalMessages(new BaseImpl(promise), operationID, readableMap2string(searchParam));
+    Open_im_sdk.searchLocalMessages(new BaseImpl(promise), operationID, map2string(searchParam));
   }
 
   @ReactMethod
@@ -708,24 +730,28 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
     Open_im_sdk.setFriendListener(new OnFriendshipListener(reactContext));
   }
 
-  public void getSpecifiedFriendsInfo(ReadableArray userIDList, String operationID, Promise promise) {
-    Open_im_sdk.getSpecifiedFriendsInfo(new BaseImpl(promise), operationID, userIDList.toString());
+  public void getSpecifiedFriendsInfo(ReadableMap options, String operationID, Promise promise) {
+    ReadableArray userIDList = options.getArray("userIDList");
+    boolean filterBlack = options.getBoolean("filterBlack");
+    Open_im_sdk.getSpecifiedFriendsInfo(new BaseImpl(promise), operationID, userIDList.toString(), filterBlack);
   }
 
   @ReactMethod
-  public void getFriendList(String operationID, Promise promise) {
-    Open_im_sdk.getFriendList(new BaseImpl(promise), operationID);
+  public void getFriendList(Boolean filterBlack, String operationID, Promise promise) {
+    Open_im_sdk.getFriendList(new BaseImpl(promise), operationID, filterBlack);
   }
 
   @ReactMethod
   public void getFriendListPage(ReadableMap options, String operationID, Promise promise) {
-    Open_im_sdk.getFriendListPage(new BaseImpl(promise), operationID, options.getInt("offset"),
-      options.getInt("count"));
+    int offset = options.getInt("offset");
+    int count = options.getInt("count");
+    boolean filterBlack = options.getBoolean("filterBlack");
+    Open_im_sdk.getFriendListPage(new BaseImpl(promise), operationID, offset, count, filterBlack);
   }
 
   @ReactMethod
   public void searchFriends(ReadableMap options, String operationID, Promise promise) {
-    Open_im_sdk.searchFriends(new BaseImpl(promise), operationID, readableMap2string(options));
+    Open_im_sdk.searchFriends(new BaseImpl(promise), operationID, map2string(options));
   }
 
   @ReactMethod
@@ -734,24 +760,24 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void addFriend(ReadableMap paramsReq, String operationID, Promise promise) {
-    Open_im_sdk.addFriend(new BaseImpl(promise), operationID, readableMap2string(paramsReq));
+  public void addFriend(ReadableMap params, String operationID, Promise promise) {
+    Open_im_sdk.addFriend(new BaseImpl(promise), operationID, map2string(params));
+  }
+
+  public void updateFriends(ReadableMap params, String operationID, Promise promise) {
+    Open_im_sdk.updateFriends(new BaseImpl(promise), operationID, map2string(params));
   }
 
   @ReactMethod
-  public void pinFriends(String setFriendsParams, String operationID, Promise promise) {
-    Open_im_sdk.pinFriends(new BaseImpl(promise), operationID, setFriendsParams);
-  }
+  public void setFriendRemark(ReadableMap options, String operationID, Promise promise) {
+    ArrayList<String> toUserIDList = new ArrayList<String>();
+    toUserIDList.add(options.getString("toUserID"));
 
-  @ReactMethod
-  public void setFriendRemark(String userIDRemark, String operationID, Promise promise) {
-    Open_im_sdk.setFriendRemark(new BaseImpl(promise), operationID, userIDRemark);
-  }
+    JSONObject params = new JSONObject();
+    params.put("friendUserIDs", toUserIDList);
+    params.put("remark", options.getString("remark"));
 
-  @ReactMethod
-  public void setFriendsEx(ReadableMap options, String operationID, Promise promise) {
-    Open_im_sdk.setFriendsEx(new BaseImpl(promise), operationID, options.getString("friendIDs"),
-      options.getString("Ex"));
+    Open_im_sdk.updateFriends(new BaseImpl(promise), operationID, params.toString());
   }
 
   @ReactMethod
@@ -771,12 +797,12 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void acceptFriendApplication(ReadableMap userIDHandleMsg, String operationID, Promise promise) {
-    Open_im_sdk.acceptFriendApplication(new BaseImpl(promise), operationID, readableMap2string(userIDHandleMsg));
+    Open_im_sdk.acceptFriendApplication(new BaseImpl(promise), operationID, map2string(userIDHandleMsg));
   }
 
   @ReactMethod
   public void refuseFriendApplication(ReadableMap userIDHandleMsg, String operationID, Promise promise) {
-    Open_im_sdk.refuseFriendApplication(new BaseImpl(promise), operationID, readableMap2string(userIDHandleMsg));
+    Open_im_sdk.refuseFriendApplication(new BaseImpl(promise), operationID, map2string(userIDHandleMsg));
   }
 
   @ReactMethod
@@ -802,7 +828,7 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void createGroup(ReadableMap gInfo, String operationID, Promise promise) {
-    Open_im_sdk.createGroup(new BaseImpl(promise), operationID, readableMap2string(gInfo));
+    Open_im_sdk.createGroup(new BaseImpl(promise), operationID, map2string(gInfo));
   }
 
   @ReactMethod
@@ -835,13 +861,12 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void setGroupMemberRoleLevel(ReadableMap options, String operationID, Promise promise) {
-    Open_im_sdk.setGroupMemberRoleLevel(new BaseImpl(promise), operationID, options.getString("groupID"),
-      options.getString("userID"), options.getInt("roleLevel"));
+    Open_im_sdk.setGroupMemberInfo(new BaseImpl(promise), operationID, map2string(options));
   }
 
   @ReactMethod
-  public void setGroupMemberInfo(ReadableMap data, String operationID, Promise promise) {
-    Open_im_sdk.setGroupMemberInfo(new BaseImpl(promise), operationID, readableMap2string(data));
+  public void setGroupMemberInfo(ReadableMap options, String operationID, Promise promise) {
+    Open_im_sdk.setGroupMemberInfo(new BaseImpl(promise), operationID, map2string(options));
   }
 
   @ReactMethod
@@ -862,30 +887,36 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void searchGroups(ReadableMap options, String operationID, Promise promise) {
-    Open_im_sdk.searchGroups(new BaseImpl(promise), operationID, readableMap2string(options));
+    Open_im_sdk.searchGroups(new BaseImpl(promise), operationID, map2string(options));
   }
 
   @ReactMethod
   public void setGroupInfo(ReadableMap jsonGroupInfo, String operationID, Promise promise) {
-    Open_im_sdk.setGroupInfo(new BaseImpl(promise), operationID, readableMap2string(jsonGroupInfo));
+    Open_im_sdk.setGroupInfo(new BaseImpl(promise), operationID, map2string(jsonGroupInfo));
   }
 
   @ReactMethod
   public void setGroupVerification(ReadableMap options, String operationID, Promise promise) {
-    Open_im_sdk.setGroupVerification(new BaseImpl(promise), operationID, options.getString("groupID"),
-      options.getInt("verification"));
+    JSONObject params = new JSONObject();
+    params.put("groupID", options.getString("groupID"));
+    params.put("needVerification", options.getString("verification"));
+    Open_im_sdk.setGroupInfo(new BaseImpl(promise), operationID, params.toString());
   }
 
   @ReactMethod
   public void setGroupLookMemberInfo(ReadableMap options, String operationID, Promise promise) {
-    Open_im_sdk.setGroupLookMemberInfo(new BaseImpl(promise), operationID, options.getString("groupID"),
-      options.getInt("rule"));
+    JSONObject params = new JSONObject();
+    params.put("groupID", options.getString("groupID"));
+    params.put("lookMemberInfo", options.getString("rule"));
+    Open_im_sdk.setGroupInfo(new BaseImpl(promise), operationID, params.toString());
   }
 
   @ReactMethod
   public void setGroupApplyMemberFriend(ReadableMap options, String operationID, Promise promise) {
-    Open_im_sdk.setGroupApplyMemberFriend(new BaseImpl(promise), operationID, options.getString("groupID"),
-      options.getInt("rule"));
+    JSONObject params = new JSONObject();
+    params.put("groupID", options.getString("groupID"));
+    params.put("applyMemberFriend", options.getString("rule"));
+    Open_im_sdk.setGroupInfo(new BaseImpl(promise), operationID, params.toString());
   }
 
   @ReactMethod
@@ -960,16 +991,16 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void setGroupMemberNickname(ReadableMap options, String operationID, Promise promise) {
-    Open_im_sdk.setGroupMemberNickname(new BaseImpl(promise), operationID,
-      options.getString("groupID"),
-      options.getString("userID"),
-      options.getString("groupMemberNickname"));
+    JSONObject params = new JSONObject();
+    params.put("groupID", options.getString("groupID"));
+    params.put("userID", options.getString("userID"));
+    params.put("nickname", options.getString("groupMemberNickname"));
+    Open_im_sdk.setGroupMemberInfo(new BaseImpl(promise), operationID, params.toString());
   }
 
   @ReactMethod
   public void searchGroupMembers(ReadableMap searchOptions, String operationID, Promise promise) {
-    Open_im_sdk.searchGroupMembers(new BaseImpl(promise), operationID,
-      readableMap2string(searchOptions));
+    Open_im_sdk.searchGroupMembers(new BaseImpl(promise), operationID, map2string(searchOptions));
   }
 
   @ReactMethod
@@ -994,7 +1025,7 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
     String groupID = options.getString("groupID");
     ReadableMap offlinePushInfo = options.getMap("offlinePushInfo");
 
-    Boolean isOnlineOnly = false;
+    boolean isOnlineOnly = false;
     if (options.hasKey("isOnlineOnly")) {
       isOnlineOnly = options.getBoolean("isOnlineOnly");
     }
@@ -1010,7 +1041,7 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
     }
 
     assert message != null;
-    Open_im_sdk.sendMessage(new SendMsgCallBack(reactContext, promise, message), operationID, readableMap2string(message), receiver, groupID, readableMap2string(offlinePushInfo), isOnlineOnly);
+    Open_im_sdk.sendMessage(new SendMsgCallBack(reactContext, promise, message), operationID, map2string(message), receiver, groupID, map2string(offlinePushInfo), isOnlineOnly);
   }
 
   @ReactMethod
@@ -1020,7 +1051,7 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
     String groupID = options.getString("groupID");
     ReadableMap offlinePushInfo = options.getMap("offlinePushInfo");
 
-    Boolean isOnlineOnly = false;
+    boolean isOnlineOnly = false;
     if (options.hasKey("isOnlineOnly")) {
       isOnlineOnly = options.getBoolean("isOnlineOnly");
     }
@@ -1036,7 +1067,7 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
     }
 
     assert message != null;
-    Open_im_sdk.sendMessageNotOss(new SendMsgCallBack(reactContext, promise, message), operationID, readableMap2string(message), receiver, groupID, readableMap2string(offlinePushInfo), isOnlineOnly);
+    Open_im_sdk.sendMessageNotOss(new SendMsgCallBack(reactContext, promise, message), operationID, map2string(message), receiver, groupID, map2string(offlinePushInfo), isOnlineOnly);
   }
 
   @ReactMethod
@@ -1050,13 +1081,24 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
+  public void logs(ReadableMap options, String operationID, Promise promise) {
+    long logLevel = options.getInt("logLevel");
+    String file = options.getString("file");
+    long line = options.getInt("line");
+    String msg = options.getString("msgs");
+    String err = options.getString("err");
+    String keyAndValue = options.getString("keyAndValue");
+    Open_im_sdk.logs(new BaseImpl(promise), operationID, logLevel, file, line, msg, err, keyAndValue);
+  }
+
+  @ReactMethod
   public String getSdkVersion() {
     return Open_im_sdk.getSdkVersion();
   }
 
   @ReactMethod
   public void uploadFile(ReadableMap reqData, String operationID, Promise promise) {
-    Open_im_sdk.uploadFile(new BaseImpl(promise), operationID, readableMap2string(reqData),
+    Open_im_sdk.uploadFile(new BaseImpl(promise), operationID, map2string(reqData),
       new UploadFileCallbackListener(reactContext, operationID));
   }
 

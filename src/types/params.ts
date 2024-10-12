@@ -7,6 +7,7 @@ import type {
   SelfUserInfo,
 } from './entity';
 import type {
+  GroupAtType,
   GroupJoinSource,
   GroupMemberFilter,
   GroupMemberRole,
@@ -20,7 +21,6 @@ export type InitOptions = {
   apiAddr: string;
   dataDir: string;
   logLevel: LogLevel;
-  platformID: number;
   isLogStandardOutput: boolean;
 };
 
@@ -51,6 +51,18 @@ export type GetOneConversationParams = {
   sessionType: number;
 };
 
+export type setConversationParams = {
+  conversationID: string;
+  recvMsgOpt?: MessageReceiveOptType;
+  groupAtType?: GroupAtType;
+  burnDuration?: number;
+  msgDestructTime?: number;
+  isPinned?: boolean;
+  isPrivateChat?: boolean;
+  isMsgDestruct?: boolean;
+  ex?: string;
+};
+
 export type SetConversationDraftParams = {
   conversationID: string;
   draftText: string;
@@ -76,6 +88,18 @@ export type SetBurnDurationParams = {
   burnDuration: number;
 };
 
+export declare type GetSpecifiedFriendsParams = {
+  userIDList: string[];
+  filterBlack?: boolean;
+};
+
+export type UpdateFriendsParams = {
+  friendUserIDs: string[];
+  isPinned?: boolean;
+  remark?: boolean;
+  ex?: boolean;
+};
+
 export type AccessFriendParams = {
   toUserID: string;
   handleMsg: string;
@@ -99,7 +123,7 @@ export type SearchFriendParams = {
 };
 
 export type RemarkFriendParams = {
-  toUserID: string;
+  friendUserIDs: string;
   remark: string;
 };
 
@@ -192,6 +216,23 @@ export type TransferGroupParams = {
   newOwnerUserID: string;
 };
 
+export type SoundMsgByPathParams = {
+  soundPath: string;
+  duration: number;
+};
+
+export type VideoMsgByPathParams = {
+  videoPath: string;
+  videoType: string;
+  duration: number;
+  snapshotPath: string;
+};
+
+export type FileMsgByPathParams = {
+  filePath: string;
+  fileName: string;
+};
+
 export type AtMsgParams = {
   text: string;
   atUserIDList: string[];
@@ -281,6 +322,16 @@ export type TypingUpdateParams = {
   msgTip: string;
 };
 
+export type ChangeInputStatesParams = {
+  conversationID: string;
+  focus: boolean;
+};
+
+export type GetInputStatesParams = {
+  conversationID: string;
+  userID: string;
+};
+
 export type OpreateMessageParams = {
   conversationID: string;
   clientMsgID: string;
@@ -341,4 +392,13 @@ export declare type UploadFileParams = {
 export type UploadLogsParams = {
   line: number;
   ex?: string;
+};
+
+export type LogsParams = {
+  logLevel: number;
+  file: string;
+  line: number;
+  msgs: string;
+  err: string;
+  keyAndValue: string;
 };
