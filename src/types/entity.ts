@@ -74,22 +74,11 @@ export type FriendApplicationItem = {
   toNickname: string;
   toUserID: string;
 };
-export type FullUserItem = {
-  blackInfo: BlackUserItem | null;
-  friendInfo: FriendUserItem | null;
-  publicInfo: PublicUserItem | null;
-};
-export type FullUserItemWithCache = {
-  blackInfo: BlackUserItem | null;
-  friendInfo: FriendUserItem | null;
-  publicInfo: PublicUserItem | null;
-  groupMemberInfo: GroupMemberItem | null;
-};
 export type PublicUserItem = {
   nickname: string;
   userID: string;
   faceURL: string;
-  ex: string;
+  ex?: string;
 };
 export type SelfUserInfo = {
   createTime: number;

@@ -1,12 +1,10 @@
 import { NativeEventEmitter, NativeModules, Platform } from 'react-native';
 import {
   SelfUserInfo,
-  FullUserItemWithCache,
   UserOnlineState,
   BlackUserItem,
   FriendApplicationItem,
   FriendshipInfo,
-  FullUserItem,
   SearchedFriendsInfo,
   GroupApplicationItem,
   GroupItem,
@@ -16,6 +14,8 @@ import {
   CardElem,
   MessageItem,
   SearchMessageResult,
+  FriendUserItem,
+  PublicUserItem,
 } from './types/entity';
 import { LoginStatus, MessageReceiveOptType } from './types/enum';
 import {
@@ -26,16 +26,19 @@ import {
   AtMsgParams,
   ChangeGroupMemberMuteParams,
   ChangeGroupMuteParams,
+  ChangeInputStatesParams,
   CreateGroupParams,
   CustomMsgParams,
   FaceMessageParams,
+  FileMsgByPathParams,
   FileMsgParams,
   FindMessageParams,
   GetAdvancedHistoryMsgParams,
   GetGroupMemberByTimeParams,
   GetGroupMemberParams,
+  GetInputStatesParams,
   GetOneConversationParams,
-  GetUserInfoWithCacheParams,
+  GetSpecifiedFriendsParams,
   ImageMsgParams,
   InitOptions,
   InsertGroupMsgParams,
@@ -43,6 +46,7 @@ import {
   JoinGroupParams,
   LocationMsgParams,
   LoginParams,
+  LogsParams,
   MergerMsgParams,
   OffsetParams,
   OpreateGroupParams,
@@ -61,13 +65,16 @@ import {
   SetConversationRecvOptParams,
   SetGroupinfoParams,
   SetMessageLocalExParams,
+  SoundMsgByPathParams,
   SoundMsgParams,
   SplitConversationParams,
   TransferGroupParams,
   TypingUpdateParams,
+  UpdateFriendsParams,
   UpdateMemberInfoParams,
   UploadFileParams,
   UploadLogsParams,
+  VideoMsgByPathParams,
   VideoMsgParams,
   getGroupMembersInfoParams,
 } from './types/params';
@@ -111,15 +118,15 @@ interface OpenIMSDKRNInterface {
   }>;
 
   // user
+  getUsersInfo: (
+    userIDList: string[],
+    operationID: string
+  ) => Promise<PublicUserItem[]>;
   getSelfUserInfo: (operationID: string) => Promise<SelfUserInfo>;
   setSelfInfo: (
     params: Partial<SelfUserInfo>,
     operationID: string
   ) => Promise<unknown>;
-  getUsersInfoWithCache: (
-    params: GetUserInfoWithCacheParams,
-    operationID: string
-  ) => Promise<FullUserItemWithCache[]>;
   subscribeUsersStatus: (
     params: string[],
     operationID: string
@@ -158,15 +165,19 @@ interface OpenIMSDKRNInterface {
   getFriendApplicationListAsRecipient: (
     operationID: string
   ) => Promise<FriendApplicationItem[]>;
-  getFriendList: (operationID: string) => Promise<FullUserItem[]>;
+  getFriendList: (operationID: string) => Promise<FriendUserItem[]>;
   getFriendListPage: (
     params: OffsetParams,
     operationID: string
-  ) => Promise<FullUserItem[]>;
+  ) => Promise<FriendUserItem[]>;
   getSpecifiedFriendsInfo: (
-    params: string[],
+    params: GetSpecifiedFriendsParams,
     operationID: string
-  ) => Promise<FullUserItem[]>;
+  ) => Promise<FriendUserItem[]>;
+  updateFriends: (
+    params: UpdateFriendsParams,
+    operationID: string
+  ) => Promise<unknown>;
   refuseFriendApplication: (
     params: AccessFriendParams,
     operationID: string
@@ -292,6 +303,10 @@ interface OpenIMSDKRNInterface {
     params: string,
     operationID: string
   ) => Promise<unknown>;
+  setConversation: (
+    params: SplitConversationParams,
+    operationID: string
+  ) => Promise<unknown>;
   setConversationDraft: (
     params: SetConversationDraftParams,
     operationID: string
@@ -332,15 +347,15 @@ interface OpenIMSDKRNInterface {
     operationID: string
   ) => Promise<MessageItem>;
   createVideoMessageFromFullPath: (
-    params: string,
+    params: VideoMsgByPathParams,
     operationID: string
   ) => Promise<MessageItem>;
   createSoundMessageFromFullPath: (
-    params: string,
+    params: SoundMsgByPathParams,
     operationID: string
   ) => Promise<MessageItem>;
   createFileMessageFromFullPath: (
-    params: string,
+    params: FileMsgByPathParams,
     operationID: string
   ) => Promise<MessageItem>;
   createTextMessage: (
@@ -407,6 +422,14 @@ interface OpenIMSDKRNInterface {
     params: TypingUpdateParams,
     operationID: string
   ) => Promise<unknown>;
+  changeInputStates: (
+    params: ChangeInputStatesParams,
+    operationID: string
+  ) => Promise<unknown>;
+  getInputStates: (
+    params: GetInputStatesParams,
+    operationID: string
+  ) => Promise<number[]>;
   revokeMessage: (
     params: OpreateMessageParams,
     operationID: string
@@ -450,5 +473,6 @@ interface OpenIMSDKRNInterface {
     operationID: string
   ) => Promise<unknown>;
   uploadLogs: (params: UploadLogsParams, opid?: string) => Promise<unknown>;
+  logs: (params: LogsParams, opid?: string) => Promise<unknown>;
   unInitSDK: (opid?: string) => Promise<unknown>;
 }

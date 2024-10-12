@@ -22,7 +22,7 @@ public class OnConversationListener extends Emitter implements open_im_sdk_callb
 
   @Override
   public void onConversationUserInputStatusChanged(String s) {
-    send(ctx, "onConversationUserInputStatusChanged", jsonStringToMap(s));
+    send(ctx, "onInputStatusChanged", jsonStringToMap(s));
   }
 
   @Override
