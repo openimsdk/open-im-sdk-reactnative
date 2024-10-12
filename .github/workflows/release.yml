@@ -20,11 +20,14 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Install Yarn
+        run: npm install -g yarn@1.22.15
+
       - name: Install dependencies
-        run: npm install
+        run: yarn
 
       - name: Build
-        run: npm run prepack
+        run: yarn prepack
 
       - name: Authenticate with npm registry
         run: npm config set //registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}
