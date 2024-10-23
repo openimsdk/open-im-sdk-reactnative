@@ -73,16 +73,16 @@ RCT_EXPORT_MODULE()
   @"onRecvMessageExtensionsAdded",
   @"onRecvMessageExtensionsChanged",
   @"onRecvMessageExtensionsDeleted",
-  
+
   @"onConversationChanged",
-  @"onConversationUserInputStatusChanged",
+  @"onInputStatusChanged",
   @"onNewConversation",
   @"onSyncServerFailed",
   @"onSyncServerFinish",
   @"onSyncServerStart",
   @"onSyncServerProgress",
   @"onTotalUnreadMessageCountChanged",
-  
+
   @"onBlackAdded",
   @"onBlackDeleted",
   @"onFriendApplicationAccepted",
@@ -150,10 +150,10 @@ RCT_EXPORT_MODULE()
 }
 
 RCT_EXPORT_METHOD(initSDK:(NSDictionary *)config operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
-  
+
     NSMutableDictionary *newConfig = [config mutableCopy];
     [newConfig setObject:@1 forKey:@"platformID"];
-  
+
     BOOL flag = Open_im_sdkInitSDK(self,operationID,[newConfig json]);
     Open_im_sdkSetUserListener(self);
     Open_im_sdkSetConversationListener(self);
@@ -262,11 +262,11 @@ RCT_EXPORT_METHOD(getMultipleConversation:(NSArray *)conversationIDList operatio
 
 RCT_EXPORT_METHOD(setGlobalRecvMessageOpt:(NSInteger)opt operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
     RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
-  
+
     NSDictionary *param = @{
       @"globalRecvMsgOpt":@(opt),
     };
-  
+
     Open_im_sdkSetSelfInfo(proxy, operationID, [param json]);
 }
 
@@ -282,16 +282,16 @@ RCT_EXPORT_METHOD(hideConversation:(NSString *)conversationID operationID:(NSStr
 
 RCT_EXPORT_METHOD(setConversation:(NSDictionary *)options operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
     RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
-  
+
     NSString *conversationID = [options valueForKey:@"conversationID"];
-  
+
     Open_im_sdkSetConversation(proxy,operationID, conversationID, [options json]);
 }
 
 RCT_EXPORT_METHOD(setConversationDraft:(NSDictionary *)options operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
     RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
-  
-  
+
+
     NSString *conversationID = [options valueForKey:@"conversationID"];
     NSString *draftText = [options valueForKey:@"draftText"];
 
@@ -300,7 +300,7 @@ RCT_EXPORT_METHOD(setConversationDraft:(NSDictionary *)options operationID:(NSSt
 
 RCT_EXPORT_METHOD(resetConversationGroupAtType:(NSString *)conversationID operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
     RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
-  
+
     NSDictionary *param = @{
       @"groupAtType":@(0),
     };
@@ -309,17 +309,17 @@ RCT_EXPORT_METHOD(resetConversationGroupAtType:(NSString *)conversationID operat
 
 RCT_EXPORT_METHOD(pinConversation:(NSDictionary *)options operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
     RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
-  
+
     NSDictionary *param = @{
       @"isPinned":options[@"isPinned"],
     };
-  
+
     Open_im_sdkSetConversation(proxy,operationID, [options valueForKey:@"conversationID"], [param json]);
 }
 
 RCT_EXPORT_METHOD(setConversationPrivateChat:(NSDictionary *)options operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
     RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
-  
+
     NSDictionary *param = @{
       @"isPrivateChat":options[@"isPrivate"],
     };
@@ -328,7 +328,7 @@ RCT_EXPORT_METHOD(setConversationPrivateChat:(NSDictionary *)options operationID
 
 RCT_EXPORT_METHOD(setConversationBurnDuration:(NSDictionary *)options operationID:(NSString *)operationID  resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
     RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
-  
+
     NSDictionary *param = @{
       @"burnDuration":options[@"burnDuration"],
     };
@@ -337,7 +337,7 @@ RCT_EXPORT_METHOD(setConversationBurnDuration:(NSDictionary *)options operationI
 
 RCT_EXPORT_METHOD(setConversationRecvMessageOpt:(NSDictionary *)options operationID:(NSString *)operationID  resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
     RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
-  
+
     NSDictionary *param = @{
       @"recvMsgOpt":options[@"opt"],
     };
@@ -357,7 +357,7 @@ RCT_EXPORT_METHOD(getAtAllTag:(NSString *)operationID resolver:(RCTPromiseResolv
 RCT_EXPORT_METHOD(createAdvancedTextMessage:(NSDictionary *)options operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
     NSArray *messageEntityList = options[@"messageEntityList"];
     NSString *text = options[@"text"];
-    
+
     NSString *result = Open_im_sdkCreateAdvancedTextMessage(operationID, text, [messageEntityList json]);
     NSDictionary *message = [self parseJsonStr2Dict:result];
     if (message) {
@@ -381,7 +381,7 @@ RCT_EXPORT_METHOD(createTextAtMessage:(NSDictionary *)options operationID:(NSStr
     if (!atUserIDList) {
         atUserIDList = [NSArray array];
     }
-    
+
     NSString *result = Open_im_sdkCreateTextAtMessage(operationID, text, [atUserIDList json], [atUsersInfo json], messageJson);
     NSDictionary *messageObj = [self parseJsonStr2Dict:result];
     if (messageObj) {
@@ -479,8 +479,8 @@ RCT_EXPORT_METHOD(createImageMessageByURL:(NSDictionary *)options operationID:(N
     NSDictionary *sourcePicture = options[@"sourcePicture"];
     NSDictionary *bigPicture = options[@"bigPicture"];
     NSDictionary *snapshotPicture = options[@"snapshotPicture"];
-    NSString *sourcePath = options[@"sourcePath"]; 
-    
+    NSString *sourcePath = options[@"sourcePath"];
+
     NSString *result = Open_im_sdkCreateImageMessageByURL(operationID, sourcePath, [sourcePicture json], [bigPicture json], [snapshotPicture json]);
     NSDictionary *message = [self parseJsonStr2Dict:result];
     if (message) {
@@ -503,7 +503,7 @@ RCT_EXPORT_METHOD(createSoundMessage:(NSDictionary *)options operationID:(NSStri
 RCT_EXPORT_METHOD(createSoundMessageFromFullPath:(NSDictionary *)options operationID:(NSString *)operationID  resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
     NSString *soundPath = options[@"soundPath"];
     NSInteger duration = [options[@"duration"] integerValue];
-        
+
     NSString *result = Open_im_sdkCreateSoundMessageFromFullPath(operationID, soundPath, (long)duration);
     NSDictionary *message = [self parseJsonStr2Dict:result];
     if (message) {
@@ -527,8 +527,8 @@ RCT_EXPORT_METHOD(createVideoMessage:(NSDictionary *)options operationID:(NSStri
     NSString *videoPath = options[@"videoPath"];
     NSString *videoType = options[@"videoType"];
     NSString *snapshotPath = options[@"snapshotPath"];
-    NSInteger duration = [options[@"duration"] integerValue];    
-     
+    NSInteger duration = [options[@"duration"] integerValue];
+
     NSString *result = Open_im_sdkCreateVideoMessage(operationID, videoPath, videoType, (long)duration, snapshotPath);
     NSDictionary *message = [self parseJsonStr2Dict:result];
     if (message) {
@@ -566,7 +566,7 @@ RCT_EXPORT_METHOD(createVideoMessageByURL:(NSDictionary *)videoInfo operationID:
 RCT_EXPORT_METHOD(createFileMessage:(NSDictionary *)options operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
     NSString *filePath = options[@"filePath"];
     NSString *fileName = options[@"fileName"];
-    
+
     NSString *result = Open_im_sdkCreateFileMessage(operationID, filePath, fileName);
     NSDictionary *message = [self parseJsonStr2Dict:result];
     if (message) {
@@ -579,7 +579,7 @@ RCT_EXPORT_METHOD(createFileMessage:(NSDictionary *)options operationID:(NSStrin
 RCT_EXPORT_METHOD(createFileMessageFromFullPath:(NSDictionary *)options operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
     NSString *filePath = options[@"filePath"];
     NSString *fileName = options[@"fileName"];
-    
+
     NSString *result = Open_im_sdkCreateFileMessageFromFullPath(operationID, filePath, fileName);
     NSDictionary *message = [self parseJsonStr2Dict:result];
     if (message) {
@@ -616,7 +616,7 @@ RCT_EXPORT_METHOD(createMergerMessage:(NSDictionary *)options operationID:(NSStr
 RCT_EXPORT_METHOD(createFaceMessage:(NSDictionary *)options operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
     NSInteger index = [options[@"index"] integerValue];
     NSString *dataStr = options[@"dataStr"];
-    
+
     NSString *result = Open_im_sdkCreateFaceMessage(operationID, (long)index, dataStr);
     NSDictionary *message = [self parseJsonStr2Dict:result];
     if (message) {
@@ -679,7 +679,7 @@ RCT_EXPORT_METHOD(sendMessageNotOss:(NSDictionary *)options operationID:(NSStrin
     NSString *recvID = options[@"recvID"];
     NSString *groupID = options[@"groupID"];
     NSDictionary *offlinePushInfo = options[@"offlinePushInfo"];
-    
+
     BOOL isOnlineOnly = [options[@"isOnlineOnly"] boolValue];
     if(!isOnlineOnly) {
         isOnlineOnly = NO;
@@ -702,7 +702,7 @@ RCT_EXPORT_METHOD(sendMessageNotOss:(NSDictionary *)options operationID:(NSStrin
 RCT_EXPORT_METHOD(findMessageList:(NSDictionary *)findOptions operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
     RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
     NSString *findOptionsJson = [findOptions json];
-    
+
     Open_im_sdkFindMessageList(proxy, operationID, findOptionsJson);
 }
 
@@ -769,7 +769,7 @@ RCT_EXPORT_METHOD(markMessagesAsReadByMsgID:(NSDictionary *)options operationID:
 
 RCT_EXPORT_METHOD(deleteMessageFromLocalStorage:(NSDictionary *)options operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
     RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
-    NSString *conversationID = options[@"conversationID"]; 
+    NSString *conversationID = options[@"conversationID"];
     NSString *clientMsgID = options[@"clientMsgID"];
 
     Open_im_sdkDeleteMessageFromLocalStorage(proxy, operationID, conversationID, clientMsgID);
@@ -837,7 +837,7 @@ RCT_EXPORT_METHOD(setMessageLocalEx:(NSDictionary *)options operationID:(NSStrin
 
 RCT_EXPORT_METHOD(getSpecifiedFriendsInfo:(NSDictionary *)options operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
     RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
-  
+
     NSArray *userIDList = [options valueForKey:@"userIDList"];
     Open_im_sdkGetSpecifiedFriendsInfo(proxy, operationID, [userIDList json], [[options valueForKey:@"filterBlack"] boolValue]);
 }
@@ -851,14 +851,14 @@ RCT_EXPORT_METHOD(getFriendListPage:(NSDictionary *)options operationID:(NSStrin
     RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
     NSInteger offset = [options[@"offset"] integerValue];
     NSInteger count = [options[@"count"] integerValue];
-    
+
     Open_im_sdkGetFriendListPage(proxy, operationID, (int32_t)offset, (int32_t)count, [[options valueForKey:@"filterBlack"] boolValue]);
 }
 
 RCT_EXPORT_METHOD(searchFriends:(NSDictionary *)options operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
     RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
     NSString *optionsJson = [options json];
-    
+
     Open_im_sdkSearchFriends(proxy, operationID, optionsJson);
 }
 
@@ -878,7 +878,7 @@ RCT_EXPORT_METHOD(addFriend:(NSDictionary *)paramsReq operationID:(NSString *)op
 
 RCT_EXPORT_METHOD(setFriendRemark:(NSDictionary *)options operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
     RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
-  
+
     NSArray *friendUserIDs = @[options[@"toUserID"]];
     NSDictionary *param = @{
         @"friendUserIDs":friendUserIDs,
@@ -905,7 +905,7 @@ RCT_EXPORT_METHOD(getFriendApplicationListAsApplicant:(NSString *)operationID re
 RCT_EXPORT_METHOD(acceptFriendApplication:(NSDictionary *)userIDHandleMsg operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
     RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
     NSString *userIDHandleMsgJson = [userIDHandleMsg json];
-    
+
     Open_im_sdkAcceptFriendApplication(proxy, operationID, userIDHandleMsgJson);
 }
 
@@ -955,7 +955,7 @@ RCT_EXPORT_METHOD(createGroup:(NSDictionary *)ginfo operationID:(NSString *)oper
 RCT_EXPORT_METHOD(joinGroup:(NSDictionary *)options operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
     RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
 
-    NSInteger joinSource = [options[@"joinSource"] integerValue]; 
+    NSInteger joinSource = [options[@"joinSource"] integerValue];
     NSString *groupID = options[@"groupID"];
     NSString *reqMsg = options[@"reqMsg"];
     NSString *ex = options[@"ex"];
@@ -981,7 +981,7 @@ RCT_EXPORT_METHOD(changeGroupMute:(NSDictionary *)options operationID:(NSString 
     RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
     NSString *groupID = options[@"groupID"];
     BOOL isMute = [options[@"isMute"] boolValue];
-    
+
     Open_im_sdkChangeGroupMute(proxy, operationID, groupID, isMute);
 }
 
@@ -1006,7 +1006,7 @@ RCT_EXPORT_METHOD(getJoinedGroupListPage:(NSDictionary *)options operationID:(NS
     RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
     NSInteger offset = [options[@"offset"] integerValue];
     NSInteger count = [options[@"count"] integerValue];
-    
+
     Open_im_sdkGetJoinedGroupListPage(proxy, operationID, (int32_t)offset, (int32_t)count);
 }
 
@@ -1056,7 +1056,7 @@ RCT_EXPORT_METHOD(setGroupApplyMemberFriend:(NSDictionary *)options operationID:
         @"groupID":options[@"groupID"],
         @"applyMemberFriend":options[@"rule"],
     };
-    
+
   Open_im_sdkSetGroupInfo(proxy, operationID, [param json]);
 }
 
@@ -1079,11 +1079,11 @@ RCT_EXPORT_METHOD(getGroupMemberListByJoinTimeFilter:(NSDictionary *)options ope
     RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
     NSString *groupID = options[@"groupID"];
     NSArray *filterUserIDList = options[@"filterUserIDList"];
-    NSInteger offset = [options[@"offset"] integerValue]; 
-    NSInteger count = [options[@"count"] integerValue]; 
-    NSInteger joinTimeBegin = [options[@"joinTimeBegin"] integerValue]; 
-    NSInteger joinTimeEnd = [options[@"joinTimeEnd"] integerValue]; 
-    
+    NSInteger offset = [options[@"offset"] integerValue];
+    NSInteger count = [options[@"count"] integerValue];
+    NSInteger joinTimeBegin = [options[@"joinTimeBegin"] integerValue];
+    NSInteger joinTimeEnd = [options[@"joinTimeEnd"] integerValue];
+
     Open_im_sdkGetGroupMemberListByJoinTimeFilter(proxy, operationID, groupID, (int32_t)offset, (int32_t)count, (long)joinTimeBegin, (long)joinTimeEnd, [filterUserIDList json]);
 }
 
@@ -1091,7 +1091,7 @@ RCT_EXPORT_METHOD(getSpecifiedGroupMembersInfo:(NSDictionary *)options operation
     RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
     NSString *groupID = options[@"groupID"];
     NSArray *userIDList = options[@"userIDList"];
-    
+
     Open_im_sdkGetSpecifiedGroupMembersInfo(proxy, operationID, groupID, [userIDList json]);
 }
 
@@ -1099,7 +1099,7 @@ RCT_EXPORT_METHOD(getUsersInGroup:(NSDictionary *)options operationID:(NSString 
     RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
     NSString *groupID = options[@"groupID"];
     NSArray *userIDList = options[@"userIDList"];
-    
+
     Open_im_sdkGetUsersInGroup(proxy, operationID, groupID, [userIDList json]);
 }
 
@@ -1144,7 +1144,7 @@ RCT_EXPORT_METHOD(acceptGroupApplication:(NSDictionary *)options operationID:(NS
     NSString *groupID = options[@"groupID"];
     NSString *fromUserID = options[@"fromUserID"];
     NSString *handleMsg = options[@"handleMsg"];
-    
+
     Open_im_sdkAcceptGroupApplication(proxy, operationID, groupID, fromUserID, handleMsg);
 }
 
@@ -1205,13 +1205,13 @@ RCT_EXPORT_METHOD(setAppBadge:(int32_t)appUnreadCount operationID:(NSString *)op
 RCT_EXPORT_METHOD(uploadLogs:(NSDictionary *)options operationID:(NSString *)operationID  resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
     RNCallbackProxy * proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
     RNUploadLogCallbackProxy * uploadProxy = [[RNUploadLogCallbackProxy alloc] initWithOpid:operationID module:self resolver:resolver rejecter:rejecter];
-    
+
     NSString *ex = options[@"ex"];
 
     if (!ex) {
         ex = @"";
     }
-    
+
     Open_im_sdkUploadLogs(proxy,operationID,[[options valueForKey:@"line"] longValue],ex,uploadProxy);
 }
 
@@ -1388,7 +1388,7 @@ RCT_EXPORT_METHOD(uploadFile:(NSDictionary *)reqData operationID:(NSString *)ope
     [self pushEvent:@"onConversationChanged" data:conversationListArray];
 }
 
-- (void)onConversationUserInputStatusChanged:(NSString* _Nullable)datils {
+- (void)onInputStatusChanged:(NSString* _Nullable)datils {
     NSDictionary *datilsDic = [self parseJsonStr2Dict:datils];
     [self pushEvent:@"onInputStatusChanged" data:datilsDic];
 }
