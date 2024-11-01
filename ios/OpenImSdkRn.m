@@ -160,11 +160,16 @@ RCT_EXPORT_METHOD(initSDK:(NSDictionary *)config operationID:(NSString *)operati
     Open_im_sdkSetFriendListener(self);
     Open_im_sdkSetGroupListener(self);
     Open_im_sdkSetAdvancedMsgListener(self);
+    Open_im_sdkSetBatchMsgListener(self);
     if (flag) {
         resolve(@"init success");
     }else{
         reject(@"-1",@"please check params and dir",nil);
     }
+}
+
+RCT_EXPORT_METHOD(setBatchMsgListener) {
+    Open_im_sdkSetBatchMsgListener(self);
 }
 
 RCT_EXPORT_METHOD(setUserListener) {
