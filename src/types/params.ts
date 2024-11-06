@@ -295,7 +295,7 @@ export type LocationMsgParams = {
 
 export type QuoteMsgParams = {
   text: string;
-  message: string;
+  message: MessageItem;
 };
 
 export type CustomMsgParams = {

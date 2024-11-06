@@ -7,13 +7,11 @@ import { MessageItem } from 'src/types/entity';
 function App(): React.JSX.Element {
   RNFS.mkdir(RNFS.DocumentDirectoryPath + '/tmp');
   const init = async () => {
-    // platformID ios 1 android 2
     try {
       await OpenIMSDKRN.initSDK(
         {
-          platformID: 2,
-          apiAddr: 'http://192.168.2.16:10002',
-          wsAddr: 'ws://192.168.2.16:10001',
+          apiAddr: 'http://127.0.0.1:10002',
+          wsAddr: 'ws://127.0.0.1:10001',
           dataDir: RNFS.DocumentDirectoryPath + '/tmp',
           logLevel: 5,
           isLogStandardOutput: true,
@@ -28,11 +26,10 @@ function App(): React.JSX.Element {
 
   const iosLogin = async () => {
     try {
-      await OpenIMSDKRN.login(  
+      await OpenIMSDKRN.login(
         {
           userID: '3742375535',
-          token:
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiIzNzQyMzc1NTM1IiwiUGxhdGZvcm1JRCI6MSwiZXhwIjoxNzE3NTY4ODQyLCJuYmYiOjE3MDk3OTI1NDIsImlhdCI6MTcwOTc5Mjg0Mn0.xPPgeXysWhqnvp5Xk5qFERqRRuPLTCq7kDP0wPElu9I',
+          token: 'xxx',
         },
         'hrtyy45t'
       );
@@ -47,8 +44,7 @@ function App(): React.JSX.Element {
       await OpenIMSDKRN.login(
         {
           userID: '3742375535',
-          token:
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiIzNzQyMzc1NTM1IiwiUGxhdGZvcm1JRCI6MiwiZXhwIjoxNzE3NjYwODg1LCJuYmYiOjE3MDk4ODQ1ODUsImlhdCI6MTcwOTg4NDg4NX0.0yPd2G78HLsvAldMHPLancm4BTMfefOItUwLqYmJxu8',
+          token: 'xx',
         },
         'hrtyy45t'
       );

@@ -72,6 +72,7 @@ export enum MessageType {
   OANotification = 1400,
 
   GroupCreated = 1501,
+  GroupInfoUpdated = 1502,
   MemberQuit = 1504,
   GroupOwnerTransferred = 1507,
   MemberKicked = 1508,
