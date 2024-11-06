@@ -78,7 +78,7 @@ export type PublicUserItem = {
   nickname: string;
   userID: string;
   faceURL: string;
-  ex?: string;
+  ex: string;
 };
 export type SelfUserInfo = {
   createTime: number;
@@ -101,6 +101,7 @@ export type FriendUserItem = {
   operatorUserID: string;
   ownerUserID: string;
   remark: string;
+  isPinned: boolean;
   attachedInfo: string;
 };
 export type SearchedFriendsInfo = FriendUserItem & {
@@ -138,6 +139,7 @@ export type GroupItem = {
   ex: string;
   applyMemberFriend: AllowType;
   lookMemberInfo: AllowType;
+  displayIsRead: boolean;
 };
 export type GroupMemberItem = {
   groupID: string;
@@ -173,7 +175,7 @@ export type ConversationItem = {
   isPrivateChat: boolean;
   isMsgDestruct: boolean;
   attachedInfo: string;
-  ex: string;
+  ex?: string;
 };
 export type MessageItem = {
   clientMsgID: string;
@@ -193,27 +195,26 @@ export type MessageItem = {
   seq: number;
   isRead: boolean;
   status: MessageStatus;
-  isReact: boolean;
-  isExternalExtensions: boolean;
-  offlinePush: OfflinePush;
-  attachedInfo: string;
-  ex: string;
-  localEx: string;
-  textElem: TextElem;
-  cardElem: CardElem;
-  pictureElem: PictureElem;
-  soundElem: SoundElem;
-  videoElem: VideoElem;
-  fileElem: FileElem;
-  mergeElem: MergeElem;
-  atTextElem: AtTextElem;
-  faceElem: FaceElem;
-  locationElem: LocationElem;
-  customElem: CustomElem;
-  quoteElem: QuoteElem;
-  notificationElem: NotificationElem;
-  advancedTextElem: AdvancedTextElem;
-  typingElem: TypingElem;
+  isReact?: boolean;
+  isExternalExtensions?: boolean;
+  offlinePush?: OfflinePush;
+  ex?: string;
+  localEx?: string;
+  textElem?: TextElem;
+  cardElem?: CardElem;
+  pictureElem?: PictureElem;
+  soundElem?: SoundElem;
+  videoElem?: VideoElem;
+  fileElem?: FileElem;
+  mergeElem?: MergeElem;
+  atTextElem?: AtTextElem;
+  faceElem?: FaceElem;
+  locationElem?: LocationElem;
+  customElem?: CustomElem;
+  quoteElem?: QuoteElem;
+  notificationElem?: NotificationElem;
+  advancedTextElem?: AdvancedTextElem;
+  typingElem?: TypingElem;
   attachedInfoElem: AttachedInfoElem;
 };
 export type TextElem = {
@@ -289,9 +290,8 @@ export type AttachedInfoElem = {
   inEncryptStatus: boolean;
   burnDuration: number;
   hasReadTime: number;
-  notSenderNotificationPush: boolean;
-  messageEntityList: MessageEntity[];
-  uploadProgress: UploadProgress;
+  messageEntityList?: MessageEntity[];
+  uploadProgress?: UploadProgress;
 };
 export type UploadProgress = {
   total: number;
@@ -376,7 +376,8 @@ export type ReceiptInfo = {
 
 export type SearchMessageResult = {
   totalCount: number;
-  searchResultItems: SearchMessageResultItem[];
+  searchResultItems?: SearchMessageResultItem[];
+  findResultItems?: SearchMessageResultItem[];
 };
 
 export type SearchMessageResultItem = {
@@ -414,6 +415,12 @@ export type UserOnlineState = {
   platformIDs?: Platform[];
   status: OnlineState;
   userID: string;
+};
+
+export type ConversationInputStatus = {
+  conversationID: string;
+  userID: string;
+  platformIDs: Platform[];
 };
 
 export type GroupMessageReceiptInfo = {

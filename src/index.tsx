@@ -165,9 +165,12 @@ interface OpenIMSDKRNInterface {
   getFriendApplicationListAsRecipient: (
     operationID: string
   ) => Promise<FriendApplicationItem[]>;
-  getFriendList: (operationID: string) => Promise<FriendUserItem[]>;
+  getFriendList: (
+    filterBlack: boolean,
+    operationID: string
+  ) => Promise<FriendUserItem[]>;
   getFriendListPage: (
-    params: OffsetParams,
+    params: OffsetParams & { filterBlack?: boolean },
     operationID: string
   ) => Promise<FriendUserItem[]>;
   getSpecifiedFriendsInfo: (
