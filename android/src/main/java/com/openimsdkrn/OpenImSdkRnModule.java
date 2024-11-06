@@ -732,7 +732,10 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
 
   public void getSpecifiedFriendsInfo(ReadableMap options, String operationID, Promise promise) {
     ReadableArray userIDList = options.getArray("userIDList");
-    boolean filterBlack = options.getBoolean("filterBlack");
+    boolean filterBlack = false;
+    if (options.hasKey("filterBlack")) {
+      filterBlack = options.getBoolean("filterBlack");
+    }
     Open_im_sdk.getSpecifiedFriendsInfo(new BaseImpl(promise), operationID, userIDList.toString(), filterBlack);
   }
 
@@ -745,7 +748,10 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
   public void getFriendListPage(ReadableMap options, String operationID, Promise promise) {
     int offset = options.getInt("offset");
     int count = options.getInt("count");
-    boolean filterBlack = options.getBoolean("filterBlack");
+    boolean filterBlack = false;
+    if (options.hasKey("filterBlack")) {
+      filterBlack = options.getBoolean("filterBlack");
+    }
     Open_im_sdk.getFriendListPage(new BaseImpl(promise), operationID, offset, count, filterBlack);
   }
 
