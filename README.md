@@ -28,45 +28,6 @@ For the SDK reference, see [https://doc.rentsoft.cn/sdks/quickstart/reactnative]
 yarn add open-im-sdk-rn
 ```
 
-### For android add following urls to build gradle:
-
-https://open-im-online.rentsoft.cn:51000/repository/maven2/
-
-```gradle
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
-buildscript {
-    ext {
-        buildToolsVersion = "33.0.0"
-        minSdkVersion = 21
-        compileSdkVersion = 33
-        targetSdkVersion = 33
-
-        // We use NDK 23 which has both M1 support and is the side-by-side NDK version from AGP.
-        ndkVersion = "23.1.7779620"
-    }
-    repositories {
-        google()
-        mavenCentral()
-        maven {
-            allowInsecureProtocol = true
-            url 'https://open-im-online.rentsoft.cn:51000/repository/maven2/'
-        }
-    }
-    dependencies {
-        classpath("com.android.tools.build:gradle")
-        classpath("com.facebook.react:react-native-gradle-plugin")
-    }
-}
-allprojects {
-    repositories {
-        maven {
-            allowInsecureProtocol = true
-            url 'https://open-im-online.rentsoft.cn:51000/repository/maven2/'
-        }
-    }
-}
-```
-
 ## Usage 🚀
 
 The following examples demonstrate how to use the SDK. TypeScript is used, providing complete type hints.
