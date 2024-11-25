@@ -503,7 +503,7 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
     int duration = options.getInt("duration");
     String snapshotPath = options.getString("snapshotPath");
 
-    String message = Open_im_sdk.createVideoMessage(operationID, videoPath, videoType, duration, snapshotPath);
+    String message = Open_im_sdk.createVideoMessageFromFullPath(operationID, videoPath, videoType, duration, snapshotPath);
     try {
       JSONObject obj = JSON.parseObject(message);
       promise.resolve(emitter.convertJsonToMap(obj));
