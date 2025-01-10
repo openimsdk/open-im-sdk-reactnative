@@ -14,6 +14,7 @@ import type {
   LogLevel,
   MessageReceiveOptType,
   MessageType,
+  ViewType,
 } from './enum';
 
 export type InitOptions = {
@@ -350,9 +351,7 @@ export type SearchLocalParams = {
 };
 
 export type GetAdvancedHistoryMsgParams = {
-  userID?: string;
-  groupID?: string;
-  lastMinSeq: number;
+  viewType: ViewType;
   count: number;
   startClientMsgID: string;
   conversationID: string;

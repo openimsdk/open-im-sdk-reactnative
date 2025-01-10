@@ -391,7 +391,6 @@ export type SearchMessageResultItem = {
 
 export type AdvancedGetMessageResult = {
   isEnd: boolean;
-  lastMinSeq: number;
   errCode: number;
   errMsg: string;
   messageList: MessageItem[];
