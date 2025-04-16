@@ -1202,7 +1202,7 @@ RCT_EXPORT_METHOD(updateFcmToken:(NSDictionary *)options operationID:(NSString *
     Open_im_sdkUpdateFcmToken(proxy, operationID, fcmToken, (long)expiredTime);
 }
 
-RCT_EXPORT_METHOD(setAppBadge:(int32_t)appUnreadCount operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
+RCT_EXPORT_METHOD(setAppBadge:(NSInteger)appUnreadCount operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
     RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
     Open_im_sdkSetAppBadge(proxy, operationID, appUnreadCount);
 }
