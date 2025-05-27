@@ -77,6 +77,7 @@ import {
   VideoMsgByPathParams,
   VideoMsgParams,
   getGroupMembersInfoParams,
+  setConversationParams,
 } from './types/params';
 
 const LINKING_ERROR =
@@ -307,7 +308,7 @@ interface OpenIMSDKRNInterface {
     operationID: string
   ) => Promise<unknown>;
   setConversation: (
-    params: SplitConversationParams,
+    params: setConversationParams,
     operationID: string
   ) => Promise<unknown>;
   setConversationDraft: (
