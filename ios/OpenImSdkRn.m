@@ -431,13 +431,15 @@ RCT_EXPORT_METHOD(createCustomMessage:(NSDictionary *)options operationID:(NSStr
 }
 
 RCT_EXPORT_METHOD(createQuoteMessage:(NSDictionary *)options operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
-    NSString *result = Open_im_sdkCreateQuoteMessage(operationID,options[@"text"],options[@"message"]);
+    NSString *text = options[@"text"];
+    
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:options[@"message"] options:0 error:nil];
+    NSString *messageString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    
+    NSString *result = Open_im_sdkCreateQuoteMessage(operationID, text, messageString);
     NSDictionary *message = [self parseJsonStr2Dict:result];
-    if (message) {
-        resolver(message);
-    } else {
-        resolver(result);
-    }
+    
+    resolver(message ?: result);
 }
 
 RCT_EXPORT_METHOD(createAdvancedQuoteMessage:(NSDictionary *)options operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
