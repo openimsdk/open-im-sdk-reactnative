@@ -3,6 +3,7 @@ import OpenIMSDKRN, { OpenIMEmitter } from 'open-im-sdk-rn';
 import RNFS from 'react-native-fs';
 import { Button, StyleSheet, View } from 'react-native';
 import { MessageItem } from 'src/types/entity';
+import { ViewType } from 'src/types/enum';
 
 function App(): React.JSX.Element {
   RNFS.mkdir(RNFS.DocumentDirectoryPath + '/tmp');
@@ -137,10 +138,10 @@ function App(): React.JSX.Element {
   const getMessageList = async () => {
     const { messageList } = await OpenIMSDKRN.getAdvancedHistoryMessageList(
       {
-        lastMinSeq: 0,
         count: 20,
         startClientMsgID: '',
         conversationID: 'si_3742375535_6265276311',
+        viewType: ViewType.History,
       },
       'hrtyy45t'
     );

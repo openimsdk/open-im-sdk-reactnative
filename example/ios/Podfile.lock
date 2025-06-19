@@ -74,7 +74,7 @@ PODS:
     - hermes-engine/Pre-built (= 0.72.4)
   - hermes-engine/Pre-built (0.72.4)
   - libevent (2.1.12)
-  - open-im-sdk-rn (3.8.3-2):
+  - open-im-sdk-rn (3.8.3-patch.3):
     - "OpenIMSDKCore (= 3.8.3+3)"
     - React-Core
   - "OpenIMSDKCore (3.8.3+3)"
@@ -684,7 +684,7 @@ SPEC CHECKSUMS:
   glog: 04b94705f318337d7ead9e6d17c019bd9b1f6b1b
   hermes-engine: 81191603c4eaa01f5e4ae5737a9efcf64756c7b2
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
-  open-im-sdk-rn: 1f283a87e9638754ab254f557eb9dee5ad1b1ea3
+  open-im-sdk-rn: 90243d9286a075a609c657c21b69e12c3d206692
   OpenIMSDKCore: 75caba22be8ee484011f367711178312bd64a17d
   OpenSSL-Universal: ebc357f1e6bc71fa463ccb2fe676756aff50e88c
   RCT-Folly: 424b8c9a7a0b9ab2886ffe9c3b041ef628fd4fb1
