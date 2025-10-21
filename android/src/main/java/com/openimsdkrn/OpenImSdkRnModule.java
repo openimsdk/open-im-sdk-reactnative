@@ -280,8 +280,8 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public String getAtAllTag(String OperationID) {
-    return Open_im_sdk.getAtAllTag(OperationID);
+  public void getAtAllTag(String OperationID, Promise promise) {
+    promise.resolve(Open_im_sdk.getAtAllTag(OperationID));
   }
 
   @ReactMethod
@@ -1098,8 +1098,8 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public String getSdkVersion() {
-    return Open_im_sdk.getSdkVersion();
+  public void getSdkVersion(Promise promise) {
+    promise.resolve(Open_im_sdk.getSdkVersion());
   }
 
   @ReactMethod
