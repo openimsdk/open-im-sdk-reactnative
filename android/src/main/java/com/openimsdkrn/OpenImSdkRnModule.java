@@ -730,6 +730,7 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
     Open_im_sdk.setFriendListener(new OnFriendshipListener(reactContext));
   }
 
+  @ReactMethod
   public void getSpecifiedFriendsInfo(ReadableMap options, String operationID, Promise promise) {
     ReadableArray userIDList = options.getArray("userIDList");
     boolean filterBlack = false;
