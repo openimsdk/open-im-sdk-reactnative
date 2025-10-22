@@ -208,7 +208,7 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
   public void setGlobalRecvMessageOpt(int opt, String operationID, Promise promise) {
     JSONObject params = new JSONObject();
     params.put("globalRecvMsgOpt", opt);
-    Open_im_sdk.setGroupInfo(new BaseImpl(promise), operationID, params.toString());
+    Open_im_sdk.setSelfInfo(new BaseImpl(promise), operationID, params.toString());
   }
 
   @ReactMethod

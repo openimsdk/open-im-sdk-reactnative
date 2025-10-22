@@ -141,6 +141,9 @@ interface OpenIMSDKRNInterface {
     operationID: string
   ) => Promise<unknown>;
   networkStatusChanged: (operationID: string) => Promise<unknown>;
+  /**
+   * @deprecated Use setSelfInfo instead.
+   */
   setGlobalRecvMessageOpt: (
     params: MessageReceiveOptType,
     operationID: string
