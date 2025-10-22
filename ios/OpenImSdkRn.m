@@ -431,7 +431,7 @@ RCT_EXPORT_METHOD(createCustomMessage:(NSDictionary *)options operationID:(NSStr
 }
 
 RCT_EXPORT_METHOD(createQuoteMessage:(NSDictionary *)options operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
-    NSString *result = Open_im_sdkCreateQuoteMessage(operationID,options[@"text"],options[@"message"]);
+    NSString *result = Open_im_sdkCreateQuoteMessage(operationID,options[@"text"], [options[@"message"] json]);
     NSDictionary *message = [self parseJsonStr2Dict:result];
     if (message) {
         resolver(message);
@@ -441,7 +441,10 @@ RCT_EXPORT_METHOD(createQuoteMessage:(NSDictionary *)options operationID:(NSStri
 }
 
 RCT_EXPORT_METHOD(createAdvancedQuoteMessage:(NSDictionary *)options operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
-    NSString *result = Open_im_sdkCreateAdvancedQuoteMessage(operationID,options[@"text"] ,options[@"message"],options[@"messageEntityList"]);
+    NSString *text = options[@"text"];
+    NSDictionary *quoteMessage = options[@"message"];
+    NSArray *messageEntityList = options[@"messageEntityList"];
+    NSString *result = Open_im_sdkCreateAdvancedQuoteMessage(operationID, text, [quoteMessage json], [messageEntityList json]);
     NSDictionary *message = [self parseJsonStr2Dict:result];
     if (message) {
         resolver(message);
@@ -820,10 +823,10 @@ RCT_EXPORT_METHOD(insertSingleMessageToLocalStorage:(NSDictionary *)options oper
 RCT_EXPORT_METHOD(insertGroupMessageToLocalStorage:(NSDictionary *)options operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
     RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
     NSDictionary *message = options[@"message"];
-    NSString *recvID = options[@"recvID"];
+    NSString *groupID = options[@"groupID"];
     NSString *sendID = options[@"sendID"];
 
-    Open_im_sdkInsertGroupMessageToLocalStorage(proxy, operationID, [message json], recvID, sendID);
+    Open_im_sdkInsertGroupMessageToLocalStorage(proxy, operationID, [message json], groupID, sendID);
 }
 
 RCT_EXPORT_METHOD(searchLocalMessages:(NSDictionary *)searchParam operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
