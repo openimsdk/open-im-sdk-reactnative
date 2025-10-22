@@ -34,6 +34,10 @@ import {
   FileMsgParams,
   FindMessageParams,
   GetAdvancedHistoryMsgParams,
+  GetFriendApplicationListAsApplicantParams,
+  GetFriendApplicationListAsRecipientParams,
+  GetGroupApplicationListAsApplicantParams,
+  GetGroupApplicationListAsRecipientParams,
   GetGroupMemberByTimeParams,
   GetGroupMemberParams,
   GetInputStatesParams,
@@ -160,10 +164,12 @@ interface OpenIMSDKRNInterface {
   deleteFriend: (params: string, operationID: string) => Promise<unknown>;
   getBlackList: (operationID: string) => Promise<BlackUserItem[]>;
   getFriendApplicationListAsApplicant: (
-    operationID: string
+    operationID: string,
+    req: GetFriendApplicationListAsApplicantParams
   ) => Promise<FriendApplicationItem[]>;
   getFriendApplicationListAsRecipient: (
-    operationID: string
+    operationID: string,
+    req: GetFriendApplicationListAsRecipientParams
   ) => Promise<FriendApplicationItem[]>;
   getFriendList: (
     filterBlack: boolean,
@@ -223,10 +229,12 @@ interface OpenIMSDKRNInterface {
     operationID: string
   ) => Promise<unknown>;
   getGroupApplicationListAsRecipient: (
-    operationID: string
+    operationID: string,
+    req: GetGroupApplicationListAsRecipientParams
   ) => Promise<GroupApplicationItem[]>;
   getGroupApplicationListAsApplicant: (
-    operationID: string
+    operationID: string,
+    req: GetGroupApplicationListAsApplicantParams
   ) => Promise<GroupApplicationItem[]>;
   acceptGroupApplication: (
     params: AccessGroupParams,

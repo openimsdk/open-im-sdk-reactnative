@@ -792,13 +792,13 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void getFriendApplicationListAsRecipient(String operationID, Promise promise) {
-    Open_im_sdk.getFriendApplicationListAsRecipient(new BaseImpl(promise), operationID);
+  public void getFriendApplicationListAsRecipient(String operationID, ReadableMap req, Promise promise) {
+    Open_im_sdk.getFriendApplicationListAsRecipient(new BaseImpl(promise), operationID, map2string(req));
   }
 
   @ReactMethod
-  public void getFriendApplicationListAsApplicant(String operationID, Promise promise) {
-    Open_im_sdk.getFriendApplicationListAsApplicant(new BaseImpl(promise), operationID);
+  public void getFriendApplicationListAsApplicant(String operationID, ReadableMap req, Promise promise) {
+    Open_im_sdk.getFriendApplicationListAsApplicant(new BaseImpl(promise), operationID, map2string(req));
   }
 
   @ReactMethod
@@ -974,13 +974,13 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void getGroupApplicationListAsRecipient(String operationID, Promise promise) {
-    Open_im_sdk.getGroupApplicationListAsRecipient(new BaseImpl(promise), operationID);
+  public void getGroupApplicationListAsRecipient(String operationID, ReadableMap req, Promise promise) {
+    Open_im_sdk.getGroupApplicationListAsRecipient(new BaseImpl(promise), operationID, map2string(req));
   }
 
   @ReactMethod
-  public void getGroupApplicationListAsApplicant(String operationID, Promise promise) {
-    Open_im_sdk.getGroupApplicationListAsApplicant(new BaseImpl(promise), operationID);
+  public void getGroupApplicationListAsApplicant(String operationID, ReadableMap req, Promise promise) {
+    Open_im_sdk.getGroupApplicationListAsApplicant(new BaseImpl(promise), operationID, map2string(req));
   }
 
   @ReactMethod

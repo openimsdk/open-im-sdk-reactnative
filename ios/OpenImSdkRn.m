@@ -897,14 +897,14 @@ RCT_EXPORT_METHOD(deleteFriend:(NSString *)friendUserID operationID:(NSString *)
     Open_im_sdkDeleteFriend(proxy, operationID, friendUserID);
 }
 
-RCT_EXPORT_METHOD(getFriendApplicationListAsRecipient:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
+RCT_EXPORT_METHOD(getFriendApplicationListAsRecipient:(NSString *)operationID req: (NSDictionary *)req resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
     RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
-    Open_im_sdkGetFriendApplicationListAsRecipient(proxy, operationID);
+    Open_im_sdkGetFriendApplicationListAsRecipient(proxy, operationID, [req json]);
 }
 
-RCT_EXPORT_METHOD(getFriendApplicationListAsApplicant:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
+RCT_EXPORT_METHOD(getFriendApplicationListAsApplicant:(NSString *)operationID req: (NSDictionary *)req resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
     RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
-    Open_im_sdkGetFriendApplicationListAsApplicant(proxy, operationID);
+    Open_im_sdkGetFriendApplicationListAsApplicant(proxy, operationID, [req json]);
 }
 
 RCT_EXPORT_METHOD(acceptFriendApplication:(NSDictionary *)userIDHandleMsg operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
@@ -1134,14 +1134,14 @@ RCT_EXPORT_METHOD(inviteUserToGroup:(NSDictionary *)options operationID:(NSStrin
     Open_im_sdkInviteUserToGroup(proxy, operationID, groupID, reason, [userIDList json]);
 }
 
-RCT_EXPORT_METHOD(getGroupApplicationListAsRecipient:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
+RCT_EXPORT_METHOD(getGroupApplicationListAsRecipient:(NSString *)operationID req: (NSDictionary *)req resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
     RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
-    Open_im_sdkGetGroupApplicationListAsRecipient(proxy, operationID);
+    Open_im_sdkGetGroupApplicationListAsRecipient(proxy, operationID, [req json]);
 }
 
-RCT_EXPORT_METHOD(getGroupApplicationListAsApplicant:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
+RCT_EXPORT_METHOD(getGroupApplicationListAsApplicant:(NSString *)operationID req: (NSDictionary *)req resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
     RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
-    Open_im_sdkGetGroupApplicationListAsApplicant(proxy, operationID);
+    Open_im_sdkGetGroupApplicationListAsApplicant(proxy, operationID, [req json]);
 }
 
 RCT_EXPORT_METHOD(acceptGroupApplication:(NSDictionary *)options operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
