@@ -1016,8 +1016,8 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void updateFcmToken(ReadableMap options, String operationID, Promise promise) {
-    Open_im_sdk.updateFcmToken(new BaseImpl(promise), operationID, options.getString("fcmToken"), options.getInt("expireTime"));
+  public void updateFcmToken(String fcmToken, double expireTime, String operationID, Promise promise) {
+    Open_im_sdk.updateFcmToken(new BaseImpl(promise), operationID, fcmToken, (int)expireTime);
   }
 
   @ReactMethod
@@ -1078,8 +1078,8 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void setAppBadge(Integer appUnreadCount, String operationID, Promise promise) {
-    Open_im_sdk.setAppBadge(new BaseImpl(promise), operationID, appUnreadCount);
+  public void setAppBadge(double appUnreadCount, String operationID, Promise promise) {
+    Open_im_sdk.setAppBadge(new BaseImpl(promise), operationID, (int)appUnreadCount);
   }
 
   @ReactMethod

@@ -286,6 +286,7 @@ interface OpenIMSDKRNInterface {
   ) => Promise<unknown>;
   dismissGroup: (params: string, operationID: string) => Promise<unknown>;
   quitGroup: (params: string, operationID: string) => Promise<unknown>;
+  isJoinGroup: (groupID: string, operationID: string) => Promise<boolean>;
 
   // conversation & message
   getAllConversationList: (operationID: string) => Promise<ConversationItem[]>;
@@ -482,4 +483,6 @@ interface OpenIMSDKRNInterface {
   uploadLogs: (params: UploadLogsParams, opid?: string) => Promise<unknown>;
   logs: (params: LogsParams, opid?: string) => Promise<unknown>;
   unInitSDK: (opid?: string) => Promise<unknown>;
+  updateFcmToken: (fcmToken: string, expireTime: number, operationID: string) => Promise<void>;
+  setAppBadge: (appUnreadCount: number, operationID: string) => Promise<void>;
 }

@@ -1206,17 +1206,14 @@ RCT_EXPORT_METHOD(unInitSDK:(NSString *)operationID resolver:(RCTPromiseResolveB
     Open_im_sdkUnInitSDK(operationID);
 }
 
-RCT_EXPORT_METHOD(updateFcmToken:(NSDictionary *)options operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
+RCT_EXPORT_METHOD(updateFcmToken:(NSString *)fcmToken expireTime:(nonnull NSNumber *)expireTime operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
     RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
-    NSArray *userIDList = options[@"userIDList"];
-    NSInteger expiredTime = [options[@"expiredTime"] integerValue];
-
-    Open_im_sdkUpdateFcmToken(proxy, operationID, [userIDList json], (long)expiredTime);
+    Open_im_sdkUpdateFcmToken(proxy, operationID, fcmToken, (int64_t)[expireTime intValue]);
 }
 
-RCT_EXPORT_METHOD(setAppBadge:(int32_t)appUnreadCount operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
+RCT_EXPORT_METHOD(setAppBadge:(nonnull NSNumber *)appUnreadCount operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
     RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
-    Open_im_sdkSetAppBadge(proxy, operationID, appUnreadCount);
+    Open_im_sdkSetAppBadge(proxy, operationID, (int32_t)[appUnreadCount intValue]);
 }
 
 RCT_EXPORT_METHOD(uploadLogs:(NSDictionary *)options operationID:(NSString *)operationID  resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
