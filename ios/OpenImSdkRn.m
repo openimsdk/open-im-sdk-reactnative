@@ -1197,7 +1197,7 @@ RCT_EXPORT_METHOD(isJoinGroup:(NSString *)groupID operationID:(NSString *)operat
     Open_im_sdkIsJoinGroup(proxy, operationID, groupID);
 }
 
-RCT_EXPORT_METHOD(addAdvancedMsgListener) {
+RCT_EXPORT_METHOD(setAdvancedMsgListener) {
     Open_im_sdkSetAdvancedMsgListener(self);
 }
 
