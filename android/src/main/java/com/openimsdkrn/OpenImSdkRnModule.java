@@ -863,7 +863,7 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public void changeGroupMemberMute(ReadableMap options, String operationID, Promise promise) {
     Open_im_sdk.changeGroupMemberMute(new BaseImpl(promise), operationID, options.getString("groupID"),
-      options.getString("userID"), options.getInt("mutedSeconds"));
+      options.getString("userID"), (long) options.getDouble("mutedSeconds"));
   }
 
   @ReactMethod

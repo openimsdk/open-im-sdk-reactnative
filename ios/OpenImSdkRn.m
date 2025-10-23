@@ -993,6 +993,15 @@ RCT_EXPORT_METHOD(changeGroupMute:(NSDictionary *)options operationID:(NSString 
     Open_im_sdkChangeGroupMute(proxy, operationID, groupID, isMute);
 }
 
+RCT_EXPORT_METHOD(changeGroupMemberMute:(NSDictionary *)options operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
+    RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
+    NSString *groupID = options[@"groupID"];
+    NSString *userID = options[@"userID"];
+    long mutedSeconds = [options[@"mutedSeconds"] longValue];
+    
+    Open_im_sdkChangeGroupMemberMute(proxy, operationID, groupID, userID, mutedSeconds);
+}
+
 RCT_EXPORT_METHOD(setGroupMemberRoleLevel:(NSDictionary *)options operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
     RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
 
