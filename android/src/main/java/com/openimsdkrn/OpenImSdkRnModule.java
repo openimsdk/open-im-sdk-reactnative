@@ -544,7 +544,7 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
     String filePath = options.getString("filePath");
     String fileName = options.getString("fileName");
 
-    String message = Open_im_sdk.createFileMessage(operationID, filePath, fileName);
+    String message = Open_im_sdk.createFileMessageFromFullPath(operationID, filePath, fileName);
     try {
       JSONObject obj = JSON.parseObject(message);
       promise.resolve(emitter.convertJsonToMap(obj));
