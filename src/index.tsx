@@ -36,6 +36,7 @@ import {
   GetAdvancedHistoryMsgParams,
   GetGroupMemberByTimeParams,
   GetGroupMemberParams,
+  GetGroupMembersInfoParams,
   GetInputStatesParams,
   GetOneConversationParams,
   GetSpecifiedFriendsParams,
@@ -61,6 +62,7 @@ import {
   SendMsgParams,
   SetBurnDurationParams,
   SetConversationDraftParams,
+  SetConversationParams,
   SetConversationPrivateParams,
   SetConversationRecvOptParams,
   SetGroupinfoParams,
@@ -76,7 +78,6 @@ import {
   UploadLogsParams,
   VideoMsgByPathParams,
   VideoMsgParams,
-  getGroupMembersInfoParams,
 } from './types/params';
 
 const LINKING_ERROR =
@@ -244,11 +245,11 @@ interface OpenIMSDKRNInterface {
     operationID: string
   ) => Promise<GroupMemberItem[]>;
   getSpecifiedGroupMembersInfo: (
-    params: getGroupMembersInfoParams,
+    params: GetGroupMembersInfoParams,
     operationID: string
   ) => Promise<GroupMemberItem[]>;
   getUsersInGroup: (
-    params: getGroupMembersInfoParams,
+    params: GetGroupMembersInfoParams,
     operationID: string
   ) => Promise<string[]>;
   searchGroupMembers: (
@@ -310,7 +311,7 @@ interface OpenIMSDKRNInterface {
     operationID: string
   ) => Promise<unknown>;
   setConversation: (
-    params: SplitConversationParams,
+    params: SetConversationParams,
     operationID: string
   ) => Promise<unknown>;
   setConversationDraft: (

@@ -52,7 +52,7 @@ export type GetOneConversationParams = {
   sessionType: number;
 };
 
-export type setConversationParams = {
+export type SetConversationParams = {
   conversationID: string;
   recvMsgOpt?: MessageReceiveOptType;
   groupAtType?: GroupAtType;
@@ -169,7 +169,7 @@ export declare type GetGroupMemberParams = {
   count: number;
 };
 
-export type getGroupMembersInfoParams = {
+export type GetGroupMembersInfoParams = {
   groupID: string;
   userIDList: string[];
 };
