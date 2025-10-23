@@ -75,7 +75,7 @@ RCT_EXPORT_MODULE()
   @"onRecvMessageExtensionsDeleted",
   
   @"onConversationChanged",
-  @"onConversationUserInputStatusChanged",
+  @"onInputStatusChanged",
   @"onNewConversation",
   @"onSyncServerFailed",
   @"onSyncServerFinish",
