@@ -208,7 +208,7 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
   public void setGlobalRecvMessageOpt(int opt, String operationID, Promise promise) {
     JSONObject params = new JSONObject();
     params.put("globalRecvMsgOpt", opt);
-    Open_im_sdk.setGroupInfo(new BaseImpl(promise), operationID, params.toString());
+    Open_im_sdk.setSelfInfo(new BaseImpl(promise), operationID, params.toString());
   }
 
   @ReactMethod
@@ -544,7 +544,7 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
     String filePath = options.getString("filePath");
     String fileName = options.getString("fileName");
 
-    String message = Open_im_sdk.createFileMessage(operationID, filePath, fileName);
+    String message = Open_im_sdk.createFileMessageFromFullPath(operationID, filePath, fileName);
     try {
       JSONObject obj = JSON.parseObject(message);
       promise.resolve(emitter.convertJsonToMap(obj));
@@ -730,6 +730,7 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
     Open_im_sdk.setFriendListener(new OnFriendshipListener(reactContext));
   }
 
+  @ReactMethod
   public void getSpecifiedFriendsInfo(ReadableMap options, String operationID, Promise promise) {
     ReadableArray userIDList = options.getArray("userIDList");
     boolean filterBlack = false;
@@ -862,7 +863,7 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public void changeGroupMemberMute(ReadableMap options, String operationID, Promise promise) {
     Open_im_sdk.changeGroupMemberMute(new BaseImpl(promise), operationID, options.getString("groupID"),
-      options.getString("userID"), options.getInt("mutedSeconds"));
+      options.getString("userID"), (long) options.getDouble("mutedSeconds"));
   }
 
   @ReactMethod
@@ -1015,8 +1016,8 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void updateFcmToken(ReadableMap options, String operationID, Promise promise) {
-    Open_im_sdk.updateFcmToken(new BaseImpl(promise), operationID, options.getString("fcmToken"), options.getInt("expireTime"));
+  public void updateFcmToken(String fcmToken, double expireTime, String operationID, Promise promise) {
+    Open_im_sdk.updateFcmToken(new BaseImpl(promise), operationID, fcmToken, (int)expireTime);
   }
 
   @ReactMethod
@@ -1077,24 +1078,24 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void setAppBadge(Integer appUnreadCount, String operationID, Promise promise) {
-    Open_im_sdk.setAppBadge(new BaseImpl(promise), operationID, appUnreadCount);
+  public void setAppBadge(double appUnreadCount, String operationID, Promise promise) {
+    Open_im_sdk.setAppBadge(new BaseImpl(promise), operationID, (int)appUnreadCount);
   }
 
   @ReactMethod
   public void uploadLogs(ReadableMap options, String operationID, Promise promise) {
-    Open_im_sdk.uploadLogs(new BaseImpl(promise), operationID, options.getInt("line"), options.getString("ex"), new UploadLogProgressListener(reactContext, operationID));
+    Open_im_sdk.uploadLogs(new BaseImpl(promise), operationID, (long)options.getDouble("line"), options.getString("ex"), new UploadLogProgressListener(reactContext, operationID));
   }
 
   @ReactMethod
   public void logs(ReadableMap options, String operationID, Promise promise) {
-    long logLevel = options.getInt("logLevel");
+    long logLevel = (long)options.getDouble("logLevel");
     String file = options.getString("file");
-    long line = options.getInt("line");
+    long line = (long)options.getDouble("line");
     String msg = options.getString("msgs");
     String err = options.getString("err");
-    String keyAndValue = options.getString("keyAndValue");
-    Open_im_sdk.logs(new BaseImpl(promise), operationID, logLevel, file, line, msg, err, keyAndValue);
+    ReadableArray keyAndValue = options.getArray("keyAndValue");
+    Open_im_sdk.logs(new BaseImpl(promise), operationID, logLevel, file, line, msg, err, keyAndValue.toString());
   }
 
   @ReactMethod
@@ -1109,7 +1110,8 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void unInitSDK(String operationID) {
+  public void unInitSDK(String operationID, Promise promise) {
     Open_im_sdk.unInitSDK(operationID);
+    promise.resolve(null);
   }
 }

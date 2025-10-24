@@ -18,9 +18,10 @@ import type {
 } from './enum';
 
 export type InitOptions = {
-  wsAddr: string;
   apiAddr: string;
+  wsAddr: string;
   dataDir: string;
+  logFilePath: string;
   logLevel: LogLevel;
   isLogStandardOutput: boolean;
 };
@@ -52,7 +53,7 @@ export type GetOneConversationParams = {
   sessionType: number;
 };
 
-export type setConversationParams = {
+export type SetConversationParams = {
   conversationID: string;
   recvMsgOpt?: MessageReceiveOptType;
   groupAtType?: GroupAtType;
@@ -194,7 +195,7 @@ export declare type GetGroupMemberParams = {
   count: number;
 };
 
-export type getGroupMembersInfoParams = {
+export type GetGroupMembersInfoParams = {
   groupID: string;
   userIDList: string[];
 };
@@ -424,5 +425,5 @@ export type LogsParams = {
   line: number;
   msgs: string;
   err: string;
-  keyAndValue: string;
+  keyAndValue: string[];
 };
