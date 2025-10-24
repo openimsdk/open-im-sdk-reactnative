@@ -480,9 +480,9 @@ interface OpenIMSDKRNInterface {
     params: SetMessageLocalExParams,
     operationID: string
   ) => Promise<unknown>;
-  uploadLogs: (params: UploadLogsParams, opid?: string) => Promise<unknown>;
-  logs: (params: LogsParams, opid?: string) => Promise<unknown>;
-  unInitSDK: (opid?: string) => Promise<unknown>;
+  uploadLogs: (params: UploadLogsParams, operationID: string) => Promise<unknown>;
+  logs: (params: LogsParams, operationID: string) => Promise<unknown>;
+  unInitSDK: (operationID: string) => Promise<unknown>;
   updateFcmToken: (fcmToken: string, expireTime: number, operationID: string) => Promise<void>;
   setAppBadge: (appUnreadCount: number, operationID: string) => Promise<void>;
 }

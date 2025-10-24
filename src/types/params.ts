@@ -18,9 +18,10 @@ import type {
 } from './enum';
 
 export type InitOptions = {
-  wsAddr: string;
   apiAddr: string;
+  wsAddr: string;
   dataDir: string;
+  logFilePath: string;
   logLevel: LogLevel;
   isLogStandardOutput: boolean;
 };
@@ -399,5 +400,5 @@ export type LogsParams = {
   line: number;
   msgs: string;
   err: string;
-  keyAndValue: string;
+  keyAndValue: string[];
 };

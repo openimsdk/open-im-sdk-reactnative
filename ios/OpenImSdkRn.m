@@ -1231,8 +1231,9 @@ RCT_EXPORT_METHOD(uploadLogs:(NSDictionary *)options operationID:(NSString *)ope
 
 RCT_EXPORT_METHOD(logs:(NSDictionary *)options operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
     RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
+    NSArray* keyAndValue = [options valueForKey:@"keyAndValue"];
 
-    Open_im_sdkLogs(proxy, operationID, [[options valueForKey:@"logLevel"] longValue],[options valueForKey:@"file"],[[options valueForKey:@"line"] longValue],[options valueForKey:@"msgs"],[options valueForKey:@"err"],[options valueForKey:@"keyAndValue"]);
+    Open_im_sdkLogs(proxy, operationID, [[options valueForKey:@"logLevel"] longValue],[options valueForKey:@"file"],[[options valueForKey:@"line"] longValue],[options valueForKey:@"msgs"],[options valueForKey:@"err"],[keyAndValue json]);
 }
 
 RCT_EXPORT_METHOD(getSdkVersion:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
