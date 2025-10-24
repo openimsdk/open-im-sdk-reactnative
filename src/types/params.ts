@@ -18,9 +18,10 @@ import type {
 } from './enum';
 
 export type InitOptions = {
-  wsAddr: string;
   apiAddr: string;
+  wsAddr: string;
   dataDir: string;
+  logFilePath: string;
   logLevel: LogLevel;
   isLogStandardOutput: boolean;
 };
@@ -52,7 +53,7 @@ export type GetOneConversationParams = {
   sessionType: number;
 };
 
-export type setConversationParams = {
+export type SetConversationParams = {
   conversationID: string;
   recvMsgOpt?: MessageReceiveOptType;
   groupAtType?: GroupAtType;
@@ -116,6 +117,17 @@ export type AddFriendParams = {
   reqMsg: string;
 };
 
+export type GetFriendApplicationListAsRecipientParams = {
+  handleResults: number[];
+  offset: number;
+  count: number;
+}
+
+export type GetFriendApplicationListAsApplicantParams = {
+  offset: number;
+  count: number;
+}
+
 export type SearchFriendParams = {
   keywordList: string[];
   isSearchUserID: boolean;
@@ -156,6 +168,20 @@ export type SearchGroupParams = {
 
 export type SetGroupinfoParams = Partial<GroupItem> & { groupID: string };
 
+export type GetGroupApplicationListAsRecipientParams = {
+  groupIDs: string[];
+  handleResults: number[];
+  offset: number;
+  count: number;
+}
+
+export type GetGroupApplicationListAsApplicantParams = {
+  groupIDs: string[];
+  handleResults: number[];
+  offset: number;
+  count: number;
+};
+
 export type AccessGroupParams = {
   groupID: string;
   fromUserID: string;
@@ -169,7 +195,7 @@ export declare type GetGroupMemberParams = {
   count: number;
 };
 
-export type getGroupMembersInfoParams = {
+export type GetGroupMembersInfoParams = {
   groupID: string;
   userIDList: string[];
 };
@@ -399,5 +425,5 @@ export type LogsParams = {
   line: number;
   msgs: string;
   err: string;
-  keyAndValue: string;
+  keyAndValue: string[];
 };

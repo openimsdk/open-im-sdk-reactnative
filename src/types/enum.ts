@@ -1,5 +1,5 @@
 export enum MessageReceiveOptType {
-  Nomal = 0,
+  Normal = 0,
   NotReceive = 1,
   NotNotify = 2,
 }
@@ -17,7 +17,7 @@ export enum GroupJoinSource {
   QrCode = 4,
 }
 export enum GroupMemberRole {
-  Nomal = 20,
+  Normal = 20,
   Admin = 60,
   Owner = 100,
 }
@@ -97,7 +97,7 @@ export enum SessionType {
   Notification = 4,
 }
 export enum GroupStatus {
-  Nomal = 0,
+  Normal = 0,
   Baned = 1,
   Dismissed = 2,
   Muted = 3,
@@ -113,8 +113,8 @@ export enum GroupMemberFilter {
   All = 0,
   Owner = 1,
   Admin = 2,
-  Nomal = 3,
-  AdminAndNomal = 4,
+  Normal = 3,
+  AdminAndNormal = 4,
   AdminAndOwner = 5,
 }
 export enum Relationship {
@@ -131,7 +131,7 @@ export enum OnlineState {
   Offline = 0,
 }
 export enum GroupMessageReaderFilter {
-  Readed = 0,
+  Read = 0,
   UnRead = 1,
 }
 export enum ViewType {

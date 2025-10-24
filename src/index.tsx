@@ -34,8 +34,13 @@ import {
   FileMsgParams,
   FindMessageParams,
   GetAdvancedHistoryMsgParams,
+  GetFriendApplicationListAsApplicantParams,
+  GetFriendApplicationListAsRecipientParams,
+  GetGroupApplicationListAsApplicantParams,
+  GetGroupApplicationListAsRecipientParams,
   GetGroupMemberByTimeParams,
   GetGroupMemberParams,
+  GetGroupMembersInfoParams,
   GetInputStatesParams,
   GetOneConversationParams,
   GetSpecifiedFriendsParams,
@@ -61,6 +66,7 @@ import {
   SendMsgParams,
   SetBurnDurationParams,
   SetConversationDraftParams,
+  SetConversationParams,
   SetConversationPrivateParams,
   SetConversationRecvOptParams,
   SetGroupinfoParams,
@@ -76,7 +82,6 @@ import {
   UploadLogsParams,
   VideoMsgByPathParams,
   VideoMsgParams,
-  getGroupMembersInfoParams,
 } from './types/params';
 
 const LINKING_ERROR =
@@ -141,6 +146,9 @@ interface OpenIMSDKRNInterface {
     operationID: string
   ) => Promise<unknown>;
   networkStatusChanged: (operationID: string) => Promise<unknown>;
+  /**
+   * @deprecated Use setSelfInfo instead.
+   */
   setGlobalRecvMessageOpt: (
     params: MessageReceiveOptType,
     operationID: string
@@ -160,10 +168,12 @@ interface OpenIMSDKRNInterface {
   deleteFriend: (params: string, operationID: string) => Promise<unknown>;
   getBlackList: (operationID: string) => Promise<BlackUserItem[]>;
   getFriendApplicationListAsApplicant: (
-    operationID: string
+    operationID: string,
+    req: GetFriendApplicationListAsApplicantParams
   ) => Promise<FriendApplicationItem[]>;
   getFriendApplicationListAsRecipient: (
-    operationID: string
+    operationID: string,
+    req: GetFriendApplicationListAsRecipientParams
   ) => Promise<FriendApplicationItem[]>;
   getFriendList: (
     filterBlack: boolean,
@@ -223,10 +233,12 @@ interface OpenIMSDKRNInterface {
     operationID: string
   ) => Promise<unknown>;
   getGroupApplicationListAsRecipient: (
-    operationID: string
+    operationID: string,
+    req: GetGroupApplicationListAsRecipientParams
   ) => Promise<GroupApplicationItem[]>;
   getGroupApplicationListAsApplicant: (
-    operationID: string
+    operationID: string,
+    req: GetGroupApplicationListAsApplicantParams
   ) => Promise<GroupApplicationItem[]>;
   acceptGroupApplication: (
     params: AccessGroupParams,
@@ -241,11 +253,11 @@ interface OpenIMSDKRNInterface {
     operationID: string
   ) => Promise<GroupMemberItem[]>;
   getSpecifiedGroupMembersInfo: (
-    params: getGroupMembersInfoParams,
+    params: GetGroupMembersInfoParams,
     operationID: string
   ) => Promise<GroupMemberItem[]>;
   getUsersInGroup: (
-    params: getGroupMembersInfoParams,
+    params: GetGroupMembersInfoParams,
     operationID: string
   ) => Promise<string[]>;
   searchGroupMembers: (
@@ -282,6 +294,7 @@ interface OpenIMSDKRNInterface {
   ) => Promise<unknown>;
   dismissGroup: (params: string, operationID: string) => Promise<unknown>;
   quitGroup: (params: string, operationID: string) => Promise<unknown>;
+  isJoinGroup: (groupID: string, operationID: string) => Promise<boolean>;
 
   // conversation & message
   getAllConversationList: (operationID: string) => Promise<ConversationItem[]>;
@@ -307,7 +320,7 @@ interface OpenIMSDKRNInterface {
     operationID: string
   ) => Promise<unknown>;
   setConversation: (
-    params: SplitConversationParams,
+    params: SetConversationParams,
     operationID: string
   ) => Promise<unknown>;
   setConversationDraft: (
@@ -475,7 +488,9 @@ interface OpenIMSDKRNInterface {
     params: SetMessageLocalExParams,
     operationID: string
   ) => Promise<unknown>;
-  uploadLogs: (params: UploadLogsParams, opid?: string) => Promise<unknown>;
-  logs: (params: LogsParams, opid?: string) => Promise<unknown>;
-  unInitSDK: (opid?: string) => Promise<unknown>;
+  uploadLogs: (params: UploadLogsParams, operationID: string) => Promise<unknown>;
+  logs: (params: LogsParams, operationID: string) => Promise<unknown>;
+  unInitSDK: (operationID: string) => Promise<unknown>;
+  updateFcmToken: (fcmToken: string, expireTime: number, operationID: string) => Promise<void>;
+  setAppBadge: (appUnreadCount: number, operationID: string) => Promise<void>;
 }
