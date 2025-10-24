@@ -279,9 +279,14 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
     Open_im_sdk.getTotalUnreadMsgCount(new BaseImpl(promise), operationID);
   }
 
+  /**
+   * @deprecated This method may lead to app crash and has been deprecated in the SDK.
+   * It is not exported in the JS API.
+   */
+  @Deprecated
   @ReactMethod
-  public String getAtAllTag(String OperationID) {
-    return Open_im_sdk.getAtAllTag(OperationID);
+  public void getAtAllTag(String OperationID, Promise promise) {
+    promise.resolve(Open_im_sdk.getAtAllTag(OperationID));
   }
 
   @ReactMethod
@@ -1098,9 +1103,14 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
     Open_im_sdk.logs(new BaseImpl(promise), operationID, logLevel, file, line, msg, err, keyAndValue.toString());
   }
 
+  /**
+   * This method should be an async method with Promise parameter, otherwise it is incompatible with React Native 0.80+ versions.
+   * Details: https://github.com/openimsdk/open-im-sdk-reactnative/issues/72
+   * Note: React Native 0.82+ dropped support for the old architecture.
+   */
   @ReactMethod
-  public String getSdkVersion() {
-    return Open_im_sdk.getSdkVersion();
+  public void getSdkVersion(Promise promise) {
+    promise.resolve(Open_im_sdk.getSdkVersion());
   }
 
   @ReactMethod
