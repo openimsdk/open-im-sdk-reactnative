@@ -1,5 +1,7 @@
 # React Native Client SDK for OpenIM 👨‍💻💬
 
+> **📢 Important Notice:** Starting from version 3.8.3-patch.10, the package name has been changed from `open-im-sdk-rn` to `@openim/rn-client-sdk`. Please update your dependency installation and import statements.
+
 Use this SDK to add instant messaging capabilities to your application. By connecting to a self-hosted [OpenIM](https://www.openim.io) server, you can quickly integrate instant messaging capabilities into your app with just a few lines of code.
 
 The iOS SDK core is implemented in [OpenIM SDK Core](https://github.com/openimsdk/openim-sdk-core). Using [gomobile](https://github.com/golang/mobile), it can be compiled into an XCFramework for iOS integration. iOS interacts with the [OpenIM SDK Core](https://github.com/openimsdk/openim-sdk-core) through JSON, and the SDK exposes a re-encapsulated API for easy usage. In terms of data storage, iOS utilizes the SQLite layer provided internally by the [OpenIM SDK Core](https://github.com/openimsdk/openim-sdk-core).
@@ -10,7 +12,7 @@ The React Native Client SDK use [NativeModule](https://reactnative.dev/docs/nati
 
 ## Tips 🔔
 
-1. The open-im-sdk-rn@3.5.1 has contains ***significant disruptive updates***. If you need to upgrade, please check the incoming data and the returned data.
+1. The open-im-sdk-rn@3.5.1 has contains ***significant disruptive updates***. If you need to upgrade, please check the incoming data and the returned data. **Note: Package name has been changed to `@openim/rn-client-sdk` starting from version 3.8.3-patch.10.**
 
 2. Unlike other SDKS, React Native SDK operationID is not optional, but required.
 
@@ -25,7 +27,7 @@ For the SDK reference, see [https://doc.rentsoft.cn/sdks/quickstart/reactnative]
 ### Adding Dependencies
 
 ```sh
-yarn add open-im-sdk-rn
+yarn add @openim/rn-client-sdk
 ```
 
 ## Usage 🚀
@@ -35,7 +37,7 @@ The following examples demonstrate how to use the SDK. TypeScript is used, provi
 ### Importing the SDK and init
 
 ```typescript
-import OpenIMSDKRN from 'open-im-sdk-rn';
+import OpenIMSDKRN from '@openim/rn-client-sdk';
 import RNFS from 'react-native-fs';
 
 RNFS.mkdir(RNFS.DocumentDirectoryPath + '/tmp');
@@ -53,7 +55,7 @@ OpenIMSDKRN.initSDK({
 ### Logging In and Listening for Connection Status
 
 ```typescript
-import OpenIMSDKRN, { OpenIMEmitter } from 'open-im-sdk-rn';
+import OpenIMSDKRN, { OpenIMEmitter } from '@openim/rn-client-sdk';
 
 OpenIMSDKRN.login({
   userID: 'IM user ID',
@@ -80,8 +82,8 @@ To log into the IM server, you need to create an account and obtain a user ID an
 OpenIM makes it easy to send and receive messages. By default, there is no restriction on having a friend relationship to send messages (although you can configure other policies on the server). If you know the user ID of the recipient, you can conveniently send a message to them.
 
 ```typescript
-import OpenIMSDKRN, { OpenIMEmitter } from 'open-im-sdk-rn';
-import type { MessageItem } from 'open-im-sdk-rn';
+import OpenIMSDKRN, { OpenIMEmitter } from '@openim/rn-client-sdk';
+import type { MessageItem } from '@openim/rn-client-sdk';
 
 OpenIMEmitter.addListener('onRecvNewMessages', (data: MessageItem[]) => {
   console.log('onRecvNewMessages', data);
