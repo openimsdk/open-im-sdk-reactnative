@@ -43,6 +43,7 @@ import {
   GetGroupMembersInfoParams,
   GetInputStatesParams,
   GetOneConversationParams,
+  GetSelfApplicationUnhandledCountParams,
   GetSpecifiedFriendsParams,
   ImageMsgParams,
   InitOptions,
@@ -175,6 +176,10 @@ interface OpenIMSDKRNInterface {
     operationID: string,
     req: GetFriendApplicationListAsRecipientParams
   ) => Promise<FriendApplicationItem[]>;
+  getFriendApplicationUnhandledCount: (
+    req: GetSelfApplicationUnhandledCountParams,
+    operationID: string
+  ) => Promise<number>;
   getFriendList: (
     filterBlack: boolean,
     operationID: string
@@ -240,6 +245,10 @@ interface OpenIMSDKRNInterface {
     operationID: string,
     req: GetGroupApplicationListAsApplicantParams
   ) => Promise<GroupApplicationItem[]>;
+  getGroupApplicationUnhandledCount: (
+    req: GetSelfApplicationUnhandledCountParams,
+    operationID: string
+  ) => Promise<number>;
   acceptGroupApplication: (
     params: AccessGroupParams,
     operationID: string

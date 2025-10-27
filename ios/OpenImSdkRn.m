@@ -910,6 +910,11 @@ RCT_EXPORT_METHOD(getFriendApplicationListAsApplicant:(NSString *)operationID re
     Open_im_sdkGetFriendApplicationListAsApplicant(proxy, operationID, [req json]);
 }
 
+RCT_EXPORT_METHOD(getFriendApplicationUnhandledCount:(NSDictionary *)req operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
+    RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
+    Open_im_sdkGetFriendApplicationUnhandledCount(proxy, operationID, [req json]);
+}
+
 RCT_EXPORT_METHOD(acceptFriendApplication:(NSDictionary *)userIDHandleMsg operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
     RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
     NSString *userIDHandleMsgJson = [userIDHandleMsg json];
@@ -1154,6 +1159,11 @@ RCT_EXPORT_METHOD(getGroupApplicationListAsRecipient:(NSString *)operationID req
 RCT_EXPORT_METHOD(getGroupApplicationListAsApplicant:(NSString *)operationID req: (NSDictionary *)req resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
     RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
     Open_im_sdkGetGroupApplicationListAsApplicant(proxy, operationID, [req json]);
+}
+
+RCT_EXPORT_METHOD(getGroupApplicationUnhandledCount:(NSDictionary *)req operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
+    RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
+    Open_im_sdkGetGroupApplicationUnhandledCount(proxy, operationID, [req json]);
 }
 
 RCT_EXPORT_METHOD(acceptGroupApplication:(NSDictionary *)options operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
