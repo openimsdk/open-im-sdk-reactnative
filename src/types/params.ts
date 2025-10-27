@@ -123,6 +123,10 @@ export type GetFriendApplicationListAsRecipientParams = {
   count: number;
 }
 
+export type GetSelfApplicationUnhandledCountParams = {
+  time: number;
+}
+
 export type GetFriendApplicationListAsApplicantParams = {
   offset: number;
   count: number;

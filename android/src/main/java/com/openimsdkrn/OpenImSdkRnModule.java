@@ -808,6 +808,11 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
+  public void getFriendApplicationUnhandledCount(ReadableMap req, String operationID, Promise promise) {
+    Open_im_sdk.getFriendApplicationUnhandledCount(new BaseImpl(promise), operationID, map2string(req));
+  }
+
+  @ReactMethod
   public void acceptFriendApplication(ReadableMap userIDHandleMsg, String operationID, Promise promise) {
     Open_im_sdk.acceptFriendApplication(new BaseImpl(promise), operationID, map2string(userIDHandleMsg));
   }
@@ -987,6 +992,11 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public void getGroupApplicationListAsApplicant(String operationID, ReadableMap req, Promise promise) {
     Open_im_sdk.getGroupApplicationListAsApplicant(new BaseImpl(promise), operationID, map2string(req));
+  }
+
+  @ReactMethod
+  public void getGroupApplicationUnhandledCount(ReadableMap req, String operationID, Promise promise) {
+    Open_im_sdk.getGroupApplicationUnhandledCount(new BaseImpl(promise), operationID, map2string(req));
   }
 
   @ReactMethod
