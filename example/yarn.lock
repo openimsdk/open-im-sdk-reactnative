@@ -4437,11 +4437,6 @@ onetime@^5.1.0, onetime@^5.1.2:
   dependencies:
     mimic-fn "^2.1.0"
 
-open-im-sdk-rn@^3.4.2:
-  version "3.4.3"
-  resolved "https://registry.npmjs.org/open-im-sdk-rn/-/open-im-sdk-rn-3.4.3.tgz"
-  integrity sha512-8f0807YBuhWkaBRAWnvVRArS+kLE4JqG1RHOYcIU8WPkeoHmxDz2a1ysOj1g5OZbvAx9+61VQG7xigmRKjFiTA==
-
 open@^6.2.0:
   version "6.4.0"
   resolved "https://registry.npmjs.org/open/-/open-6.4.0.tgz"
