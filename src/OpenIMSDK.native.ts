@@ -169,12 +169,12 @@ export interface NativeOpenIMSDKInterface {
   deleteFriend: (friendUserID: string, operationID: string) => Promise<unknown>;
   getBlackList: (operationID: string) => Promise<BlackUserItem[]>;
   getFriendApplicationListAsApplicant: (
-    operationID: string,
-    req: GetFriendApplicationListAsApplicantParams
+    req: GetFriendApplicationListAsApplicantParams,
+    operationID: string
   ) => Promise<FriendApplicationItem[]>;
   getFriendApplicationListAsRecipient: (
-    operationID: string,
-    req: GetFriendApplicationListAsRecipientParams
+    req: GetFriendApplicationListAsRecipientParams,
+    operationID: string
   ) => Promise<FriendApplicationItem[]>;
   getFriendApplicationUnhandledCount: (
     req: GetSelfApplicationUnhandledCountParams,
@@ -238,12 +238,12 @@ export interface NativeOpenIMSDKInterface {
     operationID: string
   ) => Promise<unknown>;
   getGroupApplicationListAsRecipient: (
-    operationID: string,
-    req: GetGroupApplicationListAsRecipientParams
+    req: GetGroupApplicationListAsRecipientParams,
+    operationID: string
   ) => Promise<GroupApplicationItem[]>;
   getGroupApplicationListAsApplicant: (
-    operationID: string,
-    req: GetGroupApplicationListAsApplicantParams
+    req: GetGroupApplicationListAsApplicantParams,
+    operationID: string
   ) => Promise<GroupApplicationItem[]>;
   getGroupApplicationUnhandledCount: (
     req: GetSelfApplicationUnhandledCountParams,

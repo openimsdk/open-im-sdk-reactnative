@@ -207,20 +207,18 @@ class OpenIMSDK extends Emitter {
     return this.invoke(NativeOpenIMSDK.getBlackList, [operationID]);
   }
 
-  // TODO:
   getFriendApplicationListAsApplicant(
-    operationID: string = id(),
     req: GetFriendApplicationListAsApplicantParams = { offset: 0, count: 20 },
+    operationID: string = id(),
   ) {
-    return this.invoke(NativeOpenIMSDK.getFriendApplicationListAsApplicant, [operationID, req]);
+    return this.invoke(NativeOpenIMSDK.getFriendApplicationListAsApplicant, [req, operationID]);
   }
 
-  // TODO:
   getFriendApplicationListAsRecipient(
-    operationID: string = id(),
     req: GetFriendApplicationListAsRecipientParams = { handleResults: [], offset: 0, count: 20 },
+    operationID: string = id(),
   ) {
-    return this.invoke(NativeOpenIMSDK.getFriendApplicationListAsRecipient, [operationID, req]);
+    return this.invoke(NativeOpenIMSDK.getFriendApplicationListAsRecipient, [req, operationID]);
   }
 
   getFriendApplicationUnhandledCount(
@@ -298,20 +296,18 @@ class OpenIMSDK extends Emitter {
     return this.invoke(NativeOpenIMSDK.setGroupInfo, [params, operationID]);
   }
 
-  // TODO:
   getGroupApplicationListAsRecipient(
-    operationID: string = id(),
     req: GetGroupApplicationListAsRecipientParams = { groupIDs: [], handleResults: [], offset: 0, count: 20 },
+    operationID: string = id(),
   ) {
-    return this.invoke(NativeOpenIMSDK.getGroupApplicationListAsRecipient, [operationID, req]);
+    return this.invoke(NativeOpenIMSDK.getGroupApplicationListAsRecipient, [req, operationID]);
   }
 
-  // TODO:
   getGroupApplicationListAsApplicant(
-    operationID: string = id(),
     req: GetGroupApplicationListAsApplicantParams = { groupIDs: [], handleResults: [], offset: 0, count: 20 },
+    operationID: string = id(),
   ) {
-    return this.invoke(NativeOpenIMSDK.getGroupApplicationListAsApplicant, [operationID, req]);
+    return this.invoke(NativeOpenIMSDK.getGroupApplicationListAsApplicant, [req, operationID]);
   }
 
   getGroupApplicationUnhandledCount(
