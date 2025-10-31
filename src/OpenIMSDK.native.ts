@@ -55,8 +55,8 @@ import {
   LogsParams,
   MergerMsgParams,
   OffsetParams,
-  OpreateGroupParams,
-  OpreateMessageParams,
+  OperateGroupParams,
+  OperateMessageParams,
   PinConversationParams,
   QuoteMsgParams,
   RemarkFriendParams,
@@ -70,7 +70,7 @@ import {
   SetConversationParams,
   SetConversationPrivateParams,
   SetConversationRecvOptParams,
-  SetGroupinfoParams,
+  SetGroupInfoParams,
   SetMessageLocalExParams,
   SoundMsgByPathParams,
   SoundMsgParams,
@@ -217,7 +217,7 @@ export interface NativeOpenIMSDKInterface {
   ) => Promise<GroupItem>;
   joinGroup: (params: JoinGroupParams, operationID: string) => Promise<unknown>;
   inviteUserToGroup: (
-    params: OpreateGroupParams,
+    params: OperateGroupParams,
     operationID: string
   ) => Promise<unknown>;
   getJoinedGroupList: (operationID: string) => Promise<GroupItem[]>;
@@ -234,7 +234,7 @@ export interface NativeOpenIMSDKInterface {
     operationID: string
   ) => Promise<GroupItem[]>;
   setGroupInfo: (
-    params: SetGroupinfoParams,
+    params: SetGroupInfoParams,
     operationID: string
   ) => Promise<unknown>;
   getGroupApplicationListAsRecipient: (
@@ -286,7 +286,7 @@ export interface NativeOpenIMSDKInterface {
     operationID: string
   ) => Promise<GroupMemberItem[]>;
   kickGroupMember: (
-    params: OpreateGroupParams,
+    params: OperateGroupParams,
     operationID: string
   ) => Promise<unknown>;
   changeGroupMemberMute: (
@@ -456,15 +456,15 @@ export interface NativeOpenIMSDKInterface {
     operationID: string
   ) => Promise<number[]>;
   revokeMessage: (
-    params: OpreateMessageParams,
+    params: OperateMessageParams,
     operationID: string
   ) => Promise<unknown>;
   deleteMessage: (
-    params: OpreateMessageParams,
+    params: OperateMessageParams,
     operationID: string
   ) => Promise<unknown>;
   deleteMessageFromLocalStorage: (
-    params: OpreateMessageParams,
+    params: OperateMessageParams,
     operationID: string
   ) => Promise<unknown>;
   deleteAllMsgFromLocal: (operationID: string) => Promise<unknown>;

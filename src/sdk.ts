@@ -40,8 +40,8 @@ import {
   LogsParams,
   MergerMsgParams,
   OffsetParams,
-  OpreateGroupParams,
-  OpreateMessageParams,
+  OperateGroupParams,
+  OperateMessageParams,
   PinConversationParams,
   QuoteMsgParams,
   RemarkFriendParams,
@@ -55,7 +55,7 @@ import {
   SetConversationParams,
   SetConversationPrivateParams,
   SetConversationRecvOptParams,
-  SetGroupinfoParams,
+  SetGroupInfoParams,
   SetMessageLocalExParams,
   SoundMsgByPathParams,
   SoundMsgParams,
@@ -274,7 +274,7 @@ class OpenIMSDK extends Emitter {
     return this.invoke(NativeOpenIMSDK.joinGroup, [params, operationID]);
   }
 
-  inviteUserToGroup(params: OpreateGroupParams, operationID: string = id()) {
+  inviteUserToGroup(params: OperateGroupParams, operationID: string = id()) {
     return this.invoke(NativeOpenIMSDK.inviteUserToGroup, [params, operationID]);
   }
 
@@ -294,7 +294,7 @@ class OpenIMSDK extends Emitter {
     return this.invoke(NativeOpenIMSDK.getSpecifiedGroupsInfo, [groupIDs, operationID]);
   }
 
-  setGroupInfo(params: SetGroupinfoParams, operationID: string = id()) {
+  setGroupInfo(params: SetGroupInfoParams, operationID: string = id()) {
     return this.invoke(NativeOpenIMSDK.setGroupInfo, [params, operationID]);
   }
 
@@ -363,7 +363,7 @@ class OpenIMSDK extends Emitter {
     return this.invoke(NativeOpenIMSDK.getGroupMemberListByJoinTimeFilter, [params, operationID]);
   }
 
-  kickGroupMember(params: OpreateGroupParams, operationID: string = id()) {
+  kickGroupMember(params: OperateGroupParams, operationID: string = id()) {
     return this.invoke(NativeOpenIMSDK.kickGroupMember, [params, operationID]);
   }
 
@@ -558,15 +558,15 @@ class OpenIMSDK extends Emitter {
     return this.invoke(NativeOpenIMSDK.getInputStates, [params, operationID]);
   }
 
-  revokeMessage(params: OpreateMessageParams, operationID: string = id()) {
+  revokeMessage(params: OperateMessageParams, operationID: string = id()) {
     return this.invoke(NativeOpenIMSDK.revokeMessage, [params, operationID]);
   }
 
-  deleteMessage(params: OpreateMessageParams, operationID: string = id()) {
+  deleteMessage(params: OperateMessageParams, operationID: string = id()) {
     return this.invoke(NativeOpenIMSDK.deleteMessage, [params, operationID]);
   }
 
-  deleteMessageFromLocalStorage(params: OpreateMessageParams, operationID: string = id()) {
+  deleteMessageFromLocalStorage(params: OperateMessageParams, operationID: string = id()) {
     return this.invoke(NativeOpenIMSDK.deleteMessageFromLocalStorage, [params, operationID]);
   }
 
