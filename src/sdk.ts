@@ -404,8 +404,8 @@ class OpenIMSDK extends Emitter {
     return this.invoke(NativeOpenIMSDK.getOneConversation, [params, operationID]);
   }
 
-  getMultipleConversation(params: string, operationID: string = id()) {
-    return this.invoke(NativeOpenIMSDK.getMultipleConversation, [params, operationID]);
+  getMultipleConversation(conversationIDList: string[], operationID: string = id()) {
+    return this.invoke(NativeOpenIMSDK.getMultipleConversation, [conversationIDList, operationID]);
   }
 
   getConversationIDBySessionType(params: GetOneConversationParams, operationID: string = id()) {

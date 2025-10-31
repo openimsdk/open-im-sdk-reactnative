@@ -316,7 +316,7 @@ export interface NativeOpenIMSDKInterface {
     operationID: string
   ) => Promise<ConversationItem>;
   getMultipleConversation: (
-    params: string,
+    conversationIDList: string[],
     operationID: string
   ) => Promise<ConversationItem[]>;
   getConversationIDBySessionType: (
