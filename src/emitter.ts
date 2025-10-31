@@ -12,7 +12,7 @@ type EventName = typeof OpenIMEvent[keyof typeof OpenIMEvent];
 
 type NativeSubscriptionAndCallbackPair = {
   subscription: EmitterSubscription;
-  callback: (...args: any[]) => void;
+  callback: (...args: any) => void;
 };
 
 class Emitter implements EmitterInterface {
