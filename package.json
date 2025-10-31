@@ -150,6 +150,6 @@
     ]
   },
   "dependencies": {
-    "uuid": "^9.0.1"
+    "react-native-uuid": "^2.0.3"
   }
 }
