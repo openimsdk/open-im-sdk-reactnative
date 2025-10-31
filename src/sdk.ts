@@ -113,7 +113,7 @@ class OpenIMSDK extends Emitter {
        * standardize error formats and make it easy for the business layer to determine
        * error sources based on the OpenIMApiError class.
        */
-      throw new OpenIMApiError(error.code, error.message);
+      throw new OpenIMApiError(error.code, error.message, args[args.length - 1]);
     }
   }
 
