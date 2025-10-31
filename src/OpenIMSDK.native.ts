@@ -134,16 +134,16 @@ export interface NativeOpenIMSDKInterface {
     operationID: string
   ) => Promise<unknown>;
   subscribeUsersStatus: (
-    params: string[],
+    userIDs: string[],
     operationID: string
   ) => Promise<UserOnlineState[]>;
   unsubscribeUsersStatus: (
-    params: string[],
+    userIDs: string[],
     operationID: string
   ) => Promise<unknown>;
   getSubscribeUsersStatus: (operationID: string) => Promise<UserOnlineState[]>;
   setAppBackgroundStatus: (
-    params: boolean,
+    isBackground: boolean,
     operationID: string
   ) => Promise<unknown>;
   networkStatusChanged: (operationID: string) => Promise<unknown>;
@@ -163,10 +163,10 @@ export interface NativeOpenIMSDKInterface {
   addBlack: (params: AddBlackParams, operationID: string) => Promise<unknown>;
   addFriend: (params: AddFriendParams, operationID: string) => Promise<unknown>;
   checkFriend: (
-    params: string[],
+    friendUserIDList: string[],
     operationID: string
   ) => Promise<FriendshipInfo[]>;
-  deleteFriend: (params: string, operationID: string) => Promise<unknown>;
+  deleteFriend: (friendUserID: string, operationID: string) => Promise<unknown>;
   getBlackList: (operationID: string) => Promise<BlackUserItem[]>;
   getFriendApplicationListAsApplicant: (
     operationID: string,
@@ -200,7 +200,7 @@ export interface NativeOpenIMSDKInterface {
     params: AccessFriendParams,
     operationID: string
   ) => Promise<unknown>;
-  removeBlack: (params: string, operationID: string) => Promise<unknown>;
+  removeBlack: (blackUserID: string, operationID: string) => Promise<unknown>;
   searchFriends: (
     params: SearchFriendParams,
     operationID: string
@@ -230,7 +230,7 @@ export interface NativeOpenIMSDKInterface {
     operationID: string
   ) => Promise<GroupItem[]>;
   getSpecifiedGroupsInfo: (
-    params: string[],
+    groupIDs: string[],
     operationID: string
   ) => Promise<GroupItem[]>;
   setGroupInfo: (
@@ -278,7 +278,7 @@ export interface NativeOpenIMSDKInterface {
     operationID: string
   ) => Promise<unknown>;
   getGroupMemberOwnerAndAdmin: (
-    params: string,
+    groupID: string,
     operationID: string
   ) => Promise<GroupMemberItem[]>;
   getGroupMemberListByJoinTimeFilter: (
@@ -301,8 +301,8 @@ export interface NativeOpenIMSDKInterface {
     params: TransferGroupParams,
     operationID: string
   ) => Promise<unknown>;
-  dismissGroup: (params: string, operationID: string) => Promise<unknown>;
-  quitGroup: (params: string, operationID: string) => Promise<unknown>;
+  dismissGroup: (groupID: string, operationID: string) => Promise<unknown>;
+  quitGroup: (groupID: string, operationID: string) => Promise<unknown>;
   isJoinGroup: (groupID: string, operationID: string) => Promise<boolean>;
 
   // conversation & message
@@ -325,7 +325,7 @@ export interface NativeOpenIMSDKInterface {
   ) => Promise<ConversationItem>;
   getTotalUnreadMsgCount: (operationID: string) => Promise<number>;
   markConversationMessageAsRead: (
-    params: string,
+    conversationID: string,
     operationID: string
   ) => Promise<unknown>;
   setConversation: (
@@ -353,22 +353,22 @@ export interface NativeOpenIMSDKInterface {
     operationID: string
   ) => Promise<unknown>;
   resetConversationGroupAtType: (
-    params: string,
+    conversationID: string,
     operationID: string
   ) => Promise<unknown>;
-  hideConversation: (params: string, operationID: string) => Promise<unknown>;
+  hideConversation: (conversationID: string, operationID: string) => Promise<unknown>;
   hideAllConversation: (operationID: string) => Promise<unknown>;
   clearConversationAndDeleteAllMsg: (
-    params: string,
+    conversationID: string,
     operationID: string
   ) => Promise<unknown>;
   deleteConversationAndDeleteAllMsg: (
-    params: string,
+    conversationID: string,
     operationID: string
   ) => Promise<unknown>;
 
   createImageMessageFromFullPath: (
-    params: string,
+    imagePath: string,
     operationID: string
   ) => Promise<MessageItem>;
   createVideoMessageFromFullPath: (
@@ -384,7 +384,7 @@ export interface NativeOpenIMSDKInterface {
     operationID: string
   ) => Promise<MessageItem>;
   createTextMessage: (
-    params: string,
+    text: string,
     operationID: string
   ) => Promise<MessageItem>;
   createTextAtMessage: (
