@@ -40,8 +40,8 @@ import {
   LogsParams,
   MergerMsgParams,
   OffsetParams,
-  OpreateGroupParams,
-  OpreateMessageParams,
+  OperateGroupParams,
+  OperateMessageParams,
   PinConversationParams,
   QuoteMsgParams,
   RemarkFriendParams,
@@ -55,7 +55,7 @@ import {
   SetConversationParams,
   SetConversationPrivateParams,
   SetConversationRecvOptParams,
-  SetGroupinfoParams,
+  SetGroupInfoParams,
   SetMessageLocalExParams,
   SoundMsgByPathParams,
   SoundMsgParams,
@@ -155,20 +155,20 @@ class OpenIMSDK extends Emitter {
     return this.invoke(NativeOpenIMSDK.setSelfInfo, [params, operationID]);
   }
 
-  subscribeUsersStatus(params: string[], operationID: string = id()) {
-    return this.invoke(NativeOpenIMSDK.subscribeUsersStatus, [params, operationID]);
+  subscribeUsersStatus(userIDs: string[], operationID: string = id()) {
+    return this.invoke(NativeOpenIMSDK.subscribeUsersStatus, [userIDs, operationID]);
   }
 
-  unsubscribeUsersStatus(params: string[], operationID: string = id()) {
-    return this.invoke(NativeOpenIMSDK.unsubscribeUsersStatus, [params, operationID]);
+  unsubscribeUsersStatus(userIDs: string[], operationID: string = id()) {
+    return this.invoke(NativeOpenIMSDK.unsubscribeUsersStatus, [userIDs, operationID]);
   }
 
   getSubscribeUsersStatus(operationID: string = id()) {
     return this.invoke(NativeOpenIMSDK.getSubscribeUsersStatus, [operationID]);
   }
 
-  setAppBackgroundStatus(params: boolean, operationID: string = id()) {
-    return this.invoke(NativeOpenIMSDK.setAppBackgroundStatus, [params, operationID]);
+  setAppBackgroundStatus(isBackground: boolean, operationID: string = id()) {
+    return this.invoke(NativeOpenIMSDK.setAppBackgroundStatus, [isBackground, operationID]);
   }
 
   networkStatusChanged(operationID: string = id()) {
@@ -195,32 +195,30 @@ class OpenIMSDK extends Emitter {
     return this.invoke(NativeOpenIMSDK.addFriend, [params, operationID]);
   }
 
-  checkFriend(params: string[], operationID: string = id()) {
-    return this.invoke(NativeOpenIMSDK.checkFriend, [params, operationID]);
+  checkFriend(friendUserIDList: string[], operationID: string = id()) {
+    return this.invoke(NativeOpenIMSDK.checkFriend, [friendUserIDList, operationID]);
   }
 
-  deleteFriend(params: string, operationID: string = id()) {
-    return this.invoke(NativeOpenIMSDK.deleteFriend, [params, operationID]);
+  deleteFriend(friendUserID: string, operationID: string = id()) {
+    return this.invoke(NativeOpenIMSDK.deleteFriend, [friendUserID, operationID]);
   }
 
   getBlackList(operationID: string = id()) {
     return this.invoke(NativeOpenIMSDK.getBlackList, [operationID]);
   }
 
-  // TODO:
   getFriendApplicationListAsApplicant(
-    operationID: string = id(),
     req: GetFriendApplicationListAsApplicantParams = { offset: 0, count: 20 },
+    operationID: string = id(),
   ) {
-    return this.invoke(NativeOpenIMSDK.getFriendApplicationListAsApplicant, [operationID, req]);
+    return this.invoke(NativeOpenIMSDK.getFriendApplicationListAsApplicant, [req, operationID]);
   }
 
-  // TODO:
   getFriendApplicationListAsRecipient(
-    operationID: string = id(),
     req: GetFriendApplicationListAsRecipientParams = { handleResults: [], offset: 0, count: 20 },
+    operationID: string = id(),
   ) {
-    return this.invoke(NativeOpenIMSDK.getFriendApplicationListAsRecipient, [operationID, req]);
+    return this.invoke(NativeOpenIMSDK.getFriendApplicationListAsRecipient, [req, operationID]);
   }
 
   getFriendApplicationUnhandledCount(
@@ -253,8 +251,8 @@ class OpenIMSDK extends Emitter {
     return this.invoke(NativeOpenIMSDK.refuseFriendApplication, [params, operationID]);
   }
 
-  removeBlack(params: string, operationID: string = id()) {
-    return this.invoke(NativeOpenIMSDK.removeBlack, [params, operationID]);
+  removeBlack(blackUserID: string, operationID: string = id()) {
+    return this.invoke(NativeOpenIMSDK.removeBlack, [blackUserID, operationID]);
   }
 
   searchFriends(params: SearchFriendParams, operationID: string = id()) {
@@ -274,7 +272,7 @@ class OpenIMSDK extends Emitter {
     return this.invoke(NativeOpenIMSDK.joinGroup, [params, operationID]);
   }
 
-  inviteUserToGroup(params: OpreateGroupParams, operationID: string = id()) {
+  inviteUserToGroup(params: OperateGroupParams, operationID: string = id()) {
     return this.invoke(NativeOpenIMSDK.inviteUserToGroup, [params, operationID]);
   }
 
@@ -290,28 +288,26 @@ class OpenIMSDK extends Emitter {
     return this.invoke(NativeOpenIMSDK.searchGroups, [params, operationID]);
   }
 
-  getSpecifiedGroupsInfo(params: string[], operationID: string = id()) {
-    return this.invoke(NativeOpenIMSDK.getSpecifiedGroupsInfo, [params, operationID]);
+  getSpecifiedGroupsInfo(groupIDs: string[], operationID: string = id()) {
+    return this.invoke(NativeOpenIMSDK.getSpecifiedGroupsInfo, [groupIDs, operationID]);
   }
 
-  setGroupInfo(params: SetGroupinfoParams, operationID: string = id()) {
+  setGroupInfo(params: SetGroupInfoParams, operationID: string = id()) {
     return this.invoke(NativeOpenIMSDK.setGroupInfo, [params, operationID]);
   }
 
-  // TODO:
   getGroupApplicationListAsRecipient(
-    operationID: string = id(),
     req: GetGroupApplicationListAsRecipientParams = { groupIDs: [], handleResults: [], offset: 0, count: 20 },
+    operationID: string = id(),
   ) {
-    return this.invoke(NativeOpenIMSDK.getGroupApplicationListAsRecipient, [operationID, req]);
+    return this.invoke(NativeOpenIMSDK.getGroupApplicationListAsRecipient, [req, operationID]);
   }
 
-  // TODO:
   getGroupApplicationListAsApplicant(
-    operationID: string = id(),
     req: GetGroupApplicationListAsApplicantParams = { groupIDs: [], handleResults: [], offset: 0, count: 20 },
+    operationID: string = id(),
   ) {
-    return this.invoke(NativeOpenIMSDK.getGroupApplicationListAsApplicant, [operationID, req]);
+    return this.invoke(NativeOpenIMSDK.getGroupApplicationListAsApplicant, [req, operationID]);
   }
 
   getGroupApplicationUnhandledCount(
@@ -352,8 +348,8 @@ class OpenIMSDK extends Emitter {
     return this.invoke(NativeOpenIMSDK.setGroupMemberInfo, [params, operationID]);
   }
 
-  getGroupMemberOwnerAndAdmin(params: string, operationID: string = id()) {
-    return this.invoke(NativeOpenIMSDK.getGroupMemberOwnerAndAdmin, [params, operationID]);
+  getGroupMemberOwnerAndAdmin(groupID: string, operationID: string = id()) {
+    return this.invoke(NativeOpenIMSDK.getGroupMemberOwnerAndAdmin, [groupID, operationID]);
   }
 
   getGroupMemberListByJoinTimeFilter(
@@ -363,7 +359,7 @@ class OpenIMSDK extends Emitter {
     return this.invoke(NativeOpenIMSDK.getGroupMemberListByJoinTimeFilter, [params, operationID]);
   }
 
-  kickGroupMember(params: OpreateGroupParams, operationID: string = id()) {
+  kickGroupMember(params: OperateGroupParams, operationID: string = id()) {
     return this.invoke(NativeOpenIMSDK.kickGroupMember, [params, operationID]);
   }
 
@@ -379,12 +375,12 @@ class OpenIMSDK extends Emitter {
     return this.invoke(NativeOpenIMSDK.transferGroupOwner, [params, operationID]);
   }
 
-  dismissGroup(params: string, operationID: string = id()) {
-    return this.invoke(NativeOpenIMSDK.dismissGroup, [params, operationID]);
+  dismissGroup(groupID: string, operationID: string = id()) {
+    return this.invoke(NativeOpenIMSDK.dismissGroup, [groupID, operationID]);
   }
 
-  quitGroup(params: string, operationID: string = id()) {
-    return this.invoke(NativeOpenIMSDK.quitGroup, [params, operationID]);
+  quitGroup(groupID: string, operationID: string = id()) {
+    return this.invoke(NativeOpenIMSDK.quitGroup, [groupID, operationID]);
   }
 
   isJoinGroup(groupID: string, operationID: string = id()) {
@@ -404,8 +400,8 @@ class OpenIMSDK extends Emitter {
     return this.invoke(NativeOpenIMSDK.getOneConversation, [params, operationID]);
   }
 
-  getMultipleConversation(params: string, operationID: string = id()) {
-    return this.invoke(NativeOpenIMSDK.getMultipleConversation, [params, operationID]);
+  getMultipleConversation(conversationIDList: string[], operationID: string = id()) {
+    return this.invoke(NativeOpenIMSDK.getMultipleConversation, [conversationIDList, operationID]);
   }
 
   getConversationIDBySessionType(params: GetOneConversationParams, operationID: string = id()) {
@@ -416,8 +412,8 @@ class OpenIMSDK extends Emitter {
     return this.invoke(NativeOpenIMSDK.getTotalUnreadMsgCount, [operationID]);
   }
 
-  markConversationMessageAsRead(params: string, operationID: string = id()) {
-    return this.invoke(NativeOpenIMSDK.markConversationMessageAsRead, [params, operationID]);
+  markConversationMessageAsRead(conversationID: string, operationID: string = id()) {
+    return this.invoke(NativeOpenIMSDK.markConversationMessageAsRead, [conversationID, operationID]);
   }
 
   setConversation(params: SetConversationParams, operationID: string = id()) {
@@ -450,28 +446,28 @@ class OpenIMSDK extends Emitter {
     return this.invoke(NativeOpenIMSDK.setConversationBurnDuration, [params, operationID]);
   }
 
-  resetConversationGroupAtType(params: string, operationID: string = id()) {
-    return this.invoke(NativeOpenIMSDK.resetConversationGroupAtType, [params, operationID]);
+  resetConversationGroupAtType(conversationID: string, operationID: string = id()) {
+    return this.invoke(NativeOpenIMSDK.resetConversationGroupAtType, [conversationID, operationID]);
   }
 
-  hideConversation(params: string, operationID: string = id()) {
-    return this.invoke(NativeOpenIMSDK.hideConversation, [params, operationID]);
+  hideConversation(conversationID: string, operationID: string = id()) {
+    return this.invoke(NativeOpenIMSDK.hideConversation, [conversationID, operationID]);
   }
 
   hideAllConversation(operationID: string = id()) {
     return this.invoke(NativeOpenIMSDK.hideAllConversation, [operationID]);
   }
 
-  clearConversationAndDeleteAllMsg(params: string, operationID: string = id()) {
-    return this.invoke(NativeOpenIMSDK.clearConversationAndDeleteAllMsg, [params, operationID]);
+  clearConversationAndDeleteAllMsg(conversationID: string, operationID: string = id()) {
+    return this.invoke(NativeOpenIMSDK.clearConversationAndDeleteAllMsg, [conversationID, operationID]);
   }
 
-  deleteConversationAndDeleteAllMsg(params: string, operationID: string = id()) {
-    return this.invoke(NativeOpenIMSDK.deleteConversationAndDeleteAllMsg, [params, operationID]);
+  deleteConversationAndDeleteAllMsg(conversationID: string, operationID: string = id()) {
+    return this.invoke(NativeOpenIMSDK.deleteConversationAndDeleteAllMsg, [conversationID, operationID]);
   }
 
-  createImageMessageFromFullPath(params: string, operationID: string = id()) {
-    return this.invoke(NativeOpenIMSDK.createImageMessageFromFullPath, [params, operationID]);
+  createImageMessageFromFullPath(imagePath: string, operationID: string = id()) {
+    return this.invoke(NativeOpenIMSDK.createImageMessageFromFullPath, [imagePath, operationID]);
   }
 
   createVideoMessageFromFullPath(params: VideoMsgByPathParams, operationID: string = id()) {
@@ -486,8 +482,8 @@ class OpenIMSDK extends Emitter {
     return this.invoke(NativeOpenIMSDK.createFileMessageFromFullPath, [params, operationID]);
   }
 
-  createTextMessage(params: string, operationID: string = id()) {
-    return this.invoke(NativeOpenIMSDK.createTextMessage, [params, operationID]);
+  createTextMessage(text: string, operationID: string = id()) {
+    return this.invoke(NativeOpenIMSDK.createTextMessage, [text, operationID]);
   }
 
   createTextAtMessage(params: AtMsgParams, operationID: string = id()) {
@@ -558,15 +554,15 @@ class OpenIMSDK extends Emitter {
     return this.invoke(NativeOpenIMSDK.getInputStates, [params, operationID]);
   }
 
-  revokeMessage(params: OpreateMessageParams, operationID: string = id()) {
+  revokeMessage(params: OperateMessageParams, operationID: string = id()) {
     return this.invoke(NativeOpenIMSDK.revokeMessage, [params, operationID]);
   }
 
-  deleteMessage(params: OpreateMessageParams, operationID: string = id()) {
+  deleteMessage(params: OperateMessageParams, operationID: string = id()) {
     return this.invoke(NativeOpenIMSDK.deleteMessage, [params, operationID]);
   }
 
-  deleteMessageFromLocalStorage(params: OpreateMessageParams, operationID: string = id()) {
+  deleteMessageFromLocalStorage(params: OperateMessageParams, operationID: string = id()) {
     return this.invoke(NativeOpenIMSDK.deleteMessageFromLocalStorage, [params, operationID]);
   }
 

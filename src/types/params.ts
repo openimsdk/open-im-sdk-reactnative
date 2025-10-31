@@ -158,7 +158,7 @@ export type JoinGroupParams = {
   ex?: string;
 };
 
-export type OpreateGroupParams = {
+export type OperateGroupParams = {
   groupID: string;
   reason: string;
   userIDList: string[];
@@ -170,7 +170,7 @@ export type SearchGroupParams = {
   isSearchGroupName: boolean;
 };
 
-export type SetGroupinfoParams = Partial<GroupItem> & { groupID: string };
+export type SetGroupInfoParams = Partial<GroupItem> & { groupID: string };
 
 export type GetGroupApplicationListAsRecipientParams = {
   groupIDs: string[];
@@ -363,7 +363,7 @@ export type GetInputStatesParams = {
   userID: string;
 };
 
-export type OpreateMessageParams = {
+export type OperateMessageParams = {
   conversationID: string;
   clientMsgID: string;
 };
