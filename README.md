@@ -1,26 +1,28 @@
 # React Native Client SDK for OpenIM 👨‍💻💬
 
-> **📢 Important Notice:** Starting from version 3.8.3-patch.10, the package name has been changed from `open-im-sdk-rn` to `@openim/rn-client-sdk`. Please update your dependency installation and import statements.
-
 Use this SDK to add instant messaging capabilities to your application. By connecting to a self-hosted [OpenIM](https://www.openim.io) server, you can quickly integrate instant messaging capabilities into your app with just a few lines of code.
 
 The iOS SDK core is implemented in [OpenIM SDK Core](https://github.com/openimsdk/openim-sdk-core). Using [gomobile](https://github.com/golang/mobile), it can be compiled into an XCFramework for iOS integration. iOS interacts with the [OpenIM SDK Core](https://github.com/openimsdk/openim-sdk-core) through JSON, and the SDK exposes a re-encapsulated API for easy usage. In terms of data storage, iOS utilizes the SQLite layer provided internally by the [OpenIM SDK Core](https://github.com/openimsdk/openim-sdk-core).
 
 The android SDK core is implemented in [OpenIM SDK Core](https://github.com/openimsdk/openim-sdk-core). Using [gomobile](https://github.com/golang/mobile), it can be compiled into an AAR file for Android integration. Android interacts with the [OpenIM SDK Core](https://github.com/openimsdk/openim-sdk-core) through JSON, and the SDK exposes a re-encapsulated API for easy usage. In terms of data storage, Android utilizes the SQLite layer provided internally by the [OpenIM SDK Core](https://github.com/openimsdk/openim-sdk-core).
 
-The React Native Client SDK use [NativeModule](https://reactnative.dev/docs/native-modules-intro) system exposes instances of Java/Objective-C classes to JavaScript (JS) as JS objects, thereby allowing you to execute arbitrary native code from within JS.
+The React Native Client SDK uses the [NativeModule](https://reactnative.dev/docs/native-modules-intro) system to expose instances of Java/Objective-C classes to JavaScript (JS) as JS objects, thereby allowing you to execute arbitrary native code from within JS.
 
 ## Tips 🔔
 
-1. The open-im-sdk-rn@3.5.1 has contains ***significant disruptive updates***. If you need to upgrade, please check the incoming data and the returned data. **Note: Package name has been changed to `@openim/rn-client-sdk` starting from version 3.8.3-patch.10.**
+1. Starting from `v3.8.3-patch.10`, the package name has been changed from `open-im-sdk-rn` to `@openim/rn-client-sdk`.
 
-2. Unlike other SDKS, React Native SDK operationID is not optional, but required.
+2. **operationID Parameter:** This parameter is used for backend log querying. Starting from `v3.8.3-patch.10.2`, the `operationID` parameter is optional for all APIs (the SDK will auto-generate one if not provided). For earlier versions, this parameter is required and must be passed explicitly.
+
+3. **Event Binding API:** Starting from `v3.8.3-patch.10.2`, you can use `OpenIMSDK.on()` to listen for events with better TypeScript type hints. Earlier versions must use the `OpenIMEmitter` object. Both approaches remain compatible with the latest version.
+
+4. The `v3.5.1` contains ***significant disruptive updates***. If you need to upgrade, please check the incoming data and the returned data.
 
 ## Documentation 📚
 
-Visit [https://doc.rentsoft.cn](https://doc.rentsoft.cn) for detailed documentation and guides.
+Visit [https://docs.openim.io](https://docs.openim.io) for detailed documentation and guides.
 
-For the SDK reference, see [https://doc.rentsoft.cn/sdks/quickstart/reactnative](https://doc.rentsoft.cn/sdks/quickstart/reactnative).
+For the SDK reference, see [https://docs.openim.io/sdks/quickstart/reactNative](https://docs.openim.io/sdks/quickstart/reactNative).
 
 ## Installation 💻
 
@@ -37,22 +39,46 @@ The following examples demonstrate how to use the SDK. TypeScript is used, provi
 ### Importing the SDK and init
 
 ```typescript
-import OpenIMSDKRN from '@openim/rn-client-sdk';
+import OpenIMSDK from '@openim/rn-client-sdk';
 import RNFS from 'react-native-fs';
 
 RNFS.mkdir(RNFS.DocumentDirectoryPath + '/tmp');
 
-OpenIMSDKRN.initSDK({
+OpenIMSDK.initSDK({
   platformID: 2,  // 1: ios, 2: android
   apiAddr: 'http://your-server-ip:10002',
   wsAddr: 'ws://your-server-ip:10001',
   dataDir: RNFS.DocumentDirectoryPath + '/tmp',
+  logFilePath: RNFS.DocumentDirectoryPath + '/tmp',
   logLevel: 5,
   isLogStandardOutput: true,
-}, 'opid');
+});
 ```
 
 ### Logging In and Listening for Connection Status
+
+```typescript
+import OpenIMSDK from '@openim/rn-client-sdk';
+
+OpenIMSDK.login({
+  userID: 'IM user ID',
+  token: 'IM user token',
+});
+
+OpenIMSDK.on('onConnecting', () => {
+  console.log('onConnecting');
+});
+
+OpenIMSDK.on('onConnectSuccess', () => {
+  console.log('onConnectSuccess');
+});
+
+OpenIMSDK.on('onConnectFailed', ({ errCode, errMsg }) => {
+  console.log('onConnectFailed', errCode, errMsg);
+});
+```
+
+**For versions prior to v3.8.3-patch.10.2:**
 
 ```typescript
 import OpenIMSDKRN, { OpenIMEmitter } from '@openim/rn-client-sdk';
@@ -75,18 +101,43 @@ OpenIMEmitter.addListener('onConnectFailed', ({ errCode, errMsg }) => {
 });
 ```
 
-To log into the IM server, you need to create an account and obtain a user ID and token. Refer to the [access token documentation](https://doc.rentsoft.cn/restapi/userManagement/userRegister) for details.
+To log into the IM server, you need to create an account and obtain a user ID and token. Refer to the [access token documentation](https://docs.openim.io/restapi/apis/usermanagement/userregister) for details.
 
 ### Receiving and Sending Messages 💬
 
 OpenIM makes it easy to send and receive messages. By default, there is no restriction on having a friend relationship to send messages (although you can configure other policies on the server). If you know the user ID of the recipient, you can conveniently send a message to them.
 
 ```typescript
-import OpenIMSDKRN, { OpenIMEmitter } from '@openim/rn-client-sdk';
+import OpenIMSDK from '@openim/rn-client-sdk';
 import type { MessageItem } from '@openim/rn-client-sdk';
 
-OpenIMEmitter.addListener('onRecvNewMessages', (data: MessageItem[]) => {
-  console.log('onRecvNewMessages', data);
+OpenIMSDK.on('onRecvNewMessages', (messages: MessageItem[]) => {
+  console.log('onRecvNewMessages', messages);
+});
+
+const message = await OpenIMSDK.createTextMessage('hello openim');
+
+OpenIMSDK.sendMessage({
+  recvID: 'recipient user ID',
+  groupID: '',
+  message,
+})
+  .then(() => {
+    // Message sent successfully ✉️
+  })
+  .catch(err => {
+    // Failed to send message ❌
+    console.log(err);
+  });
+```
+
+**For versions prior to v3.8.3-patch.10.2:**
+
+```typescript
+import OpenIMSDKRN, { OpenIMEmitter } from '@openim/rn-client-sdk';
+
+OpenIMEmitter.addListener('onRecvNewMessages', (messages) => {
+  console.log('onRecvNewMessages', messages);
 });
 
 const message = await OpenIMSDKRN.createTextMessage('hello openim', 'opid');
@@ -120,6 +171,8 @@ yarn example android
 
 yarn example ios
 ```
+
+> **Note for iOS:** When running the iOS example project, you may encounter dependency installation errors or build failures. Please refer to [iOS Example Project Running Notes](./docs/IOS-EXAMPLE-WARN.md) for detailed solutions.
 
 ## Community :busts_in_silhouette:
 
