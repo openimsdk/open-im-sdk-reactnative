@@ -1114,12 +1114,14 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
   }
 
   /**
+   * WARN: This method is useless and will be removed in the future.
+   * 
    * This method should be an async method with Promise parameter, otherwise it is incompatible with React Native 0.80+ versions.
    * Details: https://github.com/openimsdk/open-im-sdk-reactnative/issues/72
    * Note: React Native 0.82+ dropped support for the old architecture.
    */
   @ReactMethod
-  public void getSdkVersion(Promise promise) {
+  public void getSdkVersion(String operationID, Promise promise) {
     promise.resolve(Open_im_sdk.getSdkVersion());
   }
 
