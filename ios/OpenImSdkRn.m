@@ -201,7 +201,7 @@ RCT_EXPORT_METHOD(getLoginStatus:(NSString *)operationID resolver:(RCTPromiseRes
     resolver(@(status));
 }
 
-RCT_EXPORT_METHOD(getLoginUserID:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
+RCT_EXPORT_METHOD(getLoginUserID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
     NSString* uid = Open_im_sdkGetLoginUserID();
     resolver(uid);
 }
@@ -1246,7 +1246,8 @@ RCT_EXPORT_METHOD(logs:(NSDictionary *)options operationID:(NSString *)operation
     Open_im_sdkLogs(proxy, operationID, [[options valueForKey:@"logLevel"] longValue],[options valueForKey:@"file"],[[options valueForKey:@"line"] longValue],[options valueForKey:@"msgs"],[options valueForKey:@"err"],[keyAndValue json]);
 }
 
-RCT_EXPORT_METHOD(getSdkVersion:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
+// WARN: This method is useless and will be removed in the future.
+RCT_EXPORT_METHOD(getSdkVersion:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
     NSString *version = Open_im_sdkGetSdkVersion();
     resolver(version);
 }
