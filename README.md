@@ -4,7 +4,7 @@ Use this SDK to add instant messaging capabilities to your application. By conne
 
 The iOS SDK core is implemented in [OpenIM SDK Core](https://github.com/openimsdk/openim-sdk-core). Using [gomobile](https://github.com/golang/mobile), it can be compiled into an XCFramework for iOS integration. iOS interacts with the [OpenIM SDK Core](https://github.com/openimsdk/openim-sdk-core) through JSON, and the SDK exposes a re-encapsulated API for easy usage. In terms of data storage, iOS utilizes the SQLite layer provided internally by the [OpenIM SDK Core](https://github.com/openimsdk/openim-sdk-core).
 
-The android SDK core is implemented in [OpenIM SDK Core](https://github.com/openimsdk/openim-sdk-core). Using [gomobile](https://github.com/golang/mobile), it can be compiled into an AAR file for Android integration. Android interacts with the [OpenIM SDK Core](https://github.com/openimsdk/openim-sdk-core) through JSON, and the SDK exposes a re-encapsulated API for easy usage. In terms of data storage, Android utilizes the SQLite layer provided internally by the [OpenIM SDK Core](https://github.com/openimsdk/openim-sdk-core).
+The Android SDK core is implemented in [OpenIM SDK Core](https://github.com/openimsdk/openim-sdk-core). Using [gomobile](https://github.com/golang/mobile), it can be compiled into an AAR file for Android integration. Android interacts with the [OpenIM SDK Core](https://github.com/openimsdk/openim-sdk-core) through JSON, and the SDK exposes a re-encapsulated API for easy usage. In terms of data storage, Android utilizes the SQLite layer provided internally by the [OpenIM SDK Core](https://github.com/openimsdk/openim-sdk-core).
 
 The React Native Client SDK uses the [NativeModule](https://reactnative.dev/docs/native-modules-intro) system to expose instances of Java/Objective-C classes to JavaScript (JS) as JS objects, thereby allowing you to execute arbitrary native code from within JS.
 
@@ -68,7 +68,6 @@ import RNFS from 'react-native-fs';
 RNFS.mkdir(RNFS.DocumentDirectoryPath + '/tmp');
 
 OpenIMSDK.initSDK({
-  platformID: 2,  // 1: ios, 2: android
   apiAddr: 'http://your-server-ip:10002',
   wsAddr: 'ws://your-server-ip:10001',
   dataDir: RNFS.DocumentDirectoryPath + '/tmp',
@@ -181,7 +180,7 @@ OpenIMSDKRN.sendMessage({
 
 ## Examples 🌟
 
-You can find a demo web app that use the SDK in the [openim-reactnative-demo](https://github.com/openimsdk/openim-reactnative-demo) repository.
+You can find a demo React-Native app that use the SDK in the [openim-reactnative-demo](https://github.com/openimsdk/openim-reactnative-demo) repository.
 
 or:
 
