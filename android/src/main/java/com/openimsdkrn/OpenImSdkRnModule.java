@@ -1,24 +1,18 @@
 
 package com.openimsdkrn;
 
-import android.util.Log;
-
-import androidx.annotation.RequiresPermission;
-
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
-import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
-import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONException;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
-
-import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
+
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.JSON;
+
 import com.openimsdkrn.listener.AdvancedMsgListener;
 import com.openimsdkrn.listener.InitSDKListener;
 import com.openimsdkrn.listener.OnConversationListener;
@@ -28,20 +22,12 @@ import com.openimsdkrn.listener.UploadLogProgressListener;
 import com.openimsdkrn.listener.UserListener;
 import com.openimsdkrn.listener.UploadFileCallbackListener;
 import com.openimsdkrn.listener.BatchMsgListener;
-
-import com.facebook.react.modules.core.DeviceEventManagerModule;
+import com.openimsdkrn.utils.Emitter;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Objects;
-import java.util.UUID;
-import java.util.HashMap;
 
 import open_im_sdk.Open_im_sdk;
-import open_im_sdk_callback.Base;
-import open_im_sdk_callback.UploadLogProgress;
-
-import com.openimsdkrn.utils.Emitter;
 
 public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
 
@@ -276,7 +262,7 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void getTotalUnreadMsgCount(String operationID, Promise promise) {
-    Open_im_sdk.getTotalUnreadMsgCount(new BaseImpl(promise), operationID);
+    Open_im_sdk.getTotalUnreadMsgCount(new BaseImpl(promise, Number.class), operationID);
   }
 
   /**
@@ -809,7 +795,7 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void getFriendApplicationUnhandledCount(ReadableMap req, String operationID, Promise promise) {
-    Open_im_sdk.getFriendApplicationUnhandledCount(new BaseImpl(promise), operationID, map2string(req));
+    Open_im_sdk.getFriendApplicationUnhandledCount(new BaseImpl(promise, Number.class), operationID, map2string(req));
   }
 
   @ReactMethod
@@ -996,7 +982,7 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void getGroupApplicationUnhandledCount(ReadableMap req, String operationID, Promise promise) {
-    Open_im_sdk.getGroupApplicationUnhandledCount(new BaseImpl(promise), operationID, map2string(req));
+    Open_im_sdk.getGroupApplicationUnhandledCount(new BaseImpl(promise, Number.class), operationID, map2string(req));
   }
 
   @ReactMethod
@@ -1027,7 +1013,7 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void isJoinGroup(String groupID, String operationID, Promise promise) {
-    Open_im_sdk.isJoinGroup(new BaseImpl(promise), operationID, groupID);
+    Open_im_sdk.isJoinGroup(new BaseImpl(promise, Boolean.class), operationID, groupID);
   }
 
   @ReactMethod
@@ -1115,7 +1101,7 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
 
   /**
    * WARN: This method is useless and will be removed in the future.
-   * 
+   *
    * This method should be an async method with Promise parameter, otherwise it is incompatible with React Native 0.80+ versions.
    * Details: https://github.com/openimsdk/open-im-sdk-reactnative/issues/72
    * Note: React Native 0.82+ dropped support for the old architecture.
