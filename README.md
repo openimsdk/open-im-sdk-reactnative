@@ -4,19 +4,21 @@ Use this SDK to add instant messaging capabilities to your application. By conne
 
 The iOS SDK core is implemented in [OpenIM SDK Core](https://github.com/openimsdk/openim-sdk-core). Using [gomobile](https://github.com/golang/mobile), it can be compiled into an XCFramework for iOS integration. iOS interacts with the [OpenIM SDK Core](https://github.com/openimsdk/openim-sdk-core) through JSON, and the SDK exposes a re-encapsulated API for easy usage. In terms of data storage, iOS utilizes the SQLite layer provided internally by the [OpenIM SDK Core](https://github.com/openimsdk/openim-sdk-core).
 
-The android SDK core is implemented in [OpenIM SDK Core](https://github.com/openimsdk/openim-sdk-core). Using [gomobile](https://github.com/golang/mobile), it can be compiled into an AAR file for Android integration. Android interacts with the [OpenIM SDK Core](https://github.com/openimsdk/openim-sdk-core) through JSON, and the SDK exposes a re-encapsulated API for easy usage. In terms of data storage, Android utilizes the SQLite layer provided internally by the [OpenIM SDK Core](https://github.com/openimsdk/openim-sdk-core).
+The Android SDK core is implemented in [OpenIM SDK Core](https://github.com/openimsdk/openim-sdk-core). Using [gomobile](https://github.com/golang/mobile), it can be compiled into an AAR file for Android integration. Android interacts with the [OpenIM SDK Core](https://github.com/openimsdk/openim-sdk-core) through JSON, and the SDK exposes a re-encapsulated API for easy usage. In terms of data storage, Android utilizes the SQLite layer provided internally by the [OpenIM SDK Core](https://github.com/openimsdk/openim-sdk-core).
 
 The React Native Client SDK uses the [NativeModule](https://reactnative.dev/docs/native-modules-intro) system to expose instances of Java/Objective-C classes to JavaScript (JS) as JS objects, thereby allowing you to execute arbitrary native code from within JS.
 
 ## Tips 🔔
 
-1. Starting from `v3.8.3-patch.10`, the package name has been changed from `open-im-sdk-rn` to `@openim/rn-client-sdk`.
+1. **Expo support:** Expo custom dev client workflow is supported from `v3.8.3-patch.10.3` and later.
 
-2. **operationID Parameter:** This parameter is used for backend log querying. Starting from `v3.8.3-patch.10.2`, the `operationID` parameter is optional for all APIs (the SDK will auto-generate one if not provided). For earlier versions, this parameter is required and must be passed explicitly.
+2. **Event Binding API:** Starting from `v3.8.3-patch.10.2`, you can use `OpenIMSDK.on()` to listen for events with better TypeScript type hints. Earlier versions must use the `OpenIMEmitter` object. Both approaches remain compatible with the latest version.
 
-3. **Event Binding API:** Starting from `v3.8.3-patch.10.2`, you can use `OpenIMSDK.on()` to listen for events with better TypeScript type hints. Earlier versions must use the `OpenIMEmitter` object. Both approaches remain compatible with the latest version.
+3. **operationID Parameter:** This parameter is used for backend log querying. Starting from `v3.8.3-patch.10.2`, the `operationID` parameter is optional for all APIs (the SDK will auto-generate one if not provided). For earlier versions, this parameter is required and must be passed explicitly.
 
-4. The `v3.5.1` contains ***significant disruptive updates***. If you need to upgrade, please check the incoming data and the returned data.
+4. Starting from `v3.8.3-patch.10`, the package name has been changed from `open-im-sdk-rn` to `@openim/rn-client-sdk`.
+
+5. The `v3.5.1` contains ***significant disruptive updates***. If you need to upgrade, please check the incoming data and the returned data.
 
 ## Documentation 📚
 
@@ -26,10 +28,31 @@ For the SDK reference, see [https://docs.openim.io/sdks/quickstart/reactNative](
 
 ## Installation 💻
 
-### Adding Dependencies
+### Install with React Native CLI
 
 ```sh
-yarn add @openim/rn-client-sdk
+# install the SDK
+npm install @openim/rn-client-sdk
+
+# iOS native dependencies
+cd ios && pod install && cd ..
+```
+
+### Install with Expo
+
+`v3.8.3-patch.10.3` and later support Expo via the custom development client (prebuild) workflow. This package bridges native modules, so Expo projects must run in a prebuild/custom development client workflow rather than Expo Go.
+
+```sh
+# install the SDK
+npm install @openim/rn-client-sdk
+
+# generate native projects and run
+npx expo prebuild
+npx expo run:android
+npx expo run:ios
+
+# optional: Expo Go–like dev client experience
+npx expo install expo-dev-client
 ```
 
 ## Usage 🚀
@@ -45,7 +68,6 @@ import RNFS from 'react-native-fs';
 RNFS.mkdir(RNFS.DocumentDirectoryPath + '/tmp');
 
 OpenIMSDK.initSDK({
-  platformID: 2,  // 1: ios, 2: android
   apiAddr: 'http://your-server-ip:10002',
   wsAddr: 'ws://your-server-ip:10001',
   dataDir: RNFS.DocumentDirectoryPath + '/tmp',
@@ -158,7 +180,7 @@ OpenIMSDKRN.sendMessage({
 
 ## Examples 🌟
 
-You can find a demo web app that use the SDK in the [openim-reactnative-demo](https://github.com/openimsdk/openim-reactnative-demo) repository.
+You can find a demo React-Native app that use the SDK in the [openim-reactnative-demo](https://github.com/openimsdk/openim-reactnative-demo) repository.
 
 or:
 
