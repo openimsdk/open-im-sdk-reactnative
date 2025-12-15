@@ -10,13 +10,15 @@ The React Native Client SDK uses the [NativeModule](https://reactnative.dev/docs
 
 ## Tips 🔔
 
-1. Starting from `v3.8.3-patch.10`, the package name has been changed from `open-im-sdk-rn` to `@openim/rn-client-sdk`.
+1. **Expo support:** Expo custom dev client workflow is supported from `v3.8.3-patch.10.3` and later.
 
-2. **operationID Parameter:** This parameter is used for backend log querying. Starting from `v3.8.3-patch.10.2`, the `operationID` parameter is optional for all APIs (the SDK will auto-generate one if not provided). For earlier versions, this parameter is required and must be passed explicitly.
+2. **Event Binding API:** Starting from `v3.8.3-patch.10.2`, you can use `OpenIMSDK.on()` to listen for events with better TypeScript type hints. Earlier versions must use the `OpenIMEmitter` object. Both approaches remain compatible with the latest version.
 
-3. **Event Binding API:** Starting from `v3.8.3-patch.10.2`, you can use `OpenIMSDK.on()` to listen for events with better TypeScript type hints. Earlier versions must use the `OpenIMEmitter` object. Both approaches remain compatible with the latest version.
+3. **operationID Parameter:** This parameter is used for backend log querying. Starting from `v3.8.3-patch.10.2`, the `operationID` parameter is optional for all APIs (the SDK will auto-generate one if not provided). For earlier versions, this parameter is required and must be passed explicitly.
 
-4. The `v3.5.1` contains ***significant disruptive updates***. If you need to upgrade, please check the incoming data and the returned data.
+4. Starting from `v3.8.3-patch.10`, the package name has been changed from `open-im-sdk-rn` to `@openim/rn-client-sdk`.
+
+5. The `v3.5.1` contains ***significant disruptive updates***. If you need to upgrade, please check the incoming data and the returned data.
 
 ## Documentation 📚
 
@@ -26,10 +28,31 @@ For the SDK reference, see [https://docs.openim.io/sdks/quickstart/reactNative](
 
 ## Installation 💻
 
-### Adding Dependencies
+### Install with React Native CLI
 
 ```sh
-yarn add @openim/rn-client-sdk
+# install the SDK
+npm install @openim/rn-client-sdk
+
+# iOS native dependencies
+cd ios && pod install && cd ..
+```
+
+### Install with Expo
+
+`v3.8.3-patch.10.3` and later support Expo via the custom development client (prebuild) workflow. This package bridges native modules, so Expo projects must run in a prebuild/custom development client workflow rather than Expo Go.
+
+```sh
+# install the SDK
+npm install @openim/rn-client-sdk
+
+# generate native projects and run
+npx expo prebuild
+npx expo run:android
+npx expo run:ios
+
+# optional: Expo Go–like dev client experience
+npx expo install expo-dev-client
 ```
 
 ## Usage 🚀
