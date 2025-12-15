@@ -350,7 +350,9 @@ RCT_EXPORT_METHOD(setConversationRecvMessageOpt:(NSDictionary *)options operatio
 }
 
 RCT_EXPORT_METHOD(getTotalUnreadMsgCount:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
-    RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
+    RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter onSuccess:^id _Nullable(NSString * _Nullable data) {
+        return data ? @([data intValue]) : nil;
+    }];
     Open_im_sdkGetTotalUnreadMsgCount(proxy, operationID);
 }
 
@@ -911,7 +913,9 @@ RCT_EXPORT_METHOD(getFriendApplicationListAsApplicant:(NSDictionary *)req operat
 }
 
 RCT_EXPORT_METHOD(getFriendApplicationUnhandledCount:(NSDictionary *)req operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
-    RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
+    RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter onSuccess:^id _Nullable(NSString * _Nullable data) {
+        return data ? @([data intValue]) : nil;
+    }];
     Open_im_sdkGetFriendApplicationUnhandledCount(proxy, operationID, [req json]);
 }
 
@@ -1162,7 +1166,9 @@ RCT_EXPORT_METHOD(getGroupApplicationListAsApplicant:(NSDictionary *)req operati
 }
 
 RCT_EXPORT_METHOD(getGroupApplicationUnhandledCount:(NSDictionary *)req operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
-    RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
+    RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter onSuccess:^id _Nullable(NSString * _Nullable data) {
+        return data ? @([data intValue]) : nil;
+    }];
     Open_im_sdkGetGroupApplicationUnhandledCount(proxy, operationID, [req json]);
 }
 
@@ -1203,7 +1209,9 @@ RCT_EXPORT_METHOD(searchGroupMembers:(NSDictionary *)searchOptions operationID:(
 }
 
 RCT_EXPORT_METHOD(isJoinGroup:(NSString *)groupID operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
-    RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
+    RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter onSuccess:^id _Nullable(NSString * _Nullable data) {
+        return data ? @([data boolValue]) : nil;
+    }];
     Open_im_sdkIsJoinGroup(proxy, operationID, groupID);
 }
 

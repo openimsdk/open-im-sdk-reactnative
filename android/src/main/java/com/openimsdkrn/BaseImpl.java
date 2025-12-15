@@ -9,11 +9,17 @@ import com.openimsdkrn.utils.Emitter;
 
 public class BaseImpl implements Base {
   final private Promise promise;
+  private Class<?> clazz;
 
   private Emitter emitter = new Emitter();
 
   public BaseImpl(Promise promise) {
     this.promise = promise;
+  }
+
+  public BaseImpl(Promise promise, Class<?> clazz) {
+    this.promise = promise;
+    this.clazz = clazz;
   }
 
   @Override
@@ -23,6 +29,16 @@ public class BaseImpl implements Base {
 
   @Override
   public void onSuccess(String s) {
+    if (clazz == Boolean.class || clazz == Number.class || clazz == String.class) {
+      promise.resolve(JSON.parseObject(s, clazz));
+      return;
+    }
+
+    if(s == null) {
+      promise.resolve(null);
+      return;
+    }
+
     try {
       promise.resolve(emitter.convertJsonToMap(JSON.parseObject(s)));
     } catch (Exception e1) {
@@ -33,5 +49,4 @@ public class BaseImpl implements Base {
       }
     }
   }
-
 }
