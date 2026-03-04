@@ -10,15 +10,17 @@ The React Native Client SDK uses the [NativeModule](https://reactnative.dev/docs
 
 ## Tips 🔔
 
-1. **Expo support:** Expo custom dev client workflow is supported from `v3.8.3-patch.10.3` and later.
+1. **Android 16KB page-size support:** Starting from `v3.8.3-patch.12`, the Android core dependency is upgraded to `io.openim:core-sdk:3.8.3-patch12+1`, adding compatibility for devices using 16KB memory page size.
 
-2. **Event Binding API:** Starting from `v3.8.3-patch.10.2`, you can use `OpenIMSDK.on()` to listen for events with better TypeScript type hints. Earlier versions must use the `OpenIMEmitter` object. Both approaches remain compatible with the latest version.
+2. **Expo support:** Expo custom dev client workflow is supported from `v3.8.3-patch.10.3` and later.
 
-3. **operationID Parameter:** This parameter is used for backend log querying. Starting from `v3.8.3-patch.10.2`, the `operationID` parameter is optional for all APIs (the SDK will auto-generate one if not provided). For earlier versions, this parameter is required and must be passed explicitly.
+3. **Event Binding API:** Starting from `v3.8.3-patch.10.2`, you can use `OpenIMSDK.on()` to listen for events with better TypeScript type hints. Earlier versions must use the `OpenIMEmitter` object. Both approaches remain compatible with the latest version.
 
-4. Starting from `v3.8.3-patch.10`, the package name has been changed from `open-im-sdk-rn` to `@openim/rn-client-sdk`.
+4. **operationID Parameter:** This parameter is used for backend log querying. Starting from `v3.8.3-patch.10.2`, the `operationID` parameter is optional for all APIs (the SDK will auto-generate one if not provided). For earlier versions, this parameter is required and must be passed explicitly.
 
-5. The `v3.5.1` contains ***significant disruptive updates***. If you need to upgrade, please check the incoming data and the returned data.
+5. Starting from `v3.8.3-patch.10`, the package name has been changed from `open-im-sdk-rn` to `@openim/rn-client-sdk`.
+
+6. The `v3.5.1` contains ***significant disruptive updates***. If you need to upgrade, please check the incoming data and the returned data.
 
 ## Documentation 📚
 
