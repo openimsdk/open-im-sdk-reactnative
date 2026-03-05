@@ -1,6 +1,6 @@
 {
   "name": "@openim/rn-client-sdk",
-  "version": "3.8.3-patch.12",
+  "version": "3.8.3-patch.12+1",
   "description": "OpenIM SDK for react-native",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -44,8 +44,8 @@
     "android"
   ],
   "repository": "https://github.com/OpenIMSDK/Open-IM-SDK-ReactNative.git",
-  "author": "AndrewZuo01 <andrew.zuo@wustl.edu> (https://www.rentsoft.cn)",
-  "license": "MIT",
+  "author": "OpenIM",
+  "license": "AGPL-3.0-only",
   "bugs": {
     "url": "https://github.com/OpenIMSDK/Open-IM-SDK-ReactNative.git/issues"
   },
