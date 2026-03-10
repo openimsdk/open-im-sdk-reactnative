@@ -1,9 +1,9 @@
 buildscript {
     // if (project == rootProject) {
         repositories {
-             google()
-             mavenCentral()
-             jcenter()
+            google()
+            mavenCentral()
+            // jcenter()
         }
 
         dependencies {
@@ -50,7 +50,7 @@ repositories {
     }
     google()
     mavenCentral()
-    jcenter()
+    // jcenter()
 }
 
 dependencies {
