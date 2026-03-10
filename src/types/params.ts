@@ -14,6 +14,7 @@ import type {
   LogLevel,
   MessageReceiveOptType,
   MessageType,
+  SessionType,
   ViewType,
 } from './enum';
 
@@ -50,7 +51,7 @@ export type SplitConversationParams = {
 
 export type GetOneConversationParams = {
   sourceID: string;
-  sessionType: number;
+  sessionType: SessionType;
 };
 
 export type SetConversationParams = {
