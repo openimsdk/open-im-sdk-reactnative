@@ -574,10 +574,10 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void createFaceMessage(ReadableMap options, String operationID, Promise promise) {
-    Integer index = options.getInt("index");
-    String dataStr = options.getString("dataStr");
+    int index = options.getInt("index");
+    String data = options.getString("data");
 
-    String message = Open_im_sdk.createFaceMessage(operationID, index, dataStr);
+    String message = Open_im_sdk.createFaceMessage(operationID, index, data);
     try {
       JSONObject obj = JSON.parseObject(message);
       promise.resolve(emitter.convertJsonToMap(obj));

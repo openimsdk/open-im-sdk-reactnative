@@ -624,10 +624,10 @@ RCT_EXPORT_METHOD(createMergerMessage:(NSDictionary *)options operationID:(NSStr
 }
 
 RCT_EXPORT_METHOD(createFaceMessage:(NSDictionary *)options operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
-    NSInteger index = [options[@"index"] integerValue];
-    NSString *dataStr = options[@"dataStr"];
+    NSNumber *index = options[@"index"];
+    NSString *data = options[@"data"];
     
-    NSString *result = Open_im_sdkCreateFaceMessage(operationID, (long)index, dataStr);
+    NSString *result = Open_im_sdkCreateFaceMessage(operationID, [index longValue], data);
     NSDictionary *message = [self parseJsonStr2Dict:result];
     if (message) {
         resolver(message);
