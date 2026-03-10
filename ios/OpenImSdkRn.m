@@ -647,16 +647,11 @@ RCT_EXPORT_METHOD(createForwardMessage:(NSDictionary *)message operationID:(NSSt
 }
 
 RCT_EXPORT_METHOD(getConversationIDBySessionType:(NSDictionary *)options operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
-   NSString *sourceID = options[@"sourceID"];
-   NSInteger sessionType = [options[@"sessionType"] integerValue];
+    NSString *sourceID = options[@"sourceID"];
+    NSNumber* sessionType = options[@"sessionType"];
 
-   NSString *result = Open_im_sdkGetConversationIDBySessionType(operationID, sourceID, (long)sessionType);
-   NSDictionary *message = [self parseJsonStr2Dict:result];
-    if (message) {
-        resolver(message);
-    } else {
-        resolver(result);
-    }
+    NSString *result = Open_im_sdkGetConversationIDBySessionType(operationID, sourceID, [sessionType longValue]);
+    resolver(result);
 }
 
 RCT_EXPORT_METHOD(sendMessage:(NSDictionary *)options operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {

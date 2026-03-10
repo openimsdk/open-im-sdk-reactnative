@@ -322,7 +322,7 @@ export interface NativeOpenIMSDKInterface {
   getConversationIDBySessionType: (
     params: GetOneConversationParams,
     operationID: string
-  ) => Promise<ConversationItem>;
+  ) => Promise<string>;
   getTotalUnreadMsgCount: (operationID: string) => Promise<number>;
   markConversationMessageAsRead: (
     conversationID: string,

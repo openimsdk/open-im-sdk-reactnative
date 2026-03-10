@@ -601,8 +601,11 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void getConversationIDBySessionType(ReadableMap options, String operationID, Promise promise) {
-    String result = Open_im_sdk.getConversationIDBySessionType(operationID, options.getString("sourceID"),
-      options.getInt("sessionType"));
+    String result = Open_im_sdk.getConversationIDBySessionType(
+      operationID,
+      options.getString("sourceID"),
+      options.getInt("sessionType")
+    );
     promise.resolve(result);
   }
 
