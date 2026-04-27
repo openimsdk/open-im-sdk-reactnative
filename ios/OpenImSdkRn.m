@@ -191,7 +191,7 @@ RCT_EXPORT_METHOD(setAppBackgroundStatus:(BOOL)isBackground operationID:(NSStrin
     Open_im_sdkSetAppBackgroundStatus(proxy, operationID, isBackground);
 }
 
-RCT_EXPORT_METHOD(networkStatusChange:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
+RCT_EXPORT_METHOD(networkStatusChanged:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
     RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
     Open_im_sdkNetworkStatusChanged(proxy, operationID);
 }
@@ -275,12 +275,12 @@ RCT_EXPORT_METHOD(setGlobalRecvMessageOpt:(NSInteger)opt operationID:(NSString *
     Open_im_sdkSetSelfInfo(proxy, operationID, [param json]);
 }
 
-RCT_EXPORT_METHOD(hideAllConversations:(NSString *)operationID  resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
+RCT_EXPORT_METHOD(hideAllConversations:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
     RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
     Open_im_sdkHideAllConversations(proxy, operationID);
 }
 
-RCT_EXPORT_METHOD(hideConversation:(NSString *)conversationID operationID:(NSString *)operationID  resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
+RCT_EXPORT_METHOD(hideConversation:(NSString *)conversationID operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
     RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
     Open_im_sdkHideConversation(proxy, operationID, conversationID);
 }
