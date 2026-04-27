@@ -99,8 +99,8 @@ export declare type GetSpecifiedFriendsParams = {
 export type UpdateFriendsParams = {
   friendUserIDs: string[];
   isPinned?: boolean;
-  remark?: boolean;
-  ex?: boolean;
+  remark?: string;
+  ex?: string;
 };
 
 export type AccessFriendParams = {
