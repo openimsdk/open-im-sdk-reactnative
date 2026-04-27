@@ -881,6 +881,11 @@ RCT_EXPORT_METHOD(addFriend:(NSDictionary *)paramsReq operationID:(NSString *)op
     Open_im_sdkAddFriend(proxy, operationID, paramsReqJson);
 }
 
+RCT_EXPORT_METHOD(updateFriends:(NSDictionary *)params operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
+    RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
+    Open_im_sdkUpdateFriends(proxy, operationID, [params json]);
+}
+
 RCT_EXPORT_METHOD(setFriendRemark:(NSDictionary *)options operationID:(NSString *)operationID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
     RNCallbackProxy *proxy = [[RNCallbackProxy alloc] initWithCallback:resolver rejecter:rejecter];
   

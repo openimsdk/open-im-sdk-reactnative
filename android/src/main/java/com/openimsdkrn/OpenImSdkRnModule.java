@@ -765,6 +765,7 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
     Open_im_sdk.addFriend(new BaseImpl(promise), operationID, map2string(params));
   }
 
+  @ReactMethod
   public void updateFriends(ReadableMap params, String operationID, Promise promise) {
     Open_im_sdk.updateFriends(new BaseImpl(promise), operationID, map2string(params));
   }
