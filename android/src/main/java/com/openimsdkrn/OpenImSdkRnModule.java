@@ -610,8 +610,8 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void findMessageList(ReadableMap findOptions, String operationID, Promise promise) {
-    Open_im_sdk.findMessageList(new BaseImpl(promise), operationID, map2string(findOptions));
+  public void findMessageList(ReadableArray findOptions, String operationID, Promise promise) {
+    Open_im_sdk.findMessageList(new BaseImpl(promise), operationID, findOptions.toString());
   }
 
   @ReactMethod
