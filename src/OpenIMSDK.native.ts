@@ -357,7 +357,7 @@ export interface NativeOpenIMSDKInterface {
     operationID: string
   ) => Promise<unknown>;
   hideConversation: (conversationID: string, operationID: string) => Promise<unknown>;
-  hideAllConversation: (operationID: string) => Promise<unknown>;
+  hideAllConversations: (operationID: string) => Promise<unknown>;
   clearConversationAndDeleteAllMsg: (
     conversationID: string,
     operationID: string

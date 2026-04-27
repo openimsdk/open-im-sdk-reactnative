@@ -454,8 +454,8 @@ class OpenIMSDK extends Emitter {
     return this.invoke(NativeOpenIMSDK.hideConversation, [conversationID, operationID]);
   }
 
-  hideAllConversation(operationID: string = id()) {
-    return this.invoke(NativeOpenIMSDK.hideAllConversation, [operationID]);
+  hideAllConversations(operationID: string = id()) {
+    return this.invoke(NativeOpenIMSDK.hideAllConversations, [operationID]);
   }
 
   clearConversationAndDeleteAllMsg(conversationID: string, operationID: string = id()) {

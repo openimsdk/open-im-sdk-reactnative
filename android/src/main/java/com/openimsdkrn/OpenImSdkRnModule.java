@@ -111,7 +111,7 @@ public class OpenImSdkRnModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void networkStatusChange(String operationID, Promise promise) {
+  public void networkStatusChanged(String operationID, Promise promise) {
     Open_im_sdk.networkStatusChanged(new BaseImpl(promise), operationID);
   }
 
