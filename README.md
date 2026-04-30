@@ -12,7 +12,7 @@ The React Native Client SDK uses the [NativeModule](https://reactnative.dev/docs
 
 1. **Android 16KB page-size support:** Starting from `v3.8.3-patch.12`, the Android core dependency is upgraded to `io.openim:core-sdk:3.8.3-patch12+1`, adding compatibility for devices using 16KB memory page size.
 
-2. **Expo support:** Expo custom dev client workflow is supported from `v3.8.3-patch.10.3` and later.
+2. **Expo support:** Expo development build (custom dev client) is supported from `v3.8.3-patch.10.3` and later.
 
 3. **Event Binding API:** Starting from `v3.8.3-patch.10.2`, you can use `OpenIMSDK.on()` to listen for events with better TypeScript type hints. Earlier versions must use the `OpenIMEmitter` object. Both approaches remain compatible with the latest version.
 
@@ -42,7 +42,7 @@ cd ios && pod install && cd ..
 
 ### Install with Expo
 
-`v3.8.3-patch.10.3` and later support Expo via the custom development client (prebuild) workflow. This package bridges native modules, so Expo projects must run in a prebuild/custom development client workflow rather than Expo Go.
+`v3.8.3-patch.10.3` and later support Expo. Because this package bridges native modules, you must use a development build (custom dev client). Expo Go is not supported.
 
 ```sh
 # install the SDK
