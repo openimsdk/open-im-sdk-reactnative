@@ -219,4 +219,4 @@ Check out our [user case studies](https://github.com/OpenIMSDK/community/blob/ma
 
 ## License :page_facing_up:
 
-OpenIM is licensed under the Apache 2.0 license. See [LICENSE](https://github.com/openimsdk/open-im-server/tree/main/LICENSE) for the full license text.
+OpenIM is licensed under the GNU Affero General Public License v3.0 (AGPL-3.0-only). See [LICENSE](https://github.com/openimsdk/open-im-sdk-reactnative/blob/main/LICENSE) for the full license text.
